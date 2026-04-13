@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Echo – Studioform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Fragment+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #141517; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    ::-webkit-scrollbar { display: none; }
+    * { scrollbar-width: none; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; position: relative; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .nav-links a:hover::after { width: 100%; }
+
+    #page-header { padding: 160px 48px 60px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .ph-meta { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+    .ph-tags { display: flex; gap: 24px; }
+    .ph-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .ph-year { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.3); }
+    .page-title { font-size: clamp(56px, 9vw, 110px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.92; color: #fff; }
+
+    #project-images { padding: 0 48px 120px; }
+    .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .img-item { position: relative; overflow: hidden; background: #0d0d0f; }
+    .img-item.full { grid-column: span 2; }
+    .img-item.ratio-half    { padding-bottom: 75%; }
+    .img-item.ratio-portrait { padding-bottom: 110%; }
+    .img-item.ratio-full    { padding-bottom: 50%; }
+    .img-item.ratio-land    { padding-bottom: 62%; }
+    .img-item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+    .img-item:hover img { transform: scale(1.03); }
+
+    .project-nav { padding: 0 48px 80px; display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 40px; }
+    .pnav-link { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 6px; transition: opacity 0.2s; }
+    .pnav-link:hover { opacity: 0.65; }
+    .pnav-dir { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .pnav-title { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; color: #fff; }
+    .pnav-link.next { text-align: right; }
+
+    #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cta-text { font-size: 80px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+
+    #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
+    .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
+    .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+    .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ft-col a { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .ft-col a:hover { color: #fff; transform: translateX(6px); }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+
+    nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
+    @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
+    .clip-outer { overflow: hidden; display: block; }
+    .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .clip-outer.in-view .clip-inner { transform: translateY(0); }
+
+    @media (max-width: 810px) {
+      nav { padding: 20px; }
+      .nav-links { display: none; }
+      #page-header { padding: 120px 20px 50px; }
+      .page-title { font-size: 52px; }
+      #project-images { padding: 0 0 80px; }
+      .img-grid { grid-template-columns: 1fr; }
+      .img-item.full { grid-column: span 1; }
+      .img-item.ratio-full { padding-bottom: 70%; }
+      .project-nav { padding: 0 20px 60px; padding-top: 32px; }
+      .pnav-title { font-size: 16px; }
+      #cta { padding: 80px 20px; }
+      .cta-text { font-size: 40px; }
+      #footer { padding: 40px 20px 0; }
+      .ft-cols { grid-template-columns: 1fr 1fr; gap: 40px 24px; padding-bottom: 40px; }
+      .ft-wordmark { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Studioform®</a>
+  <ul class="nav-links">
+    <li><a href="work.html">Work</a></li>
+    <li><a href="index.html#index-section">Index</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<header id="page-header">
+  <div class="ph-meta reveal">
+    <div class="ph-tags">
+      <span class="ph-tag">Branding, Web Design</span>
+      <span class="ph-tag">Adder & Co.</span>
+    </div>
+    <span class="ph-year">2025</span>
+  </div>
+  <div class="clip-outer" style="--delay:80ms">
+    <h1 class="page-title clip-inner">Project Echo</h1>
+  </div>
+</header>
+
+<section id="project-images">
+  <div class="img-grid">
+    <!-- FULL WIDTH HERO -->
+    <div class="img-item full ratio-full reveal-scale" style="--delay:0ms">
+      <img src="https://placehold.co/1800x900/0b0c10/1a1b20" alt="Project Echo hero" />
+    </div>
+    <!-- TWO HALVES -->
+    <div class="img-item ratio-half reveal-scale" style="--delay:0ms">
+      <img src="https://placehold.co/900x675/0d0e12/1c1d22" alt="Project Echo detail" />
+    </div>
+    <div class="img-item ratio-portrait reveal-scale" style="--delay:80ms">
+      <img src="https://placehold.co/900x990/080910/141518" alt="Project Echo detail" />
+    </div>
+    <!-- FULL WIDTH -->
+    <div class="img-item full ratio-full reveal-scale" style="--delay:0ms">
+      <img src="https://placehold.co/1800x900/0c0d11/191a1e" alt="Project Echo spread" />
+    </div>
+    <!-- TWO HALVES -->
+    <div class="img-item ratio-land reveal-scale" style="--delay:0ms">
+      <img src="https://placehold.co/900x558/0e0f13/1d1e23" alt="Project Echo mockup" />
+    </div>
+    <div class="img-item ratio-land reveal-scale" style="--delay:80ms">
+      <img src="https://placehold.co/900x558/0a0b0f/161720" alt="Project Echo final" />
+    </div>
+  </div>
+</section>
+
+<div class="project-nav">
+  <a href="work.html" class="pnav-link prev">
+    <span class="pnav-dir">← Previous</span>
+    <span class="pnav-title">All Projects</span>
+  </a>
+  <a href="lines-atlas.html" class="pnav-link next">
+    <span class="pnav-dir">Next →</span>
+    <span class="pnav-title">Lines Atlas</span>
+  </a>
+</div>
+
+<section id="cta">
+  <div class="clip-outer">
+    <p class="cta-text clip-inner">Let's work together.</p>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="ft-cols">
+    <div class="ft-col reveal" style="--delay:0ms">
+      <p class="ft-col-head">Sitemap</p>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:80ms">
+      <p class="ft-col-head">Work</p>
+      <ul>
+        <li><a href="work.html">All Projects</a></li>
+        <li><a href="#">Branding</a></li>
+        <li><a href="#">Digital</a></li>
+        <li><a href="#">Art Direction</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:160ms">
+      <p class="ft-col-head">Social</p>
+      <ul>
+        <li><a href="#">↗ Instagram</a></li>
+        <li><a href="#">↗ Twitter</a></li>
+        <li><a href="#">↗ Behance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="clip-outer" style="--delay:100ms">
+    <div class="ft-wordmark clip-inner">Studioform®</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal, .reveal-scale, .clip-outer').forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>

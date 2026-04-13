@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://tristanraoult.github.io/portfolio/favicon.png" />
+  <title>Work – Tristan Raoult</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Fragment+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #141517; color: #fff;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { display: none; }
+    * { scrollbar-width: none; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; position: relative; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: #fff; }
+
+    #page-header { padding: 160px 48px 80px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .ph-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+    .ph-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .ph-count { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.3); }
+    .page-title { font-size: clamp(72px, 12vw, 140px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; color: #fff; }
+
+    #projects { padding: 0 48px 120px; }
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .project-card { position: relative; display: block; text-decoration: none; color: inherit; overflow: hidden; cursor: pointer; }
+    .project-card.full { grid-column: span 2; }
+
+    .project-img-wrap { position: relative; overflow: hidden; background: #0d0d0f; }
+    .project-img-wrap.ratio-half    { padding-bottom: 75%; }
+    .project-img-wrap.ratio-portrait { padding-bottom: 110%; }
+    .project-img-wrap.ratio-full    { padding-bottom: 50%; }
+    .project-img-wrap.ratio-land    { padding-bottom: 62%; }
+
+    .project-img-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease; }
+    .project-card:hover .project-img-wrap img { transform: scale(1.05); filter: brightness(1.1); }
+
+    .project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,12,0.85) 0%, rgba(10,10,12,0.15) 45%, transparent 100%); pointer-events: none; }
+
+    .project-meta { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 32px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .project-info { display: flex; flex-direction: column; gap: 5px; }
+    .project-cat { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); transition: color 0.25s, transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+    .project-card:hover .project-cat { color: rgba(255,255,255,0.7); transform: translateX(-4px); }
+    .project-title { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: #fff; line-height: 1.1; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+    .project-card.full .project-title { font-size: 28px; }
+    .project-card:hover .project-title { transform: translateX(6px); }
+    .project-num { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.25); align-self: flex-end; }
+
+    #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cta-text { font-size: 80px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+
+    #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
+    .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
+    .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+    .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ft-col a { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .ft-col a:hover { color: #fff; transform: translateX(6px); }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+
+    nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
+    @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
+    .clip-outer { overflow: hidden; display: block; }
+    .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .clip-outer.in-view .clip-inner { transform: translateY(0); }
+
+    .nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; position: relative; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s; }
+    nav.menu-open .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+    nav.menu-open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 810px) {
+      nav { padding: 20px; }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; flex-direction: column; }
+      .nav-links { display: none !important; flex-direction: column !important; position: fixed; inset: 0; background: rgba(14,15,17,0.98); z-index: 190; align-items: center; justify-content: center; gap: 44px; }
+      nav.menu-open .nav-links { display: flex !important; }
+      nav.menu-open .nav-links a { font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.8); }
+      #page-header { padding: 120px 20px 60px; }
+      .page-title { font-size: 56px; }
+      #projects { padding: 0 0 80px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.full { grid-column: span 1; }
+      .project-img-wrap.ratio-full { padding-bottom: 70%; }
+      .project-title { font-size: 18px; }
+      .project-meta { padding: 20px; }
+      #cta { padding: 80px 20px; }
+      .cta-text { font-size: 40px; }
+      #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; gap: 40px 24px; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Tristan Raoult</a>
+  <ul class="nav-links">
+    <li><a href="work.html" class="active">Work</a></li>
+    <li><a href="index.html#index-section">Index</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header id="page-header">
+  <div class="ph-top reveal">
+    <span class="ph-label">Selected Work</span>
+    <span class="ph-count">(7)</span>
+  </div>
+  <div class="clip-outer" style="--delay:80ms">
+    <h1 class="page-title clip-inner">Work</h1>
+  </div>
+</header>
+
+<section id="projects">
+  <div class="projects-grid">
+
+    <!-- 1 — Physique: full-width hero -->
+    <a href="projects/fizzi.html" class="project-card full reveal-scale" style="--delay:0ms">
+      <div class="project-img-wrap ratio-full">
+        <img src="assets/images/fizzi/cans-group.png" alt="Fizzi" />
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Brand Identity</span>
+          <span class="project-title">Fizzi</span>
+        </div>
+        <span class="project-num">01</span>
+      </div>
+    </a>
+
+    <!-- 2 — Focus: left standard -->
+    <a href="projects/focus.html" class="project-card reveal-scale" style="--delay:0ms">
+      <div class="project-img-wrap ratio-half" style="background: #000;">
+        <img src="assets/images/focus/focus.png" alt="Focus" style="object-position: 50% 50%; transform: translateY(8%);" />
+      </div>
+      <div class="project-overlay" style="background: linear-gradient(to top, #000 0%, #000 25%, transparent 60%);"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Brand Identity</span>
+          <span class="project-title">Focus</span>
+        </div>
+        <span class="project-num">02</span>
+      </div>
+    </a>
+
+    <!-- 3 — Gloomy Graphic: right portrait -->
+    <a href="projects/glumi-graphic.html" class="project-card reveal-scale" style="--delay:80ms">
+      <div class="project-img-wrap ratio-portrait">
+        <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" />
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Identity, Motion</span>
+          <span class="project-title">Gloomy Graphic</span>
+        </div>
+        <span class="project-num">03</span>
+      </div>
+    </a>
+
+    <!-- 4 — Affiches: left landscape -->
+    <a href="projects/affiches.html" class="project-card reveal-scale" style="--delay:0ms">
+      <div class="project-img-wrap ratio-land">
+        <img src="assets/images/affiches/mockups/urban.png" alt="Affiches" />
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Graphic Design</span>
+          <span class="project-title">Affiches</span>
+        </div>
+        <span class="project-num">04</span>
+      </div>
+    </a>
+
+    <!-- 5 — Motion Design: right landscape -->
+    <a href="projects/motion-design.html" class="project-card reveal-scale" style="--delay:80ms">
+      <div class="project-img-wrap ratio-land">
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Motion Design</span>
+          <span class="project-title">Motion Design</span>
+        </div>
+        <span class="project-num">05</span>
+      </div>
+    </a>
+
+    <!-- 6 — Photography: full-width -->
+    <a href="projects/photography.html" class="project-card full reveal-scale" style="--delay:0ms">
+      <div class="project-img-wrap ratio-land">
+        <img src="assets/images/photography/fair/6.jpg" alt="Photography" />
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Art Direction</span>
+          <span class="project-title">Photography</span>
+        </div>
+        <span class="project-num">06</span>
+      </div>
+    </a>
+
+    <!-- 7 — Montage: full-width -->
+    <a href="projects/montage.html" class="project-card full reveal-scale" style="--delay:0ms">
+      <div class="project-img-wrap ratio-full">
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Montage Vidéo</span>
+          <span class="project-title">Montage</span>
+        </div>
+        <span class="project-num">07</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="clip-outer">
+    <p class="cta-text clip-inner">Let's work together.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="ft-cols">
+    <div class="ft-col reveal" style="--delay:0ms">
+      <p class="ft-col-head">Sitemap</p>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:80ms">
+      <p class="ft-col-head">Work</p>
+      <ul>
+        <li><a href="projects/fizzi.html">Fizzi</a></li>
+        <li><a href="projects/focus.html">Focus</a></li>
+        <li><a href="projects/glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="projects/affiches.html">Affiches</a></li>
+        <li><a href="projects/motion-design.html">Motion Design</a></li>
+        <li><a href="projects/montage.html">Montage</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:160ms">
+      <p class="ft-col-head">Contact</p>
+      <ul>
+        <li><a href="mailto:tristan.raoult62@gmail.com">↗ Email</a></li>
+        <li><a href="https://www.instagram.com/gloomygraphic/" target="_blank">↗ Instagram</a></li>
+        <li><a href="tel:+33768665558">↗ 07 68 66 55 58</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="clip-outer" style="--delay:100ms">
+    <div class="ft-wordmark clip-inner">Tristan Raoult</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal, .reveal-scale, .clip-outer').forEach(el => io.observe(el));
+})();
+
+/* Hamburger */
+document.getElementById('nav-burger').addEventListener('click', function() {
+  document.querySelector('nav').classList.toggle('menu-open');
+});
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    document.querySelector('nav').classList.remove('menu-open');
+  });
+});
+</script>
+
+</body>
+</html>

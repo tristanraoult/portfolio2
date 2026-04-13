@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FOCUS – Animation Porte-Clé</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: auto; }
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { display: none; }
+    * { scrollbar-width: none; }
+
+    /* ── HERO : section longue qui crée le scroll ── */
+    #hero {
+      position: relative;
+      /* Hauteur totale = viewport + course de scroll (600vh) */
+      height: 700vh;
+    }
+
+    /* Canvas sticky : reste à l'écran pendant tout le scroll du hero */
+    #hero-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #keychain-canvas {
+      width: 100%;
+      height: 100%;
+      pointer-events: auto;
+      display: block;
+    }
+
+    /* Texte 1 : s'affiche sur le canvas au début */
+    .hero-intro {
+      position: absolute;
+      top: 30vh;
+      left: 0; right: 0;
+      text-align: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .hero-intro h1 {
+      font-size: clamp(32px, 6vw, 72px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .hero-intro .hero-tagline {
+      margin-top: 12px;
+      font-size: clamp(10px, 1.2vw, 13px);
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* Texte 2 : visible en bas de la section hero (quand scroll avancé) */
+    .intro {
+      position: absolute;
+      bottom: 22vh;
+      left: 0; right: 0;
+      text-align: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .intro h2 {
+      font-size: clamp(18px, 3vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .intro p {
+      margin-top: 16px;
+      font-size: clamp(11px, 1.2vw, 13px);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    /* Indicateur de scroll */
+    .scroll-hint {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 10;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .scroll-hint.hidden { opacity: 0; }
+    .scroll-hint span {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .scroll-hint-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+      animation: scrollLine 1.4s cubic-bezier(0.22,1,0.36,1) infinite;
+    }
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* Section après l'animation */
+    #after-hero {
+      background: #111;
+      padding: 120px 48px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    #after-hero h2 {
+      font-size: clamp(28px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+    #after-hero p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.45);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* Label de debug (optionnel, peut être supprimé) */
+    #debug-label {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-family: monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    /*
+     * ────────────────────────────────────────────────────────────────
+     *  INSTRUCTIONS D'UTILISATION
+     * ────────────────────────────────────────────────────────────────
+     *
+     *  Pour que l'animation 3D fonctionne, place le fichier du modèle
+     *  3D dans :
+     *
+     *    models/porte-cle.glb
+     *
+     *  (créer le dossier "models/" à côté de ce fichier HTML)
+     *
+     *  Si le modèle n'est pas présent, un fallback CSS (carré rotatif
+     *  violet) s'affiche automatiquement à la place.
+     *
+     *  PARAMÈTRES RÉGLABLES (dans le script ci-dessous) :
+     *    TURNS         → nombre de tours complets pendant le scroll (défaut: 1)
+     *    START_AT      → à quel % du scroll l'animation commence (défaut: 0.1)
+     *    END_AT        → à quel % du scroll elle se termine (défaut: 0.99)
+     *    floatAmp      → amplitude de la lévitation (défaut: 0.05)
+     *    floatSpeed    → vitesse de la lévitation (défaut: 1.2)
+     * ────────────────────────────────────────────────────────────────
+     */
+  </style>
+</head>
+<body>
+
+<!-- Indicateur de scroll -->
+<div class="scroll-hint" id="scroll-hint">
+  <span>Scroll</span>
+  <div class="scroll-hint-line"></div>
+</div>
+
+<!-- Label de progression (debug, supprimable) -->
+<div id="debug-label">scroll: 0%</div>
+
+<!-- ── SECTION HERO ── -->
+<section id="hero">
+
+  <!-- Canvas 3D sticky -->
+  <div id="hero-sticky">
+    <canvas id="keychain-canvas"></canvas>
+  </div>
+
+  <!-- Texte 1 : titre principal -->
+  <div class="hero-intro">
+    <h1>FOCUS Keychain</h1>
+    <p class="hero-tagline">Une série d'objets par Focus Studio</p>
+  </div>
+
+  <!-- Texte 2 : bas de section -->
+  <div class="intro">
+    <h2>Votre porte-clé FOCUS</h2>
+    <p>Un objet pensé pour les passionnés d'art et de graphisme, au même niveau que vos affiches.</p>
+  </div>
+
+</section>
+
+<!-- ── SECTION APRÈS L'ANIMATION ── -->
+<section id="after-hero">
+  <h2>Disponible bientôt.</h2>
+  <p>Le porte-clé FOCUS est une édition limitée, numérotée et livrée dans un packaging soigné. Inscris-toi pour être prévenu en premier.</p>
+</section>
+
+<!-- ── THREE.JS (module CDN) ── -->
+<script type="module">
+import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+import { GLTFLoader } from "https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js?module";
+
+// ──────────────────────────────────────────────
+//  PARAMÈTRES RÉGLABLES
+// ──────────────────────────────────────────────
+const TURNS      = 1;     // nombre de tours complets au scroll
+const START_AT   = 0.1;   // début de l'animation (0 à 1)
+const END_AT     = 0.99;  // fin de l'animation
+const floatAmp   = 0.05;  // amplitude lévitation
+const floatSpeed = 1.2;   // vitesse lévitation
+const MODEL_PATH = "models/porte-cle.glb";
+
+// ──────────────────────────────────────────────
+//  INTRO STATE
+// ──────────────────────────────────────────────
+let isIntroFinished = false;
+let introProgress   = 0;
+
+// Déclencher l'intro après un court délai (simule le preloader)
+setTimeout(() => { isIntroFinished = true; }, 400);
+
+// ──────────────────────────────────────────────
+//  CANVAS & RAYCASTER
+// ──────────────────────────────────────────────
+const canvas = document.getElementById("keychain-canvas");
+const raycaster  = new THREE.Raycaster();
+const mouse      = new THREE.Vector2(3, 3);
+let hover = 1, hoverTarget = 1;
+
+canvas.addEventListener("pointermove", (e) => {
+  const rect = canvas.getBoundingClientRect();
+  mouse.x =  ((e.clientX - rect.left) / rect.width)  * 2 - 1;
+  mouse.y = -((e.clientY - rect.top)  / rect.height) * 2 + 1;
+});
+canvas.addEventListener("pointerleave", () => { hoverTarget = 1; mouse.set(3, 3); });
+
+function getSize() {
+  const r = canvas.getBoundingClientRect();
+  return { w: r.width || window.innerWidth, h: r.height || window.innerHeight };
+}
+let { w, h } = getSize();
+
+// ──────────────────────────────────────────────
+//  SCENE / CAMERA / RENDERER
+// ──────────────────────────────────────────────
+const scene    = new THREE.Scene();
+const camera   = new THREE.PerspectiveCamera(35, w / h, 0.1, 100);
+camera.position.set(0, 0, 6);
+
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+renderer.setSize(w, h);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace  = THREE.SRGBColorSpace;
+renderer.toneMapping       = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+
+// ──────────────────────────────────────────────
+//  LUMIÈRES
+// ──────────────────────────────────────────────
+scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+
+const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
+keyLight.position.set(3, 4, 5);
+scene.add(keyLight);
+
+const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
+fillLight.position.set(-2, 2, 1);
+scene.add(fillLight);
+
+// ──────────────────────────────────────────────
+//  GROUPE
+// ──────────────────────────────────────────────
+const keychainGroup = new THREE.Group();
+scene.add(keychainGroup);
+keychainGroup.scale.set(0, 0, 0); // invisible jusqu'à fin de l'intro
+
+// ──────────────────────────────────────────────
+//  FALLBACK (si pas de modèle .glb)
+// ──────────────────────────────────────────────
+function createFallbackMesh() {
+  // Cube stylisé violet/blanc en guise de placeholder
+  const geo  = new THREE.BoxGeometry(0.7, 0.9, 0.12);
+  const mat  = new THREE.MeshStandardMaterial({ color: 0x6c3fc5, metalness: 0.6, roughness: 0.2 });
+  const mesh = new THREE.Mesh(geo, mat);
+
+  const ringGeo = new THREE.TorusGeometry(0.18, 0.03, 12, 40);
+  const ringMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.15 });
+  const ring    = new THREE.Mesh(ringGeo, ringMat);
+  ring.position.set(0, 0.58, 0);
+
+  const group = new THREE.Group();
+  group.add(mesh);
+  group.add(ring);
+  keychainGroup.add(group);
+}
+
+// ──────────────────────────────────────────────
+//  CHARGEMENT DU MODÈLE .GLB
+// ──────────────────────────────────────────────
+const loader = new GLTFLoader();
+
+loader.load(
+  MODEL_PATH,
+  (gltf) => {
+    const keychain = gltf.scene;
+
+    const chainMat   = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.15 });
+    const borderMat  = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.0, roughness: 0.25 });
+    const blackMat   = new THREE.MeshStandardMaterial({ color: 0x000000, metalness: 0.0, roughness: 0.35 });
+
+    keychain.traverse((obj) => {
+      if (!obj.isMesh) return;
+      obj.castShadow    = true;
+      obj.receiveShadow = true;
+
+      let mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+      mats = mats.map((mat) => {
+        if (!mat) return mat;
+        const n = (mat.name || "").toLowerCase();
+        const o = (obj.name  || "").toLowerCase();
+        if (n.includes("metallique") &&
+           (o.includes("anneau") || o.includes("boucle") || o.includes("chaine") || o.includes("torus")))
+             return chainMat;
+        if (n.includes("metallique")) return borderMat;
+        if (n.includes("noir"))       return blackMat;
+        return borderMat;
+      });
+      obj.material = mats.length === 1 ? mats[0] : mats;
+    });
+
+    // Centrer le modèle
+    const box = new THREE.Box3().setFromObject(keychain);
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+    keychain.position.sub(center);
+
+    keychainGroup.add(keychain);
+  },
+  undefined,
+  () => {
+    // Modèle introuvable → fallback CSS
+    console.warn("⚠️  Modèle GLB non trouvé. Place porte-cle.glb dans models/. Fallback affiché.");
+    createFallbackMesh();
+  }
+);
+
+// ──────────────────────────────────────────────
+//  PROGRESSION DU SCROLL
+// ──────────────────────────────────────────────
+const hero = document.getElementById("hero");
+
+function getHeroProgress() {
+  if (!hero) return 0;
+  const rect  = hero.getBoundingClientRect();
+  const total = hero.offsetHeight - window.innerHeight;
+  const pos   = Math.min(Math.max(-rect.top, 0), total);
+  return total <= 0 ? 0 : pos / total;
+}
+
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+}
+
+// Debug label
+const debugEl   = document.getElementById("debug-label");
+const scrollHint = document.getElementById("scroll-hint");
+let scrollHintHidden = false;
+
+// ──────────────────────────────────────────────
+//  BOUCLE D'ANIMATION
+// ──────────────────────────────────────────────
+function animate() {
+  requestAnimationFrame(animate);
+  const t = performance.now() / 1000;
+
+  // 1. Progression de l'intro
+  const targetIntro = isIntroFinished ? 1 : 0;
+  introProgress += (targetIntro - introProgress) * 0.04;
+
+  // 2. Progression du scroll
+  const rawProgress = getHeroProgress();
+  let anim = (rawProgress - START_AT) / (END_AT - START_AT);
+  anim = Math.max(0, Math.min(1, anim));
+
+  // Debug
+  if (debugEl) debugEl.textContent = `scroll: ${Math.round(rawProgress * 100)}%  |  anim: ${Math.round(anim * 100)}%`;
+
+  // Cacher le hint de scroll après le début
+  if (!scrollHintHidden && rawProgress > 0.02) {
+    scrollHintHidden = true;
+    scrollHint.classList.add("hidden");
+  }
+
+  // 3. Scale avec pop-in
+  const startScale = 0.17;
+  const endScale   = 0.12;
+  const eased      = easeInOutCubic(anim);
+  const baseScale  = startScale + (endScale - startScale) * eased;
+  const pulse      = 1 + Math.sin(t * 1.5) * 0.02;
+  const s          = baseScale * pulse * hover * introProgress;
+  keychainGroup.scale.set(s, s, s);
+
+  // 4. Lévitation
+  const baseY = 0.3;
+  keychainGroup.position.y = (baseY + Math.sin(t * floatSpeed) * floatAmp) * introProgress;
+
+  // 5. Rotation Y pilotée par le scroll + spin d'intro
+  const scrollRotation = anim * Math.PI * 2 * TURNS;
+  const introSpin      = (1 - introProgress) * Math.PI * 2;
+  keychainGroup.rotation.set(0, scrollRotation - introSpin, 0);
+
+  // 6. Hover
+  raycaster.setFromCamera(mouse, camera);
+  const hits = raycaster.intersectObject(keychainGroup, true);
+  hoverTarget = hits.length > 0 ? 0.92 : 1.0;
+  hover += (hoverTarget - hover) * 0.06;
+
+  renderer.render(scene, camera);
+}
+animate();
+
+// ──────────────────────────────────────────────
+//  RESIZE
+// ──────────────────────────────────────────────
+window.addEventListener("resize", () => {
+  const size = getSize();
+  w = size.w; h = size.h;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+});
+</script>
+
+</body>
+</html>

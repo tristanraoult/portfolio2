@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://tristanraoult.github.io/portfolio/favicon.png" />
+  <title>Tristan Raoult – Graphiste & Motion Designer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Fragment+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #141517;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { display: none; }
+    * { scrollbar-width: none; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform-origin: center center;
+      animation: heroZoom 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes heroZoom {
+      from { transform: scale(1.2) translateY(28px); opacity: 0; }
+      to   { transform: scale(1)   translateY(0);    opacity: 1; }
+    }
+
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(20,21,23,0.55) 0%, transparent 22%),
+        linear-gradient(to top,    rgba(20,21,23,0.88) 0%, transparent 45%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 52px;
+      left: 48px;
+      right: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 40px;
+    }
+
+    .hero-text {
+      max-width: 560px;
+      font-size: 25px;
+      font-weight: 600;
+      line-height: 1.07em;
+      letter-spacing: -0.03em;
+      color: #fff;
+    }
+
+    .char {
+      display: inline-block;
+      opacity: 0;
+      filter: blur(9px);
+      animation: charReveal 0.7s ease forwards;
+    }
+
+    @keyframes charReveal {
+      to { opacity: 1; filter: blur(0); }
+    }
+
+    .hero-scroll {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.02em;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.15s forwards;
+      white-space: nowrap;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── STACKED FULL-SCREEN CARDS ───────────────────────────────────────
+       Each card fills the viewport completely when first seen.
+       As you scroll past it, it scales down from the TOP (transform-origin: top center),
+       shrinking sideways while the top edge stays pinned to its sticky offset.
+       Later cards accumulate the same effect → depth / window-receding illusion. */
+
+    .cards-container {
+      position: relative;
+      z-index: 6;
+      background: #141517;
+      height: 400vh;
+    }
+
+    /* One sticky layer per card — all siblings inside .cards-container */
+    .card-sticky {
+      position: sticky;
+      height: 100vh;
+      width: 100%;
+    }
+
+    .card-sticky:nth-child(1) { top:   0px; z-index: 10; }
+    .card-sticky:nth-child(2) { top:  55px; z-index: 11; }
+    .card-sticky:nth-child(3) { top: 110px; z-index: 12; }
+    .card-sticky:nth-child(4) { position: relative; top: auto; z-index: 13; }
+
+    /* Gloomy card — extra bottom space + contain so full text is visible */
+    .card-sticky:nth-child(3) .card-frame { bottom: 16vh; background: #b31919; }
+    .card-sticky:nth-child(3) .card-frame img { object-fit: contain; }
+
+    /* Cards are <a> tags — reset link styles */
+    a.card-frame { text-decoration: none; color: inherit; display: block; }
+
+    /* Frame raised — leaves 9vh gap at bottom so image text is visible */
+    .card-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 9vh;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+      will-change: transform;
+      transform-origin: center center;
+    }
+
+    .card-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── bottom overlay: gradient + divider + index + category ── */
+    .card-bottom {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      /* gradient for legibility */
+      background: linear-gradient(to top,
+        rgba(0,0,0,0.60) 0%,
+        rgba(0,0,0,0.10) 55%,
+        transparent      100%);
+      padding-top: 140px;
+    }
+
+    /* thin horizontal separator line */
+    .card-line {
+      height: 1px;
+      background: rgba(255,255,255,0.22);
+      margin: 0 40px;
+    }
+
+    /* index number + category name row */
+    .card-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 14px 40px 38px;
+    }
+
+    .card-idx {
+      font-size: 46px;
+      font-weight: 400;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .card-cat {
+      font-size: 26px;
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    /* progress bar — fills at the very bottom as you scroll through this card */
+    .card-bar {
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: rgba(255,255,255,0.8);
+      z-index: 3;
+    }
+
+    /* ─── POST-CARD WRAPPER (covers sticky hero z-index:5) ─── */
+    #page-content {
+      position: relative;
+      z-index: 7;
+      background: #141517;
+    }
+
+    /* ─── ABOUT INTRO ─── */
+    #about-intro { padding: 100px 48px 80px; }
+
+    .ai-heading {
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      color: #fff;
+      max-width: 860px;
+      margin-bottom: 28px;
+    }
+
+    .ai-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .ai-link:hover { color: #fff; }
+
+    /* ─── WORK SECTION ─── */
+    #work-section { padding: 0 48px 100px; }
+
+    .ws-header {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 12px;
+    }
+
+    .ws-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .ws-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.38);
+      flex: 1;
+    }
+
+    .ws-count {
+      font-family: 'Fragment Mono', monospace;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      white-space: nowrap;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 10px;
+    }
+
+    .work-item {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .work-item-b { grid-row: span 2; }
+    .work-item-d { grid-column: span 2; }
+
+    .work-img-wrap {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #111;
+      flex: 1;
+    }
+
+    .work-img-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease, filter 0.3s ease;
+    }
+
+    .work-item:hover .work-img-wrap img {
+      transform: scale(1.04);
+      filter: brightness(1.08);
+    }
+
+    .work-img-wrap.ratio-sq   { padding-bottom: 100%; }
+    .work-img-wrap.ratio-tall { padding-bottom: 130%; }
+    .work-img-wrap.ratio-wide { padding-bottom: 44%;  }
+
+    .work-meta { padding: 12px 0 8px; }
+
+    .work-cat {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 4px;
+    }
+
+    .work-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    .ws-viewall-wrap {
+      text-align: center;
+      padding: 48px 0 0;
+    }
+
+    .ws-viewall {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 12px 28px;
+      border-radius: 24px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .ws-viewall:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+
+    /* ─── INDEX SECTION ─── */
+    #index-section { padding: 0 48px 100px; }
+
+    .idx-header {
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 0;
+    }
+
+    .idx-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .idx-table { width: 100%; border-collapse: collapse; }
+
+    .idx-table tr {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      transition: opacity 0.2s;
+    }
+    .idx-table tr:hover { opacity: 0.6; }
+
+    .idx-table td {
+      padding: 16px 0;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      vertical-align: middle;
+    }
+
+    .idx-name {
+      font-size: 15px !important;
+      font-weight: 500;
+      color: #fff !important;
+      width: 28%;
+    }
+
+    .idx-client { width: 22%; }
+    .idx-cat    { width: 36%; }
+
+    .idx-year {
+      font-family: 'Fragment Mono', monospace;
+      font-size: 12px !important;
+      text-align: right;
+      color: rgba(255,255,255,0.28) !important;
+      width: 14%;
+    }
+
+    /* ─── BLOG SECTION ─── */
+    #blog-section { padding: 0 48px 100px; }
+
+    .blog-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 32px;
+    }
+
+    .blog-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .blog-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.38);
+      flex: 1;
+    }
+
+    .blog-count {
+      font-family: 'Fragment Mono', monospace;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      white-space: nowrap;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .blog-card { text-decoration: none; color: inherit; display: block; }
+
+    .blog-card-date {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+
+    .blog-img-wrap {
+      position: relative;
+      padding-bottom: 62%;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #111;
+      margin-bottom: 14px;
+    }
+
+    .blog-img-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .blog-card:hover .blog-img-wrap img { transform: scale(1.04); }
+
+    .blog-card-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── CTA ─── */
+    #cta {
+      padding: 140px 48px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .cta-text {
+      font-size: 80px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: #fff;
+    }
+
+    /* ─── FOOTER ─── */
+    #footer {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 60px 48px 0;
+      background: #141517;
+    }
+
+    .ft-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0 40px;
+      padding-bottom: 80px;
+    }
+
+    .ft-col-head {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+    }
+
+    .ft-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ft-col a {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .ft-col a:hover { color: #fff; }
+
+    .ft-wordmark {
+      font-size: 100px;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      color: #fff;
+      line-height: 0.9;
+      padding-bottom: 16px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    /* ─── PORTRAIT STRIP ─── */
+    #portrait-strip {
+      padding: 0 48px 64px;
+      display: grid;
+      grid-template-columns: 2fr 3fr 2fr;
+      gap: 10px;
+    }
+    .ps-item { overflow: hidden; border-radius: 4px; background: #111; }
+    .ps-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+    .ps-item:hover img { transform: scale(1.04); }
+    .ps-item:nth-child(1) { aspect-ratio: 3/4; }
+    .ps-item:nth-child(2) { aspect-ratio: 4/5; }
+    .ps-item:nth-child(3) { aspect-ratio: 3/4; }
+
+    /* ─── CINEMATIC ANIMATIONS ─── */
+
+    /* Nav entrance */
+    nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
+    @keyframes navIn {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Nav link underline slide-in */
+    .nav-links a { position: relative; }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: rgba(255,255,255,0.55);
+      transition: width 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Scroll-reveal: fade + rise */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition:
+        opacity   0.95s cubic-bezier(0.22,1,0.36,1) var(--delay, 0ms),
+        transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay, 0ms);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+    /* Scroll-reveal: scale + rise (cards / grid items) */
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.94) translateY(28px);
+      transition:
+        opacity   0.9s cubic-bezier(0.22,1,0.36,1) var(--delay, 0ms),
+        transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay, 0ms);
+    }
+    .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
+
+    /* Scroll-reveal: opacity only (table rows — transform unreliable on <tr>) */
+    .reveal-row {
+      opacity: 0;
+      transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1) var(--delay, 0ms);
+    }
+    .reveal-row.in-view { opacity: 1; }
+
+    /* Clip-up reveal: for CTA + wordmark (cinematic text entrance) */
+    .clip-outer { overflow: hidden; display: block; }
+    .clip-inner {
+      display: block;
+      transform: translateY(110%);
+      transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay, 0ms);
+    }
+    .clip-outer.in-view .clip-inner { transform: translateY(0); }
+
+    /* Hover: work item captions slide right */
+    .work-title {
+      transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    }
+    .work-item:hover .work-title { transform: translateX(7px); }
+
+    .work-cat {
+      transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), opacity 0.3s;
+    }
+    .work-item:hover .work-cat { transform: translateX(7px); opacity: 0.55; }
+
+    /* Hover: index rows — name indent + row brighten */
+    .idx-table td {
+      transition: color 0.25s,
+                  padding-left 0.38s cubic-bezier(0.22,1,0.36,1);
+    }
+    .idx-name {
+      transition: color 0.25s, padding-left 0.38s cubic-bezier(0.22,1,0.36,1) !important;
+    }
+    .idx-table tr:hover .idx-name { padding-left: 10px; color: #fff !important; }
+    .idx-table tr:hover td         { color: rgba(255,255,255,0.72); }
+    .idx-table tr:hover .idx-year  { color: rgba(255,255,255,0.38) !important; }
+
+    /* Hover: blog cards */
+    .blog-card-title {
+      transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    }
+    .blog-card:hover .blog-card-title { transform: translateX(5px); }
+    .blog-card-date { transition: color 0.25s; }
+    .blog-card:hover .blog-card-date { color: rgba(255,255,255,0.65); }
+
+    /* Hover: "More About Us" link slides right */
+    .ai-link {
+      display: inline-flex;
+      transition: color 0.2s, transform 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .ai-link:hover { transform: translateX(10px); }
+
+    /* Hover: View All Projects pill */
+    .ws-viewall {
+      display: inline-block;
+      transition: color 0.2s, border-color 0.2s,
+                  transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    }
+    .ws-viewall:hover { color: #fff; border-color: rgba(255,255,255,0.4); transform: scale(1.06); }
+
+    /* Hover: footer links slide right */
+    .ft-col a {
+      display: inline-block;
+      transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .ft-col a:hover { color: #fff; transform: translateX(6px); }
+
+    .nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; position: relative; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s; }
+    nav.menu-open .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+    nav.menu-open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 810px) {
+      nav { padding: 20px 20px; }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; flex-direction: column; }
+      .nav-links { display: none !important; flex-direction: column !important; position: fixed; inset: 0; background: rgba(14,15,17,0.98); z-index: 190; align-items: center; justify-content: center; gap: 44px; }
+      nav.menu-open .nav-links { display: flex !important; }
+      nav.menu-open .nav-links a { font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.8); }
+      .hero-content { left: 20px; right: 20px; bottom: 36px; flex-direction: column; align-items: flex-start; }
+      .hero-text { font-size: 17px; max-width: 100%; }
+      .hero-scroll { white-space: normal; }
+      .card-sticky:nth-child(2) { top: 0; }
+      .card-sticky:nth-child(3) { top: 0; }
+      .card-info { padding: 12px 20px 28px; }
+      .card-line { margin: 0 16px; }
+      .card-bottom { padding-top: 60px; }
+      .card-idx  { font-size: 32px; }
+      .card-cat  { font-size: 18px; }
+      #about-intro { padding: 60px 20px 60px; }
+      .ai-heading  { font-size: 28px; }
+      #portrait-strip { padding: 0 20px 48px; grid-template-columns: 1fr 1fr; }
+      #portrait-strip .ps-item:nth-child(3) { display: none; }
+      #work-section { padding: 0 20px 60px; }
+      .work-grid { grid-template-columns: 1fr; }
+      .work-item-b { grid-row: span 1; }
+      .work-item-d { grid-column: span 1; }
+      #index-section { padding: 0 20px 60px; }
+      .idx-client { display: none; }
+      #blog-section { padding: 0 20px 60px; }
+      .blog-header { flex-direction: column; gap: 8px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      #cta { padding: 80px 20px; }
+      .cta-text { font-size: 40px; }
+      #footer { padding: 40px 20px 0; }
+      .ft-cols { grid-template-columns: 1fr 1fr; gap: 40px 24px; padding-bottom: 40px; }
+      .idx-table td { font-size: 12px; padding: 10px 0; }
+      .ft-wordmark { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Tristan Raoult</a>
+  <ul class="nav-links">
+    <li><a href="work.html">Work</a></li>
+    <li><a href="#">Index</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <img class="hero-img"
+       src="assets/images/about/portrait-main.jpg"
+       alt="Tristan Raoult"
+       style="object-position: 50% 30%;" />
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <p class="hero-text" id="heroText">
+      We believe design is a dialogue of clarity and expression. Our philosophy values adaptive systems, resonant visuals, and ideas that endure across cultures and time.
+    </p>
+    <span class="hero-scroll">(Scroll)</span>
+  </div>
+</section>
+
+<!-- STACKED FULL-SCREEN CARDS ──────────────────────────────────────────────
+     All 5 cards are direct siblings inside ONE parent (.cards-container).
+     Each card-sticky has position:sticky so it "activates" as you scroll
+     into its natural DOM position, then stacks over the previous card.
+     The JS drives a cumulative scale(0.88^n) so every background card is
+     progressively smaller — like windows receding into the distance. -->
+<div class="cards-container" id="cardsContainer">
+
+  <!-- Card 1 — Fizzi / Brand Identity -->
+  <div class="card-sticky">
+    <a href="projects/fizzi.html" class="card-frame">
+      <img src="assets/images/fizzi/cans-group.png" alt="Fizzi — Brand Identity" />
+      <div class="card-bottom">
+        <div class="card-line"></div>
+        <div class="card-info">
+          <span class="card-idx">01</span>
+          <span class="card-cat">Brand Identity</span>
+        </div>
+      </div>
+      <div class="card-bar" data-bar="0"></div>
+    </a>
+  </div>
+
+  <!-- Card 2 — Focus / Podcast Identity -->
+  <div class="card-sticky">
+    <a href="projects/focus.html" class="card-frame">
+      <img src="assets/images/focus/focus.png" alt="Focus — Podcast Identity" />
+      <div class="card-bottom">
+        <div class="card-line"></div>
+        <div class="card-info">
+          <span class="card-idx">02</span>
+          <span class="card-cat">Podcast Identity</span>
+        </div>
+      </div>
+      <div class="card-bar" data-bar="1"></div>
+    </a>
+  </div>
+
+  <!-- Card 3 — Gloomy Graphic / Identité Visuelle -->
+  <div class="card-sticky">
+    <a href="projects/glumi-graphic.html" class="card-frame">
+      <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic — Identité Visuelle" />
+      <div class="card-bottom">
+        <div class="card-line"></div>
+        <div class="card-info">
+          <span class="card-idx">03</span>
+          <span class="card-cat">Identité Visuelle</span>
+        </div>
+      </div>
+      <div class="card-bar" data-bar="2"></div>
+    </a>
+  </div>
+
+  <!-- Card 4 — Photography / Direction Artistique -->
+  <div class="card-sticky">
+    <a href="projects/photography.html" class="card-frame">
+      <img src="assets/images/photography/fair/6.jpg" alt="Photography — Direction Artistique" />
+      <div class="card-bottom">
+        <div class="card-line"></div>
+        <div class="card-info">
+          <span class="card-idx">04</span>
+          <span class="card-cat">Direction Artistique</span>
+        </div>
+      </div>
+      <div class="card-bar" data-bar="3"></div>
+    </a>
+  </div>
+
+</div>
+
+<div id="page-content">
+
+<!-- ABOUT INTRO -->
+<section id="about-intro">
+  <h2 class="ai-heading reveal">Graphiste freelance spécialisé dans la création de visuels uniques. Mon univers mêle authenticité et créativité, avec une approche artisanale et déstructurée qui donne une âme à chaque projet.</h2>
+  <a href="mailto:tristan.raoult62@gmail.com" class="ai-link reveal" style="--delay:150ms">Me contacter →</a>
+</section>
+
+<!-- PORTRAIT STRIP -->
+<div id="portrait-strip">
+  <div class="ps-item reveal-scale" style="--delay:0ms">
+    <img src="assets/images/about/portrait-3.jpg" alt="Tristan Raoult" />
+  </div>
+  <div class="ps-item reveal-scale" style="--delay:80ms">
+    <img src="assets/images/about/portrait-5.jpg" alt="Tristan Raoult" />
+  </div>
+  <div class="ps-item reveal-scale" style="--delay:160ms">
+    <img src="assets/images/about/portrait-7.jpg" alt="Tristan Raoult" />
+  </div>
+</div>
+
+<!-- WORK SECTION -->
+<section id="work-section">
+  <div class="ws-header reveal">
+    <span class="ws-label">Work</span>
+    <span class="ws-sub">Brand identity, motion design, and art direction — personal projects and client work.</span>
+    <span class="ws-count">(7)</span>
+  </div>
+  <div class="work-grid">
+    <!-- Physique: left top, square -->
+    <a href="projects/fizzi.html" class="work-item work-item-a reveal-scale" style="--delay:0ms">
+      <div class="work-img-wrap ratio-sq">
+        <img src="assets/images/fizzi/cans-group.png" alt="Fizzi" />
+      </div>
+      <div class="work-meta">
+        <p class="work-cat">Brand Identity</p>
+        <p class="work-title">Fizzi</p>
+      </div>
+    </a>
+    <!-- Focus: right, tall, spans 2 rows -->
+    <a href="projects/focus.html" class="work-item work-item-b reveal-scale" style="--delay:80ms">
+      <div class="work-img-wrap ratio-tall">
+        <img src="assets/images/focus/focus.png" alt="Focus" />
+      </div>
+      <div class="work-meta">
+        <p class="work-cat">Brand Identity</p>
+        <p class="work-title">Focus</p>
+      </div>
+    </a>
+    <!-- Gloomy Graphic: left bottom, square -->
+    <a href="projects/glumi-graphic.html" class="work-item work-item-c reveal-scale" style="--delay:160ms">
+      <div class="work-img-wrap ratio-sq">
+        <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" />
+      </div>
+      <div class="work-meta">
+        <p class="work-cat">Identity, Motion</p>
+        <p class="work-title">Gloomy Graphic</p>
+      </div>
+    </a>
+    <!-- Motion Design: full-width bottom row, landscape -->
+    <a href="projects/motion-design.html" class="work-item work-item-d reveal-scale" style="--delay:240ms">
+      <div class="work-img-wrap ratio-wide">
+      </div>
+      <div class="work-meta">
+        <p class="work-cat">Motion Design</p>
+        <p class="work-title">Motion Design</p>
+      </div>
+    </a>
+  </div>
+  <div class="ws-viewall-wrap reveal" style="--delay:120ms">
+    <a href="work.html" class="ws-viewall">View All Projects →</a>
+  </div>
+</section>
+
+<!-- INDEX SECTION -->
+<section id="index-section">
+  <div class="idx-header reveal">
+    <span class="idx-title">Index</span>
+  </div>
+  <table class="idx-table">
+    <tr class="reveal-row" style="--delay:0ms">
+      <td class="idx-name">Fizzi</td>
+      <td class="idx-client">Personal Project</td>
+      <td class="idx-cat">Brand Identity</td>
+      <td class="idx-year">2025</td>
+    </tr>
+    <tr class="reveal-row" style="--delay:70ms">
+      <td class="idx-name">Focus</td>
+      <td class="idx-client">Personal Project</td>
+      <td class="idx-cat">Brand Identity, Motion</td>
+      <td class="idx-year">2025</td>
+    </tr>
+    <tr class="reveal-row" style="--delay:140ms">
+      <td class="idx-name">Gloomy Graphic</td>
+      <td class="idx-client">Personal Brand</td>
+      <td class="idx-cat">Identity, Motion</td>
+      <td class="idx-year">2024</td>
+    </tr>
+    <tr class="reveal-row" style="--delay:210ms">
+      <td class="idx-name">Motion Design</td>
+      <td class="idx-client">Le Jury Act</td>
+      <td class="idx-cat">Motion Design</td>
+      <td class="idx-year">2024</td>
+    </tr>
+    <tr class="reveal-row" style="--delay:280ms">
+      <td class="idx-name">Photography</td>
+      <td class="idx-client">Personal Work</td>
+      <td class="idx-cat">Art Direction</td>
+      <td class="idx-year">2024</td>
+    </tr>
+    <tr class="reveal-row" style="--delay:350ms">
+      <td class="idx-name">Montage</td>
+      <td class="idx-client">Projets Personnels</td>
+      <td class="idx-cat">Montage Vidéo</td>
+      <td class="idx-year">2024</td>
+    </tr>
+  </table>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="clip-outer">
+    <p class="cta-text clip-inner">Let's work together.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="ft-cols">
+    <div class="ft-col reveal" style="--delay:0ms">
+      <p class="ft-col-head">Sitemap</p>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:80ms">
+      <p class="ft-col-head">Work</p>
+      <ul>
+        <li><a href="projects/fizzi.html">Fizzi</a></li>
+        <li><a href="projects/focus.html">Focus</a></li>
+        <li><a href="projects/glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="projects/affiches.html">Affiches</a></li>
+        <li><a href="projects/motion-design.html">Motion Design</a></li>
+        <li><a href="projects/photography.html">Photography</a></li>
+        <li><a href="projects/montage.html">Montage</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:160ms">
+      <p class="ft-col-head">Contact</p>
+      <ul>
+        <li><a href="mailto:tristan.raoult62@gmail.com">↗ Email</a></li>
+        <li><a href="https://www.instagram.com/gloomygraphic/" target="_blank">↗ Instagram</a></li>
+        <li><a href="tel:+33768665558">↗ 07 68 66 55 58</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="clip-outer" style="--delay:100ms">
+    <div class="ft-wordmark clip-inner">Tristan Raoult</div>
+  </div>
+</footer>
+
+</div><!-- end #page-content -->
+
+<script>
+/* ── Character-by-character hero text reveal ── */
+(function () {
+  const el  = document.getElementById('heroText');
+  const raw = el.textContent.trim();
+  el.textContent = '';
+  raw.split('').forEach((ch, i) => {
+    const s = document.createElement('span');
+    s.classList.add('char');
+    s.textContent = ch === ' ' ? '\u00A0' : ch;
+    s.style.animationDelay = (0.4 + i * 0.017) + 's';
+    el.appendChild(s);
+  });
+})();
+
+/* ── Scroll-driven depth zoom ──────────────────────────────────────────────
+   Cards 1–3 are sticky and zoom with the depth formula.
+   Card 4 is a plain element — fixed at its preload scale, scrolls naturally
+   over the sticky cards (z-index 13) then out of view. */
+(function () {
+  const container = document.getElementById('cardsContainer');
+  const bars      = container.querySelectorAll('[data-bar]');
+  const frames    = container.querySelectorAll('.card-frame');
+  const COUNT     = frames.length;
+  const ANIM      = COUNT - 1; // only animate first 3 cards
+
+  /* Pin card 4 at its preload scale — border-radius handled by CSS */
+  const lastPreload = (COUNT - 1) * 0.5;
+  const lastScale   = Math.pow(0.88, lastPreload);
+  frames[COUNT - 1].style.transform = 'scale(' + lastScale.toFixed(4) + ')';
+
+  /* Fix 1: cache layout reads once — avoids forced reflow on every scroll frame */
+  let containerT = container.offsetTop;
+  let containerH = container.offsetHeight;
+  let vh         = window.innerHeight;
+  window.addEventListener('resize', function () {
+    containerT = container.offsetTop;
+    containerH = container.offsetHeight;
+    vh         = window.innerHeight;
+  }, { passive: true });
+
+  function update() {
+    const scrollY    = window.scrollY;
+    const scrollRoom = containerH - vh;
+    const perCard    = scrollRoom / ANIM;
+    const totalProgress = (scrollY - containerT) / perCard;
+
+    for (let i = 0; i < ANIM; i++) {
+      const preload      = i * 0.5;
+      const progressPast = Math.max(0, totalProgress - i);
+
+      /* Fix 3: only write transform (GPU-only) — border-radius set via CSS */
+      const scale = Math.pow(0.88, progressPast + preload);
+      frames[i].style.transform = 'scale(' + scale.toFixed(4) + ')';
+
+      const bar = bars[i];
+      if (bar) {
+        const p = Math.max(0, Math.min(1, progressPast));
+        bar.style.width = (p * 100).toFixed(1) + '%';
+      }
+    }
+  }
+
+  /* Fix 2: rAF throttle — handler runs at most once per screen refresh */
+  let ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(function () { update(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  update();
+})();
+
+/* ── Scroll-triggered entrance reveals ─────────────────────────────────── */
+(function () {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll(
+    '.reveal, .reveal-scale, .reveal-row, .clip-outer'
+  ).forEach(el => io.observe(el));
+})();
+
+/* Hamburger */
+document.getElementById('nav-burger').addEventListener('click', function() {
+  document.querySelector('nav').classList.toggle('menu-open');
+});
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    document.querySelector('nav').classList.remove('menu-open');
+  });
+});
+</script>
+
+</body>
+</html>

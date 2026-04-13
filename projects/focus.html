@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://tristanraoult.github.io/portfolio/favicon.png" />
+  <title>Focus – Tristan Raoult</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Fragment+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #141517; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    ::-webkit-scrollbar { display: none; } * { scrollbar-width: none; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; position: relative; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .nav-links a:hover::after { width: 100%; }
+
+    #proj-hero { height: 100vh; overflow: hidden; background: #0d0b12; position: sticky; top: 0; z-index: 0; display: flex; align-items: center; justify-content: center; }
+    #proj-hero img { width: 100%; height: 100%; object-fit: contain; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+    @keyframes heroZoom { from { transform: scale(1.08); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pi-left { padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
+    .pi-right { padding: 80px 48px; }
+    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: #fff; position: sticky; top: 88px; }
+    .pi-meta-row { display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); gap: 24px; }
+    .pi-meta-label { width: 130px; flex-shrink: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+    .pi-meta-val { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.5; }
+    .pi-desc { margin-top: 40px; font-size: 16px; line-height: 1.85; color: rgba(255,255,255,0.5); }
+
+    /* Section header */
+    .pc-section-head { display: flex; justify-content: space-between; align-items: baseline; padding: 20px 48px; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pc-section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+
+    /* Full-width */
+    .pc-full { overflow: hidden; background: #0d0d0f; }
+    .pc-full img { width: 100%; display: block; max-height: 85vh; object-fit: cover; }
+    .pc-full--auto { overflow: hidden; background: #0d0d0f; }
+    .pc-full--auto img { width: 100%; height: auto; display: block; }
+    /* Full-width avec respiration — évite que les bords soient coupés */
+    .pc-full--inset { overflow: hidden; background: #0d0d0f; padding: 52px 80px; }
+    .pc-full--inset img { width: 100%; height: auto; display: block; }
+
+    /* Colonne texte + images */
+    .pc-row { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pc-row--reverse { direction: rtl; }
+    .pc-row--reverse > * { direction: ltr; }
+    .pc-text { position: sticky; top: 88px; align-self: start; padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
+    .pc-row--reverse .pc-text { border-right: none; border-left: 1px solid rgba(255,255,255,0.08); }
+    .pc-text-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.22); display: block; margin-bottom: 24px; }
+    .pc-text p { font-size: 17px; line-height: 1.85; color: rgba(255,255,255,0.52); }
+    .pc-text p + p { margin-top: 20px; }
+    .pc-imgs { display: flex; flex-direction: column; }
+    .pc-img { overflow: hidden; background: #0d0d0f; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .pc-img:last-child { border-bottom: none; }
+    .pc-img img { width: 100%; display: block; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+    .pc-img:hover img { transform: scale(1.03); }
+
+    /* Next projects */
+    #next-projects { padding: 80px 48px 100px; }
+    .np-head { padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 40px; }
+    .np-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .np-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .np-card { text-decoration: none; color: inherit; display: block; }
+    .np-thumb { position: relative; padding-bottom: 70%; overflow: hidden; background: #0d0d0f; margin-bottom: 16px; }
+    .np-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+    .np-card:hover .np-thumb img { transform: scale(1.05); }
+    .np-card-title { font-size: 16px; font-weight: 600; color: #fff; letter-spacing: -0.01em; margin-bottom: 5px; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .np-card:hover .np-card-title { transform: translateX(6px); }
+    .np-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
+
+    #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
+    .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
+    .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+    .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ft-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .ft-col a:hover { color: #fff; transform: translateX(6px); }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+
+    nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
+    @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
+    .clip-outer { overflow: hidden; display: block; }
+    .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .clip-outer.in-view .clip-inner { transform: translateY(0); }
+    .proj-content { position: relative; z-index: 1; background: #141517; }
+
+    .nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; position: relative; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s; }
+    nav.menu-open .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+    nav.menu-open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 900px) {
+      nav { padding: 20px; } .nav-links { display: none; }
+      .nav-burger { display: flex; flex-direction: column; }
+      .nav-links { display: none !important; flex-direction: column !important; position: fixed; inset: 0; background: rgba(14,15,17,0.98); z-index: 190; align-items: center; justify-content: center; gap: 44px; }
+      nav.menu-open .nav-links { display: flex !important; }
+      nav.menu-open .nav-links a { font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.8); }
+      #proj-info { grid-template-columns: 1fr; }
+      .pi-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 60px 20px; }
+      .pi-right { padding: 60px 20px; }
+      .proj-title { position: static; font-size: 52px; }
+      .pc-section-head { padding: 16px 20px; }
+      .pc-row { grid-template-columns: 1fr; direction: ltr; }
+      .pc-text { position: static; border-right: none !important; border-left: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; }
+      .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
+      #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
+      #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
+    }
+    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">Tristan Raoult</a>
+  <ul class="nav-links">
+    <li><a href="../work.html">Work</a></li>
+    <li><a href="../index.html#index-section">Index</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section id="proj-hero">
+  <img src="../assets/images/focus/focus.png" alt="Focus" />
+</section>
+
+<div class="proj-content">
+
+<section id="proj-info">
+  <div class="pi-left">
+    <div class="clip-outer" style="--delay:0ms">
+      <h1 class="proj-title clip-inner">Focus</h1>
+    </div>
+  </div>
+  <div class="pi-right">
+    <div class="pi-meta-row reveal" style="--delay:0ms">
+      <span class="pi-meta-label">Catégories</span>
+      <span class="pi-meta-val">Brand Identity · Direction Artistique</span>
+    </div>
+    <div class="pi-meta-row reveal" style="--delay:60ms">
+      <span class="pi-meta-label">Client</span>
+      <span class="pi-meta-val">Projet Personnel</span>
+    </div>
+    <div class="pi-meta-row reveal" style="--delay:120ms">
+      <span class="pi-meta-label">Services</span>
+      <span class="pi-meta-val">Logo · Affiches · Goodies · Site Web</span>
+    </div>
+    <div class="pi-meta-row reveal" style="--delay:180ms">
+      <span class="pi-meta-label">Année</span>
+      <span class="pi-meta-val">2025 — 2026</span>
+    </div>
+    <p class="pi-desc reveal" style="--delay:260ms">FOCUS est un podcast entre création et psychologie. Des conversations profondes avec des créateurs autour de leur parcours, leurs doutes et leur vision. Chaque épisode donne naissance à une affiche de collection, objet tangible qui matérialise l'idée forte de l'échange. Projet co-créé avec Loli Martinez, présenté au Concours Open ISEG 2026.</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────────── CONCEPT ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Concept</span>
+</div>
+
+<!-- Image panoramique pleine largeur — dezoom -->
+<div class="pc-full--inset reveal-scale">
+  <img src="../assets/images/focus/sticker.png" alt="Focus – Logo principal" />
+</div>
+
+<!-- Concept — texte + logo variantes -->
+<div class="pc-row pc-row--reverse">
+  <div class="pc-imgs">
+    <div class="pc-img reveal-scale">
+      <img src="../assets/images/focus/logo-2.png" alt="Focus – Logo variante" />
+    </div>
+  </div>
+  <div class="pc-text reveal">
+    <span class="pc-text-label">Le Concept</span>
+    <p>Notre société va toujours plus vite. Tout ce que l'on consomme, on l'oublie. FOCUS est né du besoin de revenir aux sources : comprendre non pas le comment de la création, mais le pourquoi. Pourquoi créons-nous ?</p>
+    <p>À chaque épisode, un invité du monde créatif. On parle de doutes, de processus, d'intentions. Et à la fin de chaque épisode, on sort une affiche. L'idée : graver les mots dans quelque chose de concret, transformer une réflexion éphémère en objet mémorable.</p>
+  </div>
+</div>
+
+<!-- ─────────────────────────────── LOGO ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Logo</span>
+</div>
+
+<!-- Logo pleine largeur — dezoom -->
+<div class="pc-full--inset reveal-scale">
+  <img src="../assets/images/focus/logo-3.png" alt="Focus – Logo" />
+</div>
+
+<!-- Logo — texte + sticker -->
+<div class="pc-row">
+  <div class="pc-text reveal">
+    <span class="pc-text-label">Identité Visuelle</span>
+    <p>Le logo FOCUS s'inscrit dans la continuité de l'univers GloomyGraphic : une typographie organique, fluide et volontairement déformée, inspirée d'une esthétique pop et expressive. Les deux O sont transformés en yeux, traduisant l'idée de concentration, d'observation et d'introspection au coeur du projet.</p>
+    <p>Ce regard devient la signature visuelle centrale de FOCUS, facilement déclinable sur les affiches, les stickers et le porte-clé de la gamme.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-img reveal-scale">
+      <img src="../assets/images/focus/sticker-2.png" alt="Focus – Sticker" />
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────── DIRECTION ARTISTIQUE ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Direction Artistique</span>
+</div>
+
+<!-- Image pleine largeur — dezoom -->
+<div class="pc-full--inset reveal-scale">
+  <img src="../assets/images/focus/sticker-4.png" alt="Focus – Déclinaison couleur" />
+</div>
+
+<!-- DA — texte + sticker -->
+<div class="pc-row pc-row--reverse">
+  <div class="pc-imgs">
+    <div class="pc-img reveal-scale">
+      <img src="../assets/images/focus/sticker-3.png" alt="Focus – Déclinaison" />
+    </div>
+  </div>
+  <div class="pc-text reveal">
+    <span class="pc-text-label">Direction Artistique</span>
+    <p>L'univers visuel repose sur un dark mode profond avec un violet intense comme couleur signature. Ce violet incarne la dimension mentale du projet : l'introspection, la concentration et le mystère du processus créatif. En light mode, il devient orange, une couleur plus humaine qui symbolise l'énergie et l'inspiration.</p>
+    <p>Le site a été entièrement codé à la main en HTML, CSS et JavaScript, conçu comme une galerie d'art numérique avec des micro-interactions, des effets de glassmorphism et un curseur personnalisé.</p>
+  </div>
+</div>
+
+<!-- ─────────────────────────────── AFFICHES ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Affiches de Collection</span>
+</div>
+
+<!-- Affiches — texte seul pleine largeur -->
+<div class="pc-row" style="grid-template-columns: 1fr">
+  <div class="pc-text reveal">
+    <span class="pc-text-label">Affiches &amp; Goodies</span>
+    <p>Les affiches sont la seconde dimension de FOCUS. Après chaque épisode, une affiche est créée à partir de l'idée forte de la conversation. Séries limitées, imprimées sur papier 350g mat, numérotées et accompagnées d'un certificat d'authenticité et de stickers.</p>
+    <p>L'objectif est de transformer une réflexion souvent éphémère en objet tangible et mémorable, et de créer un lien durable entre l'auditeur et la communauté FOCUS.</p>
+  </div>
+</div>
+
+<!-- ─────────────────────────────── NEXT PROJECTS ─── -->
+<section id="next-projects">
+  <div class="np-head reveal">
+    <span class="np-label">Next Projects</span>
+  </div>
+  <div class="np-grid">
+    <a href="fizzi.html" class="np-card reveal-scale" style="--delay:0ms">
+      <div class="np-thumb"><img src="../assets/images/fizzi/cans-group.png" alt="Fizzi" /></div>
+      <p class="np-card-title">Fizzi</p>
+      <p class="np-card-cat">Brand Identity</p>
+    </a>
+    <a href="glumi-graphic.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb"><img src="../assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" /></div>
+      <p class="np-card-title">Gloomy Graphic</p>
+      <p class="np-card-cat">Identity, Motion</p>
+    </a>
+    <a href="affiches.html" class="np-card reveal-scale" style="--delay:160ms">
+      <div class="np-thumb"><img src="../assets/images/affiches/mockups/urban.png" alt="Affiches" /></div>
+      <p class="np-card-title">Affiches</p>
+      <p class="np-card-cat">Print Design</p>
+    </a>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="clip-outer">
+    <p class="cta-text clip-inner">Let's work together.</p>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="ft-cols">
+    <div class="ft-col reveal" style="--delay:0ms">
+      <p class="ft-col-head">Sitemap</p>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../work.html">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:80ms">
+      <p class="ft-col-head">Work</p>
+      <ul>
+        <li><a href="fizzi.html">Fizzi</a></li>
+        <li><a href="focus.html">Focus</a></li>
+        <li><a href="glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="affiches.html">Affiches</a></li>
+        <li><a href="motion-design.html">Motion Design</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="montage.html">Montage</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:160ms">
+      <p class="ft-col-head">Contact</p>
+      <ul>
+        <li><a href="mailto:tristan.raoult62@gmail.com">↗ Email</a></li>
+        <li><a href="https://www.instagram.com/gloomygraphic/" target="_blank">↗ Instagram</a></li>
+        <li><a href="tel:+33768665558">↗ 07 68 66 55 58</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="clip-outer" style="--delay:100ms">
+    <div class="ft-wordmark clip-inner">Tristan Raoult</div>
+  </div>
+</footer>
+</div>
+
+<script>
+(function () {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal, .reveal-scale, .clip-outer').forEach(el => io.observe(el));
+})();
+
+/* Hamburger */
+document.getElementById('nav-burger').addEventListener('click', function() {
+  document.querySelector('nav').classList.toggle('menu-open');
+});
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    document.querySelector('nav').classList.remove('menu-open');
+  });
+});
+</script>
+</body>
+</html>

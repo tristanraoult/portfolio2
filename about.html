@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://tristanraoult.github.io/portfolio/favicon.png" />
+  <title>À Propos – Tristan Raoult</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Fragment+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #141517; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    ::-webkit-scrollbar { display: none; }
+    * { scrollbar-width: none; }
+
+    /* ─── NAV ─── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; position: relative; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: #fff; }
+
+    /* ─── PAGE HEADER ─── */
+    #page-header { padding: 160px 48px 60px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .ph-meta { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+    .ph-tags { display: flex; gap: 24px; }
+    .ph-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .ph-year { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.3); }
+    .page-title { font-size: clamp(56px, 9vw, 110px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.92; color: #fff; }
+
+    /* ─── BIO ─── */
+    #about-bio { padding: 80px 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .bio-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
+    .bio-photo { overflow: hidden; border-radius: 4px; }
+    .bio-photo img { width: 100%; display: block; }
+    .bio-text { display: flex; flex-direction: column; gap: 24px; }
+    .bio-text p { font-size: 16px; line-height: 1.85; color: rgba(255,255,255,0.62); }
+    .bio-info { margin-top: 8px; display: flex; flex-direction: column; gap: 14px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .bio-info-row { display: flex; gap: 16px; align-items: baseline; }
+    .bio-info-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.25); width: 110px; flex-shrink: 0; }
+    .bio-info-val { font-size: 13px; color: rgba(255,255,255,0.55); }
+
+    /* ─── PORTRAIT GALLERY ─── */
+    #portrait-gallery { padding: 0 48px 80px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .pg-item { overflow: hidden; border-radius: 4px; background: #111; aspect-ratio: 3/4; }
+    .pg-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+    .pg-item:hover img { transform: scale(1.04); }
+
+    /* ─── CV ─── */
+    #cv-section { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .cv-header { display: flex; justify-content: space-between; align-items: baseline; padding: 80px 48px 48px; }
+    .cv-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
+    .cv-download { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.45); text-decoration: none; border: 1px solid rgba(255,255,255,0.15); padding: 9px 22px; border-radius: 100px; transition: color 0.25s, border-color 0.25s; }
+    .cv-download:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+    .cv-img-wrap { overflow: hidden; background: #111; }
+    .cv-img-wrap img { width: 100%; display: block; }
+
+    /* ─── SECTIONS ─── */
+    .section-wrap { padding: 80px 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.28); display: block; margin-bottom: 56px; }
+
+    /* ─── TIMELINE ─── */
+    .tl-item { display: grid; grid-template-columns: 200px 1fr; gap: 40px; padding: 36px 0; border-top: 1px solid rgba(255,255,255,0.07); }
+    .tl-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .tl-period { font-family: 'Fragment Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.28); line-height: 1.7; padding-top: 5px; }
+    .tl-period em { display: block; margin-top: 4px; font-style: normal; color: rgba(255,255,255,0.18); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .tl-title { font-size: 19px; font-weight: 600; letter-spacing: -0.02em; color: #fff; margin-bottom: 6px; line-height: 1.25; }
+    .tl-sub { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; margin-bottom: 20px; }
+    .tl-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .tl-list li { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.65; padding-left: 18px; position: relative; }
+    .tl-list li::before { content: '—'; position: absolute; left: 0; color: rgba(255,255,255,0.18); }
+    .tl-freelance { display: flex; flex-direction: column; gap: 22px; }
+    .tl-freelance-client { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.55); margin-bottom: 5px; }
+    .tl-freelance-desc { font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.65; }
+
+    /* ─── SKILLS ─── */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill-tag { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 9px 22px; letter-spacing: 0.01em; transition: color 0.25s, border-color 0.25s; cursor: default; }
+    .skill-tag:hover { color: #fff; border-color: rgba(255,255,255,0.38); }
+
+    /* ─── CTA ─── */
+    #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+
+    /* ─── FOOTER ─── */
+    #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
+    .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
+    .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 20px; }
+    .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ft-col a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); display: inline-block; }
+    .ft-col a:hover { color: #fff; transform: translateX(6px); }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+
+    /* ─── ANIMATIONS ─── */
+    nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
+    @keyframes navIn { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .clip-outer { overflow: hidden; display: block; }
+    .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .clip-outer.in-view .clip-inner { transform: translateY(0); }
+
+    .nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; position: relative; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s; }
+    nav.menu-open .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+    nav.menu-open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 20px; } .nav-links { display: none; }
+      .nav-burger { display: flex; flex-direction: column; }
+      .nav-links { display: none !important; flex-direction: column !important; position: fixed; inset: 0; background: rgba(14,15,17,0.98); z-index: 190; align-items: center; justify-content: center; gap: 44px; }
+      nav.menu-open .nav-links { display: flex !important; }
+      nav.menu-open .nav-links a { font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.8); }
+      .cv-img-wrap { max-width: 100%; }
+      #page-header { padding: 120px 20px 50px; } .page-title { font-size: 52px; }
+      #about-bio { padding: 60px 20px; } .bio-grid { grid-template-columns: 1fr; gap: 40px; }
+      #portrait-gallery { padding: 0 20px 60px; } .pg-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .bio-info-label { width: auto; }
+      #cv-section { padding: 60px 20px; }
+      .section-wrap { padding: 60px 20px; }
+      .tl-item { grid-template-columns: 1fr; gap: 10px; }
+      #cta { padding: 80px 20px; }
+      #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; gap: 40px 24px; padding-bottom: 40px; }
+      .ft-wordmark { font-size: 48px; }
+    }
+    @media (max-width: 430px) {
+      .pg-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Tristan Raoult</a>
+  <ul class="nav-links">
+    <li><a href="work.html">Work</a></li>
+    <li><a href="index.html#index-section">Index</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HEADER -->
+<header id="page-header">
+  <div class="ph-meta reveal">
+    <div class="ph-tags">
+      <span class="ph-tag">Graphiste &amp; Motion Designer</span>
+      <span class="ph-tag">Bordeaux / Bayonne</span>
+    </div>
+    <span class="ph-year">20 ans</span>
+  </div>
+  <div class="clip-outer" style="--delay:80ms">
+    <h1 class="page-title clip-inner">À propos</h1>
+  </div>
+</header>
+
+<!-- BIO -->
+<section id="about-bio">
+  <div class="bio-grid">
+    <div class="bio-photo reveal">
+      <img src="assets/images/about/portrait.jpg" alt="Tristan Raoult" />
+    </div>
+    <div class="bio-text">
+      <p class="reveal" style="--delay:80ms">Graphiste freelance, je suis spécialisé dans la création de visuels uniques. Mon univers mêle authenticité et créativité, avec une approche artisanale et déstructurée qui donne une âme à chaque projet.</p>
+      <p class="reveal" style="--delay:160ms">Fort d'une expérience variée, je travaille sur des projets allant de l'identité visuelle au packaging, en passant par la stratégie de marque. J'accorde une attention particulière à la cohérence et à la singularité des concepts que je développe.</p>
+      <p class="reveal" style="--delay:240ms">Autodidacte passionné, j'ai affûté mon savoir-faire en créant et en expérimentant au fil des projets. Aujourd'hui, j'affine mes compétences en les mettant également en pratique dans le cadre de ma formation à l'ISEGCOM Bordeaux.</p>
+      <div class="bio-info reveal" style="--delay:320ms">
+        <div class="bio-info-row">
+          <span class="bio-info-label">Localisation</span>
+          <span class="bio-info-val">Bordeaux / Bayonne, France</span>
+        </div>
+        <div class="bio-info-row">
+          <span class="bio-info-label">Disponibilité</span>
+          <span class="bio-info-val">Missions freelance · Temps partiel</span>
+        </div>
+        <div class="bio-info-row">
+          <span class="bio-info-label">Formation</span>
+          <span class="bio-info-val">ISEGCOM Bordeaux — Master Marketing &amp; Design</span>
+        </div>
+        <div class="bio-info-row">
+          <span class="bio-info-label">Outils</span>
+          <span class="bio-info-val">Illustrator · Photoshop · After Effects · Premiere Pro · Lightroom</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTRAIT GALLERY -->
+<section id="portrait-gallery">
+  <div class="pg-grid">
+    <div class="pg-item reveal-scale" style="--delay:0ms">
+      <img src="assets/images/about/portrait-2.jpg" alt="Tristan Raoult"  />
+    </div>
+    <div class="pg-item reveal-scale" style="--delay:60ms">
+      <img src="assets/images/about/portrait-4.jpg" alt="Tristan Raoult" />
+    </div>
+    <div class="pg-item reveal-scale" style="--delay:120ms">
+      <img src="assets/images/about/portrait-6.jpg" alt="Tristan Raoult" />
+    </div>
+    <div class="pg-item reveal-scale" style="--delay:180ms">
+      <img src="assets/images/about/portrait-8.jpg" alt="Tristan Raoult" />
+    </div>
+  </div>
+</section>
+
+<!-- CV -->
+<section id="cv-section">
+  <div class="cv-header reveal">
+    <span class="cv-label">Curriculum Vitae</span>
+  </div>
+  <div class="cv-img-wrap reveal" style="--delay:80ms">
+    <img src="assets/images/about/cv-photo.jpg" alt="CV — Tristan Raoult" />
+  </div>
+</section>
+
+<!-- EXPÉRIENCE -->
+<section class="section-wrap" id="experience">
+  <span class="section-label reveal">Expérience</span>
+  <div class="timeline">
+
+    <div class="tl-item reveal">
+      <div class="tl-period">2023 — 2025<em>Marquons</em></div>
+      <div class="tl-content">
+        <h3 class="tl-title">Workshops &amp; Réalisations</h3>
+        <p class="tl-sub">Bordeaux Média · Châteaux Coufran &amp; Verdignan · Garorock</p>
+        <ul class="tl-list">
+          <li>Création de chartes graphiques</li>
+          <li>Analyse de cibles &amp; repositionnement de marque</li>
+          <li>Communication événementielle</li>
+          <li>Réalisation et montage vidéo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-period">Avr. 2025 — Juin 2025<em>L'histoire</em></div>
+      <div class="tl-content">
+        <h3 class="tl-title">Graphiste &amp; Motion Designer</h3>
+        <p class="tl-sub">Stage — OwlBlack</p>
+        <ul class="tl-list">
+          <li>Création de logos, mockups et vidéos en motion design pour divers clients de l'agence</li>
+          <li>Animation et montage sur After Effects &amp; Premiere Pro</li>
+          <li>Participation à des tournages photo/vidéo et direction artistique</li>
+          <li>Réalisation de contenus web et réseaux sociaux</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-period">2024 — Présent<em>Ensemble</em></div>
+      <div class="tl-content">
+        <h3 class="tl-title">Gloomy Graphic &amp; Focus Podcast</h3>
+        <p class="tl-sub">Projets personnels</p>
+        <ul class="tl-list">
+          <li>Conception des logos et animations des deux projets</li>
+          <li>Direction artistique et création visuelle complète</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-period">2024 — Présent</div>
+      <div class="tl-content">
+        <h3 class="tl-title">Graphiste Freelance</h3>
+        <p class="tl-sub">Missions indépendantes</p>
+        <div class="tl-freelance">
+          <div>
+            <p class="tl-freelance-client">Hold CD</p>
+            <p class="tl-freelance-desc">Création d'une plaquette commerciale A4 recto/verso adaptée au site web de l'entreprise, dans le respect des délais et des codes graphiques.</p>
+          </div>
+          <div>
+            <p class="tl-freelance-client">CCCF — Confédération des Chocolatiers &amp; Confiseurs de France</p>
+            <p class="tl-freelance-desc">Réalisation de deux flyers alignés avec l'identité visuelle, livrés sous deadline de 2 jours.</p>
+          </div>
+          <div>
+            <p class="tl-freelance-client">Juriactes</p>
+            <p class="tl-freelance-desc">Vidéo de présentation complète pour un salon professionnel — script, storyboard sur Illustrator, animation sur After Effects et export final.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section class="section-wrap" id="education">
+  <span class="section-label reveal">Formation</span>
+  <div class="timeline">
+
+    <div class="tl-item reveal">
+      <div class="tl-period">2023 — 2028</div>
+      <div class="tl-content">
+        <h3 class="tl-title">Master Cycle Marketing et Communication Digital et Design</h3>
+        <p class="tl-sub">ISEGCOM Bordeaux — 3ème année</p>
+        <ul class="tl-list">
+          <li>Marketing Digital</li>
+          <li>Design</li>
+          <li>Communication</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-period">2020 — 2023</div>
+      <div class="tl-content">
+        <h3 class="tl-title">BAC Général — Avec mention</h3>
+        <p class="tl-sub">Lycée Largente</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section class="section-wrap" id="skills">
+  <span class="section-label reveal">Compétences &amp; Outils</span>
+  <div class="skills-grid">
+    <span class="skill-tag reveal" style="--delay:0ms">Adobe Illustrator</span>
+    <span class="skill-tag reveal" style="--delay:40ms">Adobe Photoshop</span>
+    <span class="skill-tag reveal" style="--delay:80ms">After Effects</span>
+    <span class="skill-tag reveal" style="--delay:120ms">Premiere Pro</span>
+    <span class="skill-tag reveal" style="--delay:160ms">Lightroom</span>
+    <span class="skill-tag reveal" style="--delay:200ms">Motion Design</span>
+    <span class="skill-tag reveal" style="--delay:240ms">Identité Visuelle</span>
+    <span class="skill-tag reveal" style="--delay:280ms">Direction Artistique</span>
+    <span class="skill-tag reveal" style="--delay:320ms">Montage Vidéo</span>
+    <span class="skill-tag reveal" style="--delay:360ms">Packaging</span>
+    <span class="skill-tag reveal" style="--delay:400ms">Stratégie de Marque</span>
+    <span class="skill-tag reveal" style="--delay:440ms">Communication Digitale</span>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="clip-outer">
+    <p class="cta-text clip-inner">Let's work together.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="ft-cols">
+    <div class="ft-col reveal" style="--delay:0ms">
+      <p class="ft-col-head">Sitemap</p>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:80ms">
+      <p class="ft-col-head">Work</p>
+      <ul>
+        <li><a href="projects/fizzi.html">Fizzi</a></li>
+        <li><a href="projects/focus.html">Focus</a></li>
+        <li><a href="projects/glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="projects/motion-design.html">Motion Design</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:160ms">
+      <p class="ft-col-head">Contact</p>
+      <ul>
+        <li><a href="mailto:tristan.raoult62@gmail.com">↗ Email</a></li>
+        <li><a href="https://www.instagram.com/gloomygraphic/" target="_blank">↗ Instagram</a></li>
+        <li><a href="tel:+33768665558">↗ 07 68 66 55 58</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="clip-outer" style="--delay:100ms">
+    <div class="ft-wordmark clip-inner">Tristan Raoult</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal, .clip-outer').forEach(el => io.observe(el));
+})();
+
+/* Hamburger */
+document.getElementById('nav-burger').addEventListener('click', function() {
+  document.querySelector('nav').classList.toggle('menu-open');
+});
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    document.querySelector('nav').classList.remove('menu-open');
+  });
+});
+</script>
+</body>
+</html>

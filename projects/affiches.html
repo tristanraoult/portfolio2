@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://tristanraoult.github.io/portfolio/favicon.png" />
+  <title>Affiches – Tristan Raoult</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Fragment+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #141517; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    ::-webkit-scrollbar { display: none; } * { scrollbar-width: none; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; position: relative; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .nav-links a:hover::after { width: 100%; }
+    #proj-hero { height: 100vh; overflow: hidden; background: #0a0a0a; position: sticky; top: 0; z-index: 0; }
+    #proj-hero img { width: 100%; height: 100%; object-fit: cover; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+    @keyframes heroZoom { from { transform: scale(1.08); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pi-left { padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
+    .pi-right { padding: 80px 48px; }
+    .proj-title { font-size: clamp(40px, 5.5vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: #fff; position: sticky; top: 88px; }
+    .pi-meta-row { display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); gap: 24px; }
+    .pi-meta-label { width: 130px; flex-shrink: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+    .pi-meta-val { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.5; }
+    .pi-desc { margin-top: 40px; font-size: 16px; line-height: 1.85; color: rgba(255,255,255,0.5); }
+    /* Full-width sans rognage */
+    .pc-full--auto { overflow: hidden; background: #0d0d0f; }
+    .pc-full--auto img { width: 100%; height: auto; display: block; }
+    /* Grille 2 colonnes — affiches pleine proportion */
+    .pc-poster-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #141517; }
+    .pc-poster-item { overflow: hidden; background: #0d0d0f; }
+    .pc-poster-item img { width: 100%; height: auto; display: block; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+    .pc-poster-item:hover img { transform: scale(1.03); }
+    /* Section header */
+    .pc-section-head { display: flex; justify-content: space-between; align-items: baseline; padding: 20px 48px; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pc-section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    /* Bloc texte simple */
+    .pc-text-block { padding: 64px 48px; border-bottom: 1px solid rgba(255,255,255,0.08); display: grid; grid-template-columns: 5fr 7fr; gap: 80px; }
+    .pc-text-block-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.22); display: block; margin-bottom: 24px; }
+    .pc-text-block p { font-size: 17px; line-height: 1.85; color: rgba(255,255,255,0.52); }
+    .pc-text-block p + p { margin-top: 16px; }
+    @media (max-width: 900px) {
+      .pc-text-block { grid-template-columns: 1fr; gap: 0; padding: 48px 20px; }
+      .pc-poster-grid { grid-template-columns: 1fr; }
+    }
+    #next-projects { padding: 80px 48px 100px; }
+    .np-head { padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 40px; }
+    .np-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .np-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .np-card { text-decoration: none; color: inherit; display: block; }
+    .np-thumb { position: relative; padding-bottom: 70%; overflow: hidden; background: #0d0d0f; margin-bottom: 16px; }
+    .np-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+    .np-card:hover .np-thumb img { transform: scale(1.05); }
+    .np-card-title { font-size: 16px; font-weight: 600; color: #fff; letter-spacing: -0.01em; margin-bottom: 5px; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .np-card:hover .np-card-title { transform: translateX(6px); }
+    .np-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
+    #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
+    .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
+    .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+    .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ft-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .ft-col a:hover { color: #fff; transform: translateX(6px); }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
+    @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
+    .clip-outer { overflow: hidden; display: block; }
+    .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .clip-outer.in-view .clip-inner { transform: translateY(0); }
+    .proj-content { position: relative; z-index: 1; background: #141517; }
+    .pc-row--reverse .pc-text { border-right: none; border-left: 1px solid rgba(255,255,255,0.08); }
+
+    .nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; position: relative; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s; }
+    nav.menu-open .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+    nav.menu-open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 900px) {
+      nav { padding: 20px; } .nav-links { display: none; }
+      .nav-burger { display: flex; flex-direction: column; }
+      .nav-links { display: none !important; flex-direction: column !important; position: fixed; inset: 0; background: rgba(14,15,17,0.98); z-index: 190; align-items: center; justify-content: center; gap: 44px; }
+      nav.menu-open .nav-links { display: flex !important; }
+      nav.menu-open .nav-links a { font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.8); }
+      #page-header { padding: 120px 20px 50px; } .pi-left { padding: 60px 20px; } .pi-right { padding: 60px 20px; }
+      #proj-info { grid-template-columns: 1fr; }
+      .pi-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 60px 20px; }
+      .pi-right { padding: 60px 20px; }
+      .proj-title { position: static; font-size: 48px; }
+      .pc-row { grid-template-columns: 1fr; }
+      .pc-text { position: static; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; }
+      .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
+      #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
+      #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
+    }
+    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">Tristan Raoult</a>
+  <ul class="nav-links">
+    <li><a href="../work.html">Work</a></li>
+    <li><a href="../index.html#index-section">Index</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section id="proj-hero">
+  <img src="../assets/images/affiches/mockups/urban.png" alt="Affiches" />
+</section>
+
+<div class="proj-content">
+
+<section id="proj-info">
+  <div class="pi-left">
+    <div class="clip-outer" style="--delay:0ms">
+      <h1 class="proj-title clip-inner">Affiches</h1>
+    </div>
+  </div>
+  <div class="pi-right">
+    <div class="pi-meta-row reveal" style="--delay:0ms">
+      <span class="pi-meta-label">Catégories</span>
+      <span class="pi-meta-val">Graphic Design</span>
+    </div>
+    <div class="pi-meta-row reveal" style="--delay:60ms">
+      <span class="pi-meta-label">Client</span>
+      <span class="pi-meta-val">Personnel / Freelance</span>
+    </div>
+    <div class="pi-meta-row reveal" style="--delay:120ms">
+      <span class="pi-meta-label">Services</span>
+      <span class="pi-meta-val">Conception Graphique · Direction Artistique</span>
+    </div>
+    <div class="pi-meta-row reveal" style="--delay:180ms">
+      <span class="pi-meta-label">Année</span>
+      <span class="pi-meta-val">2024</span>
+    </div>
+    <p class="pi-desc reveal" style="--delay:260ms">Série d'affiches graphiques explorant différents univers visuels — typographie, illustration et composition au service d'un propos. Chaque pièce est une expérimentation autonome qui nourrit et affine mon langage visuel.</p>
+  </div>
+</section>
+
+<!-- ─── AFFICHES ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Affiches</span>
+</div>
+
+<div class="pc-text-block reveal">
+  <div></div>
+  <div>
+    <span class="pc-text-block-label">Composition &amp; Typographie</span>
+    <p>Chaque affiche est pensée comme un objet autonome, avec ses propres codes visuels et son propre équilibre. La typographie y joue un rôle central, structurant l'image autant qu'elle la compose.</p>
+    <p>Les influences vont du design graphique suisse aux affiches de cinéma, en passant par l'illustration contemporaine. Des univers variés au service d'un propos toujours singulier.</p>
+  </div>
+</div>
+
+<!-- Nike — pleine largeur -->
+<div class="pc-full--auto reveal-scale">
+  <img src="../assets/images/affiches/nike.png" alt="Affiches – Nike" />
+</div>
+
+<!-- Clouds + Fish -->
+<div class="pc-poster-grid reveal-scale">
+  <div class="pc-poster-item"><img src="../assets/images/affiches/clouds.png" alt="Affiches – Clouds" /></div>
+  <div class="pc-poster-item"><img src="../assets/images/affiches/fish.png" alt="Affiches – Fish" /></div>
+</div>
+
+<!-- Joker + Flower -->
+<div class="pc-poster-grid reveal-scale">
+  <div class="pc-poster-item"><img src="../assets/images/affiches/joker.png" alt="Affiches – Joker" /></div>
+  <div class="pc-poster-item"><img src="../assets/images/affiches/flower.png" alt="Affiches – Flower" /></div>
+</div>
+
+<!-- Robot + Zoologie -->
+<div class="pc-poster-grid reveal-scale">
+  <div class="pc-poster-item"><img src="../assets/images/affiches/robot.png" alt="Affiches – Robot" /></div>
+  <div class="pc-poster-item"><img src="../assets/images/affiches/zoologie.png" alt="Affiches – Zoologie" /></div>
+</div>
+
+<!-- Sand + Sand-rose -->
+<div class="pc-poster-grid reveal-scale">
+  <div class="pc-poster-item"><img src="../assets/images/affiches/sand.jpg" alt="Affiches – Sand" /></div>
+  <div class="pc-poster-item"><img src="../assets/images/affiches/sand-rose.jpg" alt="Affiches – Sand Rose" /></div>
+</div>
+
+<!-- ─── MISES EN SITUATION ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Mises en situation</span>
+</div>
+
+<div class="pc-text-block reveal">
+  <div></div>
+  <div>
+    <span class="pc-text-block-label">Mockups &amp; Application</span>
+    <p>Les affiches prennent vie dans des contextes réels : affichage urbain, cadres intérieurs, impression grand format. Ces mises en situation permettent de valider la lisibilité et l'impact visuel de chaque pièce à l'échelle.</p>
+  </div>
+</div>
+
+<!-- Mockup lifestyle — pleine largeur -->
+<div class="pc-full--auto reveal-scale">
+  <img src="../assets/images/affiches/mockups/lifestyle.png" alt="Affiches – Lifestyle" />
+</div>
+
+<!-- Mockup urban — pleine largeur -->
+<div class="pc-full--auto reveal-scale">
+  <img src="../assets/images/affiches/mockups/urban.png" alt="Affiches – Urban" />
+</div>
+
+<section id="next-projects">
+  <div class="np-head reveal">
+    <span class="np-label">Next Projects</span>
+  </div>
+  <div class="np-grid">
+    <a href="glumi-graphic.html" class="np-card reveal-scale" style="--delay:0ms">
+      <div class="np-thumb"><img src="../assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" /></div>
+      <p class="np-card-title">Gloomy Graphic</p>
+      <p class="np-card-cat">Identity, Motion</p>
+    </a>
+    <a href="motion-design.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb"></div>
+      <p class="np-card-title">Motion Design</p>
+      <p class="np-card-cat">Motion Design</p>
+    </a>
+    <a href="fizzi.html" class="np-card reveal-scale" style="--delay:160ms">
+      <div class="np-thumb"><img src="../assets/images/fizzi/cans-group.png" alt="Fizzi" /></div>
+      <p class="np-card-title">Fizzi</p>
+      <p class="np-card-cat">Brand Identity</p>
+    </a>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="clip-outer">
+    <p class="cta-text clip-inner">Let's work together.</p>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="ft-cols">
+    <div class="ft-col reveal" style="--delay:0ms">
+      <p class="ft-col-head">Sitemap</p>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../work.html">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:80ms">
+      <p class="ft-col-head">Work</p>
+      <ul>
+        <li><a href="fizzi.html">Fizzi</a></li>
+        <li><a href="focus.html">Focus</a></li>
+        <li><a href="glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="affiches.html">Affiches</a></li>
+        <li><a href="motion-design.html">Motion Design</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="montage.html">Montage</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:160ms">
+      <p class="ft-col-head">Contact</p>
+      <ul>
+        <li><a href="mailto:tristan.raoult62@gmail.com">↗ Email</a></li>
+        <li><a href="https://www.instagram.com/gloomygraphic/" target="_blank">↗ Instagram</a></li>
+        <li><a href="tel:+33768665558">↗ 07 68 66 55 58</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="clip-outer" style="--delay:100ms">
+    <div class="ft-wordmark clip-inner">Tristan Raoult</div>
+  </div>
+</footer>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:1000;cursor:zoom-out;align-items:center;justify-content:center;padding:20px;">
+  <img id="lb-img" style="max-width:95vw;max-height:95vh;object-fit:contain;display:block;border-radius:2px;" />
+  <button id="lb-close" style="position:absolute;top:20px;right:28px;background:none;border:none;color:rgba(255,255,255,0.7);font-size:36px;line-height:1;cursor:pointer;padding:4px 10px;transition:color .2s;">×</button>
+</div>
+
+<script>
+(function () {
+  /* Scroll reveal */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal, .reveal-scale, .clip-outer').forEach(el => io.observe(el));
+
+  /* Lightbox */
+  const lb   = document.getElementById('lb');
+  const lbImg = document.getElementById('lb-img');
+
+  function open(src) {
+    lbImg.src = src;
+    lb.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    lb.style.display = 'none';
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  /* Rendre cliquables toutes les images sauf le hero */
+  document.querySelectorAll('.pc-poster-item img, .pc-full--auto img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => open(img.src));
+  });
+
+  lb.addEventListener('click', close);
+  document.getElementById('lb-close').addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+})();
+
+/* Hamburger */
+document.getElementById('nav-burger').addEventListener('click', function() {
+  document.querySelector('nav').classList.toggle('menu-open');
+});
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    document.querySelector('nav').classList.remove('menu-open');
+  });
+});
+</script>
+</body>
+</html>
