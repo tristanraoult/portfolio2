@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="https://tristanraoult.github.io/portfolio/favicon.png" />
-  <title>Focus – Tristan Raoult</title>
+  <title>Stage Owlblack – Tristan Raoult</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Fragment+Mono&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,8 +19,8 @@
     .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
     .nav-links a:hover::after { width: 100%; }
 
-    #proj-hero { height: 100vh; overflow: hidden; background: #0d0b12; position: sticky; top: 0; z-index: 0; display: flex; align-items: center; justify-content: center; }
-    #proj-hero img { width: 100%; height: 100%; object-fit: contain; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+    #proj-hero { height: 100vh; overflow: hidden; background: #0a0a0a; position: sticky; top: 0; z-index: 0; display: flex; align-items: center; justify-content: center; }
+    .hero-logo { font-size: clamp(80px, 14vw, 180px); font-weight: 900; letter-spacing: -0.05em; color: rgba(255,255,255,0.06); user-select: none; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
     @keyframes heroZoom { from { transform: scale(1.08); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
@@ -35,13 +35,13 @@
     /* Section header */
     .pc-section-head { display: flex; justify-content: space-between; align-items: baseline; padding: 20px 48px; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
     .pc-section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .pc-section-count { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.22); }
 
     /* Full-width */
     .pc-full { overflow: hidden; background: #0d0d0f; }
     .pc-full img { width: 100%; display: block; max-height: 85vh; object-fit: cover; }
     .pc-full--auto { overflow: hidden; background: #0d0d0f; }
     .pc-full--auto img { width: 100%; height: auto; display: block; }
-    /* Full-width avec respiration — évite que les bords soient coupés */
     .pc-full--inset { overflow: hidden; background: #0d0d0f; padding: 52px 80px; }
     .pc-full--inset img { width: 100%; height: auto; display: block; }
 
@@ -59,6 +59,15 @@
     .pc-img:last-child { border-bottom: none; }
     .pc-img img { width: 100%; display: block; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
     .pc-img:hover img { transform: scale(1.03); }
+
+    /* Grid 2 colonnes */
+    .pc-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #141517; }
+
+    /* Placeholder image slot */
+    .pc-placeholder { background: #0d0d0f; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
+    .pc-placeholder--sq { aspect-ratio: 1/1; }
+    .pc-placeholder--port { aspect-ratio: 3/4; }
+    .pc-placeholder span { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.1); }
 
     /* Next projects */
     #next-projects { padding: 80px 48px 100px; }
@@ -113,6 +122,7 @@
       .pc-section-head { padding: 16px 20px; }
       .pc-row { grid-template-columns: 1fr; direction: ltr; }
       .pc-text { position: static; border-right: none !important; border-left: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; }
+      .pc-grid-2 { grid-template-columns: 1fr; }
       .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
       #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
       #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
@@ -132,8 +142,9 @@
   <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
+<!-- Hero sombre — logo en filigrane -->
 <section id="proj-hero">
-  <img src="../assets/images/focus/focus.png" alt="Focus" />
+  <span class="hero-logo">Owlblack</span>
 </section>
 
 <div class="proj-content">
@@ -141,117 +152,165 @@
 <section id="proj-info">
   <div class="pi-left">
     <div class="clip-outer" style="--delay:0ms">
-      <h1 class="proj-title clip-inner">Focus</h1>
+      <h1 class="proj-title clip-inner">Stage<br>Owlblack</h1>
     </div>
   </div>
   <div class="pi-right">
     <div class="pi-meta-row reveal" style="--delay:0ms">
       <span class="pi-meta-label">Catégories</span>
-      <span class="pi-meta-val">Brand Identity · Direction Artistique</span>
+      <span class="pi-meta-val">Identité Visuelle · Print · Motion · Web</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:60ms">
       <span class="pi-meta-label">Client</span>
-      <span class="pi-meta-val">Projet Personnel</span>
+      <span class="pi-meta-val">Owlblack</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:120ms">
       <span class="pi-meta-label">Services</span>
-      <span class="pi-meta-val">Logo · Affiches · Goodies · Site Web</span>
+      <span class="pi-meta-val">Design Graphique · Motion Design · Direction Artistique</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:180ms">
-      <span class="pi-meta-label">Année</span>
-      <span class="pi-meta-val">2025 — 2026</span>
+      <span class="pi-meta-label">Durée</span>
+      <span class="pi-meta-val">8 semaines — Avr–Juin 2025</span>
     </div>
-    <p class="pi-desc reveal" style="--delay:260ms">FOCUS est un podcast entre création et psychologie. Des conversations profondes avec des créateurs autour de leur parcours, leurs doutes et leur vision. Chaque épisode donne naissance à une affiche de collection, objet tangible qui matérialise l'idée forte de l'échange. Projet co-créé avec Loli Martinez, présenté au Concours Open ISEG 2026.</p>
+    <p class="pi-desc reveal" style="--delay:260ms">Stage de 8 semaines au sein de l'agence OwlBlack à Anglet (Pays Basque) — graphisme, motion design, montage vidéo et photographie pour une clientèle locale de TPE, PME et startups.</p>
   </div>
 </section>
 
-<!-- ─────────────────────────────── CONCEPT ─── -->
+<!-- ─── TRAVAUX ─── -->
 <div class="pc-section-head reveal">
-  <span class="pc-section-title">Concept</span>
+  <span class="pc-section-title">Travaux réalisés</span>
+  <span class="pc-section-count">(6 missions)</span>
 </div>
 
-<!-- Image panoramique pleine largeur — dezoom -->
-<div class="pc-full--inset reveal-scale">
-  <img src="../assets/images/focus/sticker.png" alt="Focus – Logo principal" />
-</div>
-
-<!-- Concept — texte + logo variantes -->
-<div class="pc-row pc-row--reverse">
+<!-- 01 — Identité & Graphisme -->
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">01 — Identité & Graphisme</span>
+    <p>Création d'un logo pour un épaviste automobile de Bayonne-Anglet — identité originale intégrant une croix basque stylisée en forme de crochet de remorquage, clin d'œil local tout en évoquant l'activité de dépannage. Réalisé sur Adobe Illustrator.</p>
+    <p>Mockups pour Les Ateliers du Toit (rénovation toitures) et Termitator (traitement termites) — photomontages réalistes conçus sans template sous Photoshop, intégrés au portfolio et aux réseaux sociaux de l'agence.</p>
+  </div>
   <div class="pc-imgs">
-    <div class="pc-img reveal-scale">
-      <img src="../assets/images/focus/logo-2.png" alt="Focus – Logo variante" />
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Logo Épaviste</span></div>
     </div>
-  </div>
-  <div class="pc-text reveal">
-    <span class="pc-text-label">Le Concept</span>
-    <p>Notre société va toujours plus vite. Tout ce que l'on consomme, on l'oublie. FOCUS est né du besoin de revenir aux sources : comprendre non pas le comment de la création, mais le pourquoi. Pourquoi créons-nous ?</p>
-    <p>À chaque épisode, un invité du monde créatif. On parle de doutes, de processus, d'intentions. Et à la fin de chaque épisode, on sort une affiche. L'idée : graver les mots dans quelque chose de concret, transformer une réflexion éphémère en objet mémorable.</p>
-  </div>
-</div>
-
-<!-- ─────────────────────────────── LOGO ─── -->
-<div class="pc-section-head reveal">
-  <span class="pc-section-title">Logo</span>
-</div>
-
-<!-- Logo pleine largeur — dezoom -->
-<div class="pc-full--inset reveal-scale">
-  <img src="../assets/images/focus/logo-3.png" alt="Focus – Logo" />
-</div>
-
-<!-- Logo — texte + sticker -->
-<div class="pc-row">
-  <div class="pc-text reveal">
-    <span class="pc-text-label">Identité Visuelle</span>
-    <p>Le logo FOCUS s'inscrit dans la continuité de l'univers GloomyGraphic : une typographie organique, fluide et volontairement déformée, inspirée d'une esthétique pop et expressive. Les deux O sont transformés en yeux, traduisant l'idée de concentration, d'observation et d'introspection au coeur du projet.</p>
-    <p>Ce regard devient la signature visuelle centrale de FOCUS, facilement déclinable sur les affiches, les stickers et le porte-clé de la gamme.</p>
-  </div>
-  <div class="pc-imgs">
-    <div class="pc-img reveal-scale">
-      <img src="../assets/images/focus/sticker-2.png" alt="Focus – Sticker" />
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Mockups Clients</span></div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────── DIRECTION ARTISTIQUE ─── -->
-<div class="pc-section-head reveal">
-  <span class="pc-section-title">Direction Artistique</span>
-</div>
-
-<!-- Image pleine largeur — dezoom -->
-<div class="pc-full--inset reveal-scale">
-  <img src="../assets/images/focus/sticker-4.png" alt="Focus – Déclinaison couleur" />
-</div>
-
-<!-- DA — texte + sticker -->
-<div class="pc-row pc-row--reverse">
+<!-- 02 — Print -->
+<div class="pc-row pc-row--reverse reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">02 — Print</span>
+    <p>Carte de visite pour Café Boez (coffee shop local) — design et mise en situation réaliste sous Photoshop. Apprentissage des contraintes d'impression avec Julien : CMJN, 300 DPI, PDF haute qualité, polices vectorisées.</p>
+    <p>Triptyques Instagram : division d'un visuel panoramique en trois posts carrés formant un ensemble cohérent sur la grille du profil — format appliqué à plusieurs clients pour valoriser les réalisations web de l'agence.</p>
+  </div>
   <div class="pc-imgs">
-    <div class="pc-img reveal-scale">
-      <img src="../assets/images/focus/sticker-3.png" alt="Focus – Déclinaison" />
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Carte de visite Café Boez</span></div>
+    </div>
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:16/9"><span>Triptyque Instagram</span></div>
     </div>
   </div>
-  <div class="pc-text reveal">
-    <span class="pc-text-label">Direction Artistique</span>
-    <p>L'univers visuel repose sur un dark mode profond avec un violet intense comme couleur signature. Ce violet incarne la dimension mentale du projet : l'introspection, la concentration et le mystère du processus créatif. En light mode, il devient orange, une couleur plus humaine qui symbolise l'énergie et l'inspiration.</p>
-    <p>Le site a été entièrement codé à la main en HTML, CSS et JavaScript, conçu comme une galerie d'art numérique avec des micro-interactions, des effets de glassmorphism et un curseur personnalisé.</p>
-  </div>
 </div>
 
-<!-- ─────────────────────────────── AFFICHES ─── -->
+<!-- ─── MOTION DESIGN ─── -->
 <div class="pc-section-head reveal">
-  <span class="pc-section-title">Affiches de Collection</span>
+  <span class="pc-section-title">Motion Design</span>
+  <span class="pc-section-count">(3)</span>
 </div>
 
-<!-- Affiches — texte seul pleine largeur -->
-<div class="pc-row" style="grid-template-columns: 1fr">
-  <div class="pc-text reveal">
-    <span class="pc-text-label">Affiches &amp; Goodies</span>
-    <p>Les affiches sont la seconde dimension de FOCUS. Après chaque épisode, une affiche est créée à partir de l'idée forte de la conversation. Séries limitées, imprimées sur papier 350g mat, numérotées et accompagnées d'un certificat d'authenticité et de stickers.</p>
-    <p>L'objectif est de transformer une réflexion souvent éphémère en objet tangible et mémorable, et de créer un lien durable entre l'auditeur et la communauté FOCUS.</p>
+<div class="pc-full reveal-scale">
+  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Vidéo SEO — OwlBlack</span></div>
+</div>
+
+<!-- 03 — SEO & SEA -->
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">03 — OwlBlack</span>
+    <p>Vidéo pédagogique "Le SEO expliqué par OwlBlack" — script rédigé après formation interne SEO, illustrations sur mesure, animation sous After Effects, voix-off enregistrée, montage final sur Premiere Pro. Diffusée sur le site de l'agence.</p>
+    <p>Suite avec une vidéo SEA (Search Engine Advertising) reprenant la même identité visuelle et le même style pédagogique — deux capsules formant une mini-série éducative sur le marketing digital.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:16/9"><span>Frame — Vidéo SEO</span></div>
+    </div>
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:16/9"><span>Vidéo SEA</span></div>
+    </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────── NEXT PROJECTS ─── -->
+<!-- 04 — Juriactes -->
+<div class="pc-row pc-row--reverse reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">04 — Juriactes</span>
+    <p>Vidéo promotionnelle pour Juriactes, startup legaltech d'automatisation de documents juridiques. Script narratif, storyboard plan par plan sur Illustrator, animation scène par scène sous After Effects — livrée en HD pour projection lors d'un salon professionnel.</p>
+    <p>Direction artistique complète : palette de couleurs, pictogrammes sur mesure (balance, documents, chronomètre), synchronisation voix-off et musique dynamique. Retour très positif du client à la présentation.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Storyboard Juriactes</span></div>
+    </div>
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:16/9"><span>Vidéo Juriactes</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TOURNAGE & MONTAGE ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Tournage & Montage</span>
+  <span class="pc-section-count">(2)</span>
+</div>
+
+<div class="pc-full reveal-scale">
+  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Clip Promo Nouveau — Bayonne & Biarritz</span></div>
+</div>
+
+<!-- 05 — Nouveau -->
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">05 — Nouveau (streetwear)</span>
+    <p>Clip promotionnel pour la marque de streetwear Nouveau — tournage d'une journée complète à Bayonne et Biarritz avec 3 mannequins, plusieurs décors emblématiques des deux villes. Assistant vidéaste et photographe sur le terrain.</p>
+    <p>Montage sous Premiere Pro : étalonnage colorimétrique vintage (grain pellicule, cadre 8mm), transitions créatives entre mannequins, animation du logo sur After Effects. Clip diffusé sur les réseaux sociaux avec fort engagement.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:3/2"><span>Shooting Bayonne</span></div>
+    </div>
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:3/2"><span>Shooting Biarritz</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PHOTOGRAPHIE ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Photographie</span>
+  <span class="pc-section-count">(1)</span>
+</div>
+
+<!-- 06 — Chevaux Curly -->
+<div class="pc-row pc-row--reverse reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">06 — Chevaux Curly</span>
+    <p>Shooting photo et vidéo dans un ranch au Pays Basque pour alimenter les réseaux sociaux d'un éleveur de chevaux Curly — une race rare aux crins bouclés. Plans terrestres et aériens (drone), interview filmée de la propriétaire.</p>
+    <p>Pratique des réglages techniques en conditions réelles : ouverture, vitesse d'obturation et ISO adaptés à des sujets en mouvement dans une lumière changeante.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:3/2"><span>Chevaux Curly — Plans Terrain</span></div>
+    </div>
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:3/2"><span>Vue Drone</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NEXT PROJECTS ─── -->
 <section id="next-projects">
   <div class="np-head reveal">
     <span class="np-label">Next Projects</span>
@@ -262,10 +321,10 @@
       <p class="np-card-title">Fizzi</p>
       <p class="np-card-cat">Brand Identity</p>
     </a>
-    <a href="glumi-graphic.html" class="np-card reveal-scale" style="--delay:80ms">
-      <div class="np-thumb"><img src="../assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" /></div>
-      <p class="np-card-title">Gloomy Graphic</p>
-      <p class="np-card-cat">Identity, Motion</p>
+    <a href="focus.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb"><img src="../assets/images/focus/focus.png" alt="Focus" /></div>
+      <p class="np-card-title">Focus</p>
+      <p class="np-card-cat">Brand Identity</p>
     </a>
     <a href="affiches.html" class="np-card reveal-scale" style="--delay:160ms">
       <div class="np-thumb"><img src="../assets/images/affiches/mockups/urban.png" alt="Affiches" /></div>

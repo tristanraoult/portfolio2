@@ -71,8 +71,17 @@
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
     .proj-content { position: relative; z-index: 1; background: #141517; }
     .pc-row--reverse .pc-text { border-right: none; border-left: 1px solid rgba(255,255,255,0.08); }
+    .nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; position: relative; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s; }
+    nav.menu-open .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+    nav.menu-open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     @media (max-width: 900px) {
-      nav { padding: 20px; } .nav-links { display: none; }
+      nav { padding: 20px; }
+      .nav-burger { display: flex; flex-direction: column; }
+      .nav-links { flex-direction: column; position: fixed; inset: 0; background: rgba(14,15,17,0.98); z-index: 190; align-items: center; justify-content: center; gap: 44px; opacity: 0; pointer-events: none; transition: opacity 0.28s ease; }
+      nav.menu-open .nav-links { opacity: 1; pointer-events: auto; }
+      nav.menu-open .nav-links a { font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.8); }
       #proj-info { grid-template-columns: 1fr; }
       .pi-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 60px 20px; }
       .pi-right { padding: 60px 20px; }
@@ -95,6 +104,7 @@
     <li><a href="../about.html">About</a></li>
     <li><a href="../contact.html">Contact</a></li>
   </ul>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <section id="proj-hero">
@@ -201,6 +211,9 @@
         <li><a href="motion-design.html">Motion Design</a></li>
         <li><a href="photography.html">Photography</a></li>
         <li><a href="montage.html">Montage</a></li>
+        <li><a href="stage.html">Stage Owlblack</a></li>
+        <li><a href="freelance.html">Freelance</a></li>
+        <li><a href="workshops.html">Workshops</a></li>
       </ul>
     </div>
     <div class="ft-col reveal" style="--delay:160ms">
@@ -225,6 +238,16 @@
   }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
   document.querySelectorAll('.reveal, .reveal-scale, .clip-outer').forEach(el => io.observe(el));
 })();
+document.getElementById('nav-burger').addEventListener('click', function() {
+  var open = document.querySelector('nav').classList.toggle('menu-open');
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    document.querySelector('nav').classList.remove('menu-open');
+    document.body.style.overflow = '';
+  });
+});
 </script>
 </body>
 </html>

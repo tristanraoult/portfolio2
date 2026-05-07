@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="https://tristanraoult.github.io/portfolio/favicon.png" />
-  <title>Focus – Tristan Raoult</title>
+  <title>Workshops – Tristan Raoult</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Fragment+Mono&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,8 +19,8 @@
     .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
     .nav-links a:hover::after { width: 100%; }
 
-    #proj-hero { height: 100vh; overflow: hidden; background: #0d0b12; position: sticky; top: 0; z-index: 0; display: flex; align-items: center; justify-content: center; }
-    #proj-hero img { width: 100%; height: 100%; object-fit: contain; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+    #proj-hero { height: 100vh; overflow: hidden; background: #0a0a0a; position: sticky; top: 0; z-index: 0; display: flex; align-items: center; justify-content: center; }
+    .hero-logo { font-size: clamp(80px, 14vw, 180px); font-weight: 900; letter-spacing: -0.05em; color: rgba(255,255,255,0.06); user-select: none; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
     @keyframes heroZoom { from { transform: scale(1.08); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
@@ -32,20 +32,17 @@
     .pi-meta-val { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.5; }
     .pi-desc { margin-top: 40px; font-size: 16px; line-height: 1.85; color: rgba(255,255,255,0.5); }
 
-    /* Section header */
     .pc-section-head { display: flex; justify-content: space-between; align-items: baseline; padding: 20px 48px; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
     .pc-section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .pc-section-count { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.22); }
 
-    /* Full-width */
     .pc-full { overflow: hidden; background: #0d0d0f; }
     .pc-full img { width: 100%; display: block; max-height: 85vh; object-fit: cover; }
     .pc-full--auto { overflow: hidden; background: #0d0d0f; }
     .pc-full--auto img { width: 100%; height: auto; display: block; }
-    /* Full-width avec respiration — évite que les bords soient coupés */
     .pc-full--inset { overflow: hidden; background: #0d0d0f; padding: 52px 80px; }
     .pc-full--inset img { width: 100%; height: auto; display: block; }
 
-    /* Colonne texte + images */
     .pc-row { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .pc-row--reverse { direction: rtl; }
     .pc-row--reverse > * { direction: ltr; }
@@ -60,7 +57,12 @@
     .pc-img img { width: 100%; display: block; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
     .pc-img:hover img { transform: scale(1.03); }
 
-    /* Next projects */
+    .pc-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #141517; }
+
+    .pc-placeholder { background: #0d0d0f; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
+    .pc-placeholder--sq { aspect-ratio: 1/1; }
+    .pc-placeholder span { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.1); }
+
     #next-projects { padding: 80px 48px 100px; }
     .np-head { padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 40px; }
     .np-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
@@ -113,6 +115,7 @@
       .pc-section-head { padding: 16px 20px; }
       .pc-row { grid-template-columns: 1fr; direction: ltr; }
       .pc-text { position: static; border-right: none !important; border-left: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; }
+      .pc-grid-2 { grid-template-columns: 1fr; }
       .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
       #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
       #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
@@ -133,7 +136,7 @@
 </nav>
 
 <section id="proj-hero">
-  <img src="../assets/images/focus/focus.png" alt="Focus" />
+  <span class="hero-logo">Workshops</span>
 </section>
 
 <div class="proj-content">
@@ -141,131 +144,127 @@
 <section id="proj-info">
   <div class="pi-left">
     <div class="clip-outer" style="--delay:0ms">
-      <h1 class="proj-title clip-inner">Focus</h1>
+      <h1 class="proj-title clip-inner">Work­shops</h1>
     </div>
   </div>
   <div class="pi-right">
     <div class="pi-meta-row reveal" style="--delay:0ms">
       <span class="pi-meta-label">Catégories</span>
-      <span class="pi-meta-val">Brand Identity · Direction Artistique</span>
+      <span class="pi-meta-val">Communication · Direction Artistique · Design</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:60ms">
-      <span class="pi-meta-label">Client</span>
-      <span class="pi-meta-val">Projet Personnel</span>
+      <span class="pi-meta-label">Contexte</span>
+      <span class="pi-meta-val">Académique — ISEGCOM</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:120ms">
       <span class="pi-meta-label">Services</span>
-      <span class="pi-meta-val">Logo · Affiches · Goodies · Site Web</span>
+      <span class="pi-meta-val">Communication · Identité · Stratégie Créative</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:180ms">
       <span class="pi-meta-label">Année</span>
-      <span class="pi-meta-val">2025 — 2026</span>
+      <span class="pi-meta-val">2024–2025</span>
     </div>
-    <p class="pi-desc reveal" style="--delay:260ms">FOCUS est un podcast entre création et psychologie. Des conversations profondes avec des créateurs autour de leur parcours, leurs doutes et leur vision. Chaque épisode donne naissance à une affiche de collection, objet tangible qui matérialise l'idée forte de l'échange. Projet co-créé avec Loli Martinez, présenté au Concours Open ISEG 2026.</p>
+    <p class="pi-desc reveal" style="--delay:260ms">Workshops de communication réalisés dans le cadre de l'ISEGCOM — travaux en équipe sur des briefs réels pour des marques, territoires et événements : Bordeaux, châteaux viticoles et Garorock.</p>
   </div>
 </section>
 
-<!-- ─────────────────────────────── CONCEPT ─── -->
+<!-- ─── BORDEAUX ─── -->
 <div class="pc-section-head reveal">
-  <span class="pc-section-title">Concept</span>
+  <span class="pc-section-title">Bordeaux — Marques & Territoires</span>
+  <span class="pc-section-count">(1)</span>
 </div>
 
-<!-- Image panoramique pleine largeur — dezoom -->
-<div class="pc-full--inset reveal-scale">
-  <img src="../assets/images/focus/sticker.png" alt="Focus – Logo principal" />
+<div class="pc-full reveal-scale">
+  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Workshop Bordeaux — Vue d'ensemble</span></div>
 </div>
 
-<!-- Concept — texte + logo variantes -->
-<div class="pc-row pc-row--reverse">
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">01 — Communication territoriale</span>
+    <p>Workshop de communication autour des marques et territoires de Bordeaux — stratégie de communication, direction artistique et productions visuelles pour mettre en valeur l'identité d'un territoire.</p>
+    <p>Réflexion sur le positionnement, les cibles et les supports adaptés à une communication territoriale contemporaine.</p>
+  </div>
   <div class="pc-imgs">
-    <div class="pc-img reveal-scale">
-      <img src="../assets/images/focus/logo-2.png" alt="Focus – Logo variante" />
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Workshop Bordeaux</span></div>
     </div>
-  </div>
-  <div class="pc-text reveal">
-    <span class="pc-text-label">Le Concept</span>
-    <p>Notre société va toujours plus vite. Tout ce que l'on consomme, on l'oublie. FOCUS est né du besoin de revenir aux sources : comprendre non pas le comment de la création, mais le pourquoi. Pourquoi créons-nous ?</p>
-    <p>À chaque épisode, un invité du monde créatif. On parle de doutes, de processus, d'intentions. Et à la fin de chaque épisode, on sort une affiche. L'idée : graver les mots dans quelque chose de concret, transformer une réflexion éphémère en objet mémorable.</p>
-  </div>
-</div>
-
-<!-- ─────────────────────────────── LOGO ─── -->
-<div class="pc-section-head reveal">
-  <span class="pc-section-title">Logo</span>
-</div>
-
-<!-- Logo pleine largeur — dezoom -->
-<div class="pc-full--inset reveal-scale">
-  <img src="../assets/images/focus/logo-3.png" alt="Focus – Logo" />
-</div>
-
-<!-- Logo — texte + sticker -->
-<div class="pc-row">
-  <div class="pc-text reveal">
-    <span class="pc-text-label">Identité Visuelle</span>
-    <p>Le logo FOCUS s'inscrit dans la continuité de l'univers GloomyGraphic : une typographie organique, fluide et volontairement déformée, inspirée d'une esthétique pop et expressive. Les deux O sont transformés en yeux, traduisant l'idée de concentration, d'observation et d'introspection au coeur du projet.</p>
-    <p>Ce regard devient la signature visuelle centrale de FOCUS, facilement déclinable sur les affiches, les stickers et le porte-clé de la gamme.</p>
-  </div>
-  <div class="pc-imgs">
-    <div class="pc-img reveal-scale">
-      <img src="../assets/images/focus/sticker-2.png" alt="Focus – Sticker" />
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Supports visuels</span></div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────── DIRECTION ARTISTIQUE ─── -->
+<!-- ─── CHÂTEAUX / VIN ─── -->
 <div class="pc-section-head reveal">
-  <span class="pc-section-title">Direction Artistique</span>
+  <span class="pc-section-title">Châteaux — Univers Vins</span>
+  <span class="pc-section-count">(1)</span>
 </div>
 
-<!-- Image pleine largeur — dezoom -->
-<div class="pc-full--inset reveal-scale">
-  <img src="../assets/images/focus/sticker-4.png" alt="Focus – Déclinaison couleur" />
+<div class="pc-full reveal-scale">
+  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Workshop Châteaux — Vue d'ensemble</span></div>
 </div>
 
-<!-- DA — texte + sticker -->
-<div class="pc-row pc-row--reverse">
+<div class="pc-row pc-row--reverse reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">02 — Univers premium & patrimoine</span>
+    <p>Workshop autour de la communication pour les châteaux et l'univers viticole — un secteur exigeant où l'image de marque doit allier prestige, authenticité et modernité.</p>
+    <p>Travail sur la direction artistique, le choix typographique et la mise en page adaptée aux codes du luxe et de la tradition.</p>
+  </div>
   <div class="pc-imgs">
-    <div class="pc-img reveal-scale">
-      <img src="../assets/images/focus/sticker-3.png" alt="Focus – Déclinaison" />
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Workshop Châteaux</span></div>
+    </div>
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Univers visuel</span></div>
     </div>
   </div>
-  <div class="pc-text reveal">
-    <span class="pc-text-label">Direction Artistique</span>
-    <p>L'univers visuel repose sur un dark mode profond avec un violet intense comme couleur signature. Ce violet incarne la dimension mentale du projet : l'introspection, la concentration et le mystère du processus créatif. En light mode, il devient orange, une couleur plus humaine qui symbolise l'énergie et l'inspiration.</p>
-    <p>Le site a été entièrement codé à la main en HTML, CSS et JavaScript, conçu comme une galerie d'art numérique avec des micro-interactions, des effets de glassmorphism et un curseur personnalisé.</p>
-  </div>
 </div>
 
-<!-- ─────────────────────────────── AFFICHES ─── -->
+<!-- ─── GAROROCK ─── -->
 <div class="pc-section-head reveal">
-  <span class="pc-section-title">Affiches de Collection</span>
+  <span class="pc-section-title">Garorock — Événementiel</span>
+  <span class="pc-section-count">(1)</span>
 </div>
 
-<!-- Affiches — texte seul pleine largeur -->
-<div class="pc-row" style="grid-template-columns: 1fr">
-  <div class="pc-text reveal">
-    <span class="pc-text-label">Affiches &amp; Goodies</span>
-    <p>Les affiches sont la seconde dimension de FOCUS. Après chaque épisode, une affiche est créée à partir de l'idée forte de la conversation. Séries limitées, imprimées sur papier 350g mat, numérotées et accompagnées d'un certificat d'authenticité et de stickers.</p>
-    <p>L'objectif est de transformer une réflexion souvent éphémère en objet tangible et mémorable, et de créer un lien durable entre l'auditeur et la communauté FOCUS.</p>
+<div class="pc-full reveal-scale">
+  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Workshop Garorock — Vue d'ensemble</span></div>
+</div>
+
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">03 — Communication événementielle</span>
+    <p>Workshop de communication événementielle pour Garorock, festival de musique du Sud-Ouest — réflexion sur la campagne de communication, l'identité visuelle de l'édition et les supports de promotion.</p>
+    <p>Création de visuels adaptés aux codes de la culture musicale et festivalière : dynamisme, énergie et lisibilité à toutes les échelles.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Garorock — Campagne</span></div>
+    </div>
+    <div class="pc-img">
+      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Supports événementiels</span></div>
+    </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────── NEXT PROJECTS ─── -->
+<!-- ─── NEXT PROJECTS ─── -->
 <section id="next-projects">
   <div class="np-head reveal">
     <span class="np-label">Next Projects</span>
   </div>
   <div class="np-grid">
-    <a href="fizzi.html" class="np-card reveal-scale" style="--delay:0ms">
-      <div class="np-thumb"><img src="../assets/images/fizzi/cans-group.png" alt="Fizzi" /></div>
-      <p class="np-card-title">Fizzi</p>
-      <p class="np-card-cat">Brand Identity</p>
+    <a href="freelance.html" class="np-card reveal-scale" style="--delay:0ms">
+      <div class="np-thumb" style="background:#0a0a0a; display:flex; align-items:center; justify-content:center;">
+        <span style="font-size:clamp(18px,3vw,32px); font-weight:900; letter-spacing:-0.04em; color:rgba(255,255,255,0.08);">Freelance</span>
+      </div>
+      <p class="np-card-title">Freelance</p>
+      <p class="np-card-cat">Print · Communication</p>
     </a>
-    <a href="glumi-graphic.html" class="np-card reveal-scale" style="--delay:80ms">
-      <div class="np-thumb"><img src="../assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" /></div>
-      <p class="np-card-title">Gloomy Graphic</p>
-      <p class="np-card-cat">Identity, Motion</p>
+    <a href="stage.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb" style="background:#0a0a0a; display:flex; align-items:center; justify-content:center;">
+        <span style="font-size:clamp(18px,3vw,32px); font-weight:900; letter-spacing:-0.04em; color:rgba(255,255,255,0.08);">Owlblack</span>
+      </div>
+      <p class="np-card-title">Stage Owlblack</p>
+      <p class="np-card-cat">Graphisme · Motion · Vidéo</p>
     </a>
     <a href="affiches.html" class="np-card reveal-scale" style="--delay:160ms">
       <div class="np-thumb"><img src="../assets/images/affiches/mockups/urban.png" alt="Affiches" /></div>
@@ -300,7 +299,6 @@
         <li><a href="glumi-graphic.html">Gloomy Graphic</a></li>
         <li><a href="affiches.html">Affiches</a></li>
         <li><a href="motion-design.html">Motion Design</a></li>
-        <li><a href="photography.html">Photography</a></li>
         <li><a href="montage.html">Montage</a></li>
         <li><a href="stage.html">Stage Owlblack</a></li>
         <li><a href="freelance.html">Freelance</a></li>
@@ -330,7 +328,6 @@
   document.querySelectorAll('.reveal, .reveal-scale, .clip-outer').forEach(el => io.observe(el));
 })();
 
-/* Hamburger */
 document.getElementById('nav-burger').addEventListener('click', function() {
   var open = document.querySelector('nav').classList.toggle('menu-open');
   document.body.style.overflow = open ? 'hidden' : '';
