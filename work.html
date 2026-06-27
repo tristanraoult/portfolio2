@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -57,8 +57,8 @@
     .project-card:hover .project-title { transform: translateX(6px); }
     .project-num { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.25); align-self: flex-end; }
 
-    #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-text { font-size: 80px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+#cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cta-text { font-size: 80px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
 
     #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
     .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
@@ -66,7 +66,7 @@
     .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ft-col a { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
     .ft-col a:hover { color: #fff; transform: translateX(6px); }
-    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
 
     nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
     @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
@@ -74,7 +74,7 @@
     .reveal.in-view { opacity: 1; transform: translateY(0); }
     .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
 
@@ -98,9 +98,13 @@
       .project-img-wrap.ratio-full { padding-bottom: 70%; }
       .project-title { font-size: 18px; }
       .project-meta { padding: 20px; }
-      #cta { padding: 80px 20px; }
+#cta { padding: 80px 20px; }
       .cta-text { font-size: 40px; }
       #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; gap: 40px 24px; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
+    }
+    @media (max-width: 540px) {
+      .ft-cols { grid-template-columns: 1fr; gap: 32px 0; }
+      .np-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -130,7 +134,7 @@
 <section id="projects">
   <div class="projects-grid">
 
-    <!-- 1 — Physique: full-width hero -->
+    <!-- 01 Fizzi: full-width hero -->
     <a href="projects/fizzi.html" class="project-card full reveal-scale" style="--delay:0ms">
       <div class="project-img-wrap ratio-full">
         <img src="assets/images/fizzi/cans-group.png" alt="Fizzi" />
@@ -145,7 +149,7 @@
       </div>
     </a>
 
-    <!-- 2 — Focus: left standard -->
+    <!-- 02 Focus: left -->
     <a href="projects/focus.html" class="project-card reveal-scale" style="--delay:0ms">
       <div class="project-img-wrap ratio-half" style="background: #000;">
         <img src="assets/images/focus/focus.png" alt="Focus" style="object-position: 50% 50%; transform: translateY(8%);" />
@@ -160,8 +164,8 @@
       </div>
     </a>
 
-    <!-- 3 — Gloomy Graphic: right portrait -->
-    <a href="projects/glumi-graphic.html" class="project-card reveal-scale" style="--delay:80ms">
+    <!-- 03 Gloomy Graphic: right -->
+    <a href="projects/gloomy-graphic.html" class="project-card reveal-scale" style="--delay:80ms">
       <div class="project-img-wrap ratio-portrait">
         <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" />
       </div>
@@ -175,7 +179,38 @@
       </div>
     </a>
 
-    <!-- 4 — Affiches: left landscape -->
+    <!-- 04 Cours: left -->
+    <a href="projects/cours.html" class="project-card reveal-scale" style="--delay:0ms">
+      <div class="project-img-wrap ratio-half">
+        <img src="assets/images/cours/affiches-insta/Raoult-Tristan-Fun.jpg" alt="Cours BTS COM" />
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Projets de Cours · BTS COM</span>
+          <span class="project-title">Cours</span>
+        </div>
+        <span class="project-num">04</span>
+      </div>
+    </a>
+
+    <!-- 05 Stage Owlblack: right -->
+    <a href="projects/stage.html" class="project-card reveal-scale" style="--delay:80ms">
+      <div class="project-img-wrap ratio-land" style="background: #0a0a0a;">
+        <img src="assets/images/stage/owlblack-logo.svg" alt="Stage OwlBlack"
+             style="object-fit: contain; padding: 18%;" />
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Stage · Identité · Motion · Print</span>
+          <span class="project-title">Stage Owlblack</span>
+        </div>
+        <span class="project-num">05</span>
+      </div>
+    </a>
+
+    <!-- 06 Affiches: left -->
     <a href="projects/affiches.html" class="project-card reveal-scale" style="--delay:0ms">
       <div class="project-img-wrap ratio-land">
         <img src="assets/images/affiches/mockups/urban.png" alt="Affiches" />
@@ -186,26 +221,27 @@
           <span class="project-cat">Graphic Design</span>
           <span class="project-title">Affiches</span>
         </div>
-        <span class="project-num">04</span>
+        <span class="project-num">06</span>
       </div>
     </a>
 
-    <!-- 5 — Motion Design: right landscape -->
-    <a href="projects/motion-design.html" class="project-card reveal-scale" style="--delay:80ms">
-      <div class="project-img-wrap ratio-land">
+    <!-- 07 Freelance: right -->
+    <a href="projects/freelance.html" class="project-card reveal-scale" style="--delay:80ms">
+      <div class="project-img-wrap ratio-half" style="background: #0a0a0a;">
+        <img src="assets/images/freelance/Chocolatiers_Confiseurs.png" alt="Freelance" />
       </div>
       <div class="project-overlay"></div>
       <div class="project-meta">
         <div class="project-info">
-          <span class="project-cat">Motion Design</span>
-          <span class="project-title">Motion Design</span>
+          <span class="project-cat">Print · Communication</span>
+          <span class="project-title">Freelance</span>
         </div>
-        <span class="project-num">05</span>
+        <span class="project-num">07</span>
       </div>
     </a>
 
-    <!-- 6 — Photography: full-width -->
-    <a href="projects/photography.html" class="project-card full reveal-scale" style="--delay:0ms">
+    <!-- 08 Photography: left, taille standard -->
+    <a href="projects/photography.html" class="project-card reveal-scale" style="--delay:0ms">
       <div class="project-img-wrap ratio-land">
         <img src="assets/images/photography/fair/6.jpg" alt="Photography" />
       </div>
@@ -215,64 +251,37 @@
           <span class="project-cat">Art Direction</span>
           <span class="project-title">Photography</span>
         </div>
-        <span class="project-num">06</span>
+        <span class="project-num">08</span>
       </div>
     </a>
 
-    <!-- 7 — Montage: full-width -->
-    <a href="projects/montage.html" class="project-card full reveal-scale" style="--delay:0ms">
-      <div class="project-img-wrap ratio-full">
+    <!-- 09 Motion Design: right -->
+    <a href="projects/motion-design.html" class="project-card reveal-scale" style="--delay:80ms">
+      <div class="project-img-wrap ratio-land">
+        <img src="https://img.youtube.com/vi/T8DZan8TlRE/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/T8DZan8TlRE/hqdefault.jpg'"
+             alt="Motion Design" />
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Motion Design</span>
+          <span class="project-title">Motion Design</span>
+        </div>
+        <span class="project-num">09</span>
+      </div>
+    </a>
+
+    <!-- 10 Montage: last -->
+    <a href="projects/montage.html" class="project-card reveal-scale" style="--delay:0ms">
+      <div class="project-img-wrap ratio-land">
+        <img src="assets/images/montage/jfO6E6TVnbM.jpg" alt="Montage" />
       </div>
       <div class="project-overlay"></div>
       <div class="project-meta">
         <div class="project-info">
           <span class="project-cat">Montage Vidéo</span>
           <span class="project-title">Montage</span>
-        </div>
-        <span class="project-num">07</span>
-      </div>
-    </a>
-
-    <!-- 8 — Stage Owlblack: full-width -->
-    <a href="projects/stage.html" class="project-card full reveal-scale" style="--delay:0ms">
-      <div class="project-img-wrap ratio-full" style="background: #0a0a0a; display: flex; align-items: center; justify-content: center;">
-        <span style="font-size: clamp(48px, 8vw, 120px); font-weight: 900; letter-spacing: -0.05em; color: rgba(255,255,255,0.06); pointer-events: none;">Owlblack</span>
-      </div>
-      <div class="project-overlay"></div>
-      <div class="project-meta">
-        <div class="project-info">
-          <span class="project-cat">Stage · Identité · Motion · Print</span>
-          <span class="project-title">Stage Owlblack</span>
-        </div>
-        <span class="project-num">08</span>
-      </div>
-    </a>
-
-    <!-- 9 — Freelance: left -->
-    <a href="projects/freelance.html" class="project-card reveal-scale" style="--delay:0ms">
-      <div class="project-img-wrap ratio-half" style="background: #0a0a0a; display: flex; align-items: center; justify-content: center;">
-        <span style="font-size: clamp(32px, 5vw, 72px); font-weight: 900; letter-spacing: -0.05em; color: rgba(255,255,255,0.06); pointer-events: none;">Freelance</span>
-      </div>
-      <div class="project-overlay"></div>
-      <div class="project-meta">
-        <div class="project-info">
-          <span class="project-cat">Print · Communication</span>
-          <span class="project-title">Freelance</span>
-        </div>
-        <span class="project-num">09</span>
-      </div>
-    </a>
-
-    <!-- 10 — Workshops: right -->
-    <a href="projects/workshops.html" class="project-card reveal-scale" style="--delay:80ms">
-      <div class="project-img-wrap ratio-half" style="background: #0a0a0a; display: flex; align-items: center; justify-content: center;">
-        <span style="font-size: clamp(24px, 4vw, 60px); font-weight: 900; letter-spacing: -0.05em; color: rgba(255,255,255,0.06); pointer-events: none;">Workshops</span>
-      </div>
-      <div class="project-overlay"></div>
-      <div class="project-meta">
-        <div class="project-info">
-          <span class="project-cat">Communication · DA</span>
-          <span class="project-title">Workshops</span>
         </div>
         <span class="project-num">10</span>
       </div>
@@ -305,13 +314,13 @@
       <ul>
         <li><a href="projects/fizzi.html">Fizzi</a></li>
         <li><a href="projects/focus.html">Focus</a></li>
-        <li><a href="projects/glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="projects/gloomy-graphic.html">Gloomy Graphic</a></li>
         <li><a href="projects/affiches.html">Affiches</a></li>
         <li><a href="projects/motion-design.html">Motion Design</a></li>
         <li><a href="projects/montage.html">Montage</a></li>
         <li><a href="projects/stage.html">Stage Owlblack</a></li>
         <li><a href="projects/freelance.html">Freelance</a></li>
-        <li><a href="projects/workshops.html">Workshops</a></li>
+        <li><a href="projects/cours.html">Cours</a></li>
       </ul>
     </div>
     <div class="ft-col reveal" style="--delay:160ms">
@@ -351,3 +360,5 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
 
 </body>
 </html>
+
+

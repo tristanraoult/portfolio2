@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -24,7 +24,7 @@
     #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .pi-left { padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
     .pi-right { padding: 80px 48px; }
-    .proj-title { font-size: clamp(40px, 5.5vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: #fff; position: sticky; top: 88px; }
+    .proj-title { font-size: clamp(40px, 5.5vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: #fff; position: sticky; top: 88px; }
     .pi-meta-row { display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); gap: 24px; }
     .pi-meta-label { width: 130px; flex-shrink: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
     .pi-meta-val { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.5; }
@@ -72,21 +72,21 @@
     .np-card:hover .np-card-title { transform: translateX(6px); }
     .np-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
     #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
     #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
     .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
     .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
     .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ft-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
     .ft-col a:hover { color: #fff; transform: translateX(6px); }
-    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
     nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
     @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
     .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal.in-view { opacity: 1; transform: translateY(0); }
     .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
     .proj-content { position: relative; z-index: 1; background: #141517; }
@@ -109,6 +109,8 @@
       .pc-text { position: static; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; }
       .pc-photo-grid.cols-3 { grid-template-columns: 1fr 1fr; }
       .pc-section-head { padding: 16px 20px; }
+      .pi-meta-row { flex-direction: column; gap: 4px; padding: 12px 0; }
+      .pi-meta-label { width: auto; }
       .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
       #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
       #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
@@ -117,6 +119,7 @@
       .np-grid { grid-template-columns: 1fr; }
       .pc-photo-grid.cols-3 { grid-template-columns: 1fr; }
       .pc-photo-grid.cols-2 { grid-template-columns: 1fr; }
+      .ft-cols { grid-template-columns: 1fr; gap: 32px 0; }
     }
   </style>
 </head>
@@ -161,7 +164,7 @@
       <span class="pi-meta-label">Année</span>
       <span class="pi-meta-val">2024</span>
     </div>
-    <p class="pi-desc reveal" style="--delay:260ms">À travers la photographie, je cherche à capturer la singularité de chaque instant. Des manèges de nuit aux rues de Bordeaux, chaque image raconte une histoire et révèle une émotion authentique.</p>
+    <p class="pi-desc reveal" style="--delay:260ms">De la fête foraine de nuit aux rues de Bordeaux, des photos que j'ai faites pour moi. Chaque image cherche à capter quelque chose de précis, un instant, une lumière, une atmosphère.</p>
   </div>
 </section>
 
@@ -186,7 +189,7 @@
   </div>
   <div class="pc-text reveal">
     <span class="pc-text-label">Fête Foraine</span>
-    <p>L'atmosphère électrique de la fête foraine — lumières, manèges, énergie nocturne. Une série capturée à la recherche de l'instant juste, entre mouvement et immobilité.</p>
+    <p>Les lumières, les manèges, l'énergie de nuit. Une série prise à la recherche de l'instant juste, entre mouvement et immobilité.</p>
   </div>
 </div>
 
@@ -219,7 +222,7 @@
 <div class="pc-row">
   <div class="pc-text reveal">
     <span class="pc-text-label">Film Argentique</span>
-    <p>Portraits et paysages traités avec la chaleur granuleuse du film argentique Kodak. Une esthétique vintage qui donne à chaque photo une matière et une douceur particulières.</p>
+    <p>Portraits et paysages avec la chaleur granuleuse du film argentique Kodak. Ce grain donne à chaque photo une matière et une douceur qu'on n'obtient pas en numérique.</p>
   </div>
   <div class="pc-imgs">
     <div class="pc-img reveal-scale">
@@ -270,7 +273,7 @@
   </div>
   <div class="pc-text reveal">
     <span class="pc-text-label">Portraits</span>
-    <p>Une série plus douce, portée par la lumière naturelle. La photo comme regard personnel — observer, cadrer, attendre le bon instant.</p>
+    <p>Une série plus douce, en lumière naturelle. Observer, cadrer, attendre le bon instant.</p>
   </div>
 </div>
 
@@ -284,23 +287,23 @@
 <!-- ─────────────────────────────────────── NEXT PROJECTS ─── -->
 <section id="next-projects">
   <div class="np-head reveal">
-    <span class="np-label">Next Projects</span>
+    <span class="np-label">Projets suivants</span>
   </div>
   <div class="np-grid">
-    <a href="fizzi.html" class="np-card reveal-scale" style="--delay:0ms">
+    <a href="motion-design.html" class="np-card reveal-scale" style="--delay:0ms">
+      <div class="np-thumb"><img src="https://img.youtube.com/vi/T8DZan8TlRE/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/T8DZan8TlRE/hqdefault.jpg'" alt="Motion Design" /></div>
+      <p class="np-card-title">Motion Design</p>
+      <p class="np-card-cat">Motion Design</p>
+    </a>
+    <a href="montage.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb"><img src="../assets/images/montage/jfO6E6TVnbM.jpg" alt="Montage" /></div>
+      <p class="np-card-title">Montage</p>
+      <p class="np-card-cat">Montage Vidéo</p>
+    </a>
+    <a href="fizzi.html" class="np-card reveal-scale" style="--delay:160ms">
       <div class="np-thumb"><img src="../assets/images/fizzi/cans-group.png" alt="Fizzi" /></div>
       <p class="np-card-title">Fizzi</p>
       <p class="np-card-cat">Brand Identity</p>
-    </a>
-    <a href="glumi-graphic.html" class="np-card reveal-scale" style="--delay:80ms">
-      <div class="np-thumb"><img src="../assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" /></div>
-      <p class="np-card-title">Gloomy Graphic</p>
-      <p class="np-card-cat">Identity, Motion</p>
-    </a>
-    <a href="motion-design.html" class="np-card reveal-scale" style="--delay:160ms">
-      <div class="np-thumb"></div>
-      <p class="np-card-title">Motion Design</p>
-      <p class="np-card-cat">Motion Design</p>
     </a>
   </div>
 </section>
@@ -327,14 +330,13 @@
       <ul>
         <li><a href="fizzi.html">Fizzi</a></li>
         <li><a href="focus.html">Focus</a></li>
-        <li><a href="glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="gloomy-graphic.html">Gloomy Graphic</a></li>
         <li><a href="affiches.html">Affiches</a></li>
         <li><a href="motion-design.html">Motion Design</a></li>
         <li><a href="photography.html">Photography</a></li>
         <li><a href="montage.html">Montage</a></li>
         <li><a href="stage.html">Stage Owlblack</a></li>
         <li><a href="freelance.html">Freelance</a></li>
-        <li><a href="workshops.html">Workshops</a></li>
       </ul>
     </div>
     <div class="ft-col reveal" style="--delay:160ms">
@@ -370,5 +372,8 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
   });
 });
 </script>
+<script src="../assets/js/lightbox.js"></script>
 </body>
 </html>
+
+

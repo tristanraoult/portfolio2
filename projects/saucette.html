@@ -1,0 +1,418 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://tristanraoult.github.io/portfolio/favicon.png" />
+  <title>Club Saucette – Tristan Raoult</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Fragment+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #141517; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    ::-webkit-scrollbar { display: none; } * { scrollbar-width: none; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; position: relative; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .nav-links a:hover::after { width: 100%; }
+
+    #proj-hero { height: 100vh; overflow: hidden; background: #0a0a0a; position: sticky; top: 0; z-index: 0; display: flex; align-items: center; justify-content: center; }
+    #proj-hero img { max-height: 70%; max-width: 60%; width: auto; height: auto; object-fit: contain; display: block; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+    @keyframes heroZoom { from { transform: scale(1.08); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pi-left { padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
+    .pi-right { padding: 80px 48px; }
+    .proj-title { font-size: clamp(48px, 6vw, 88px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: #fff; position: sticky; top: 88px; }
+    .pi-meta-row { display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); gap: 24px; }
+    .pi-meta-label { width: 130px; flex-shrink: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+    .pi-meta-val { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.5; }
+    .pi-desc { margin-top: 40px; font-size: 16px; line-height: 1.85; color: rgba(255,255,255,0.5); }
+
+    .pc-section-head { display: flex; justify-content: space-between; align-items: baseline; padding: 20px 48px; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pc-section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .pc-section-count { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.22); }
+
+    .pc-full--auto { overflow: hidden; background: #0d0d0f; }
+    .pc-full--auto img { width: 100%; height: auto; display: block; }
+    .pc-full--light { background: #f5f3f0; padding: 56px 80px; overflow: hidden; }
+    .pc-full--light img { width: 100%; height: auto; display: block; }
+
+    .pc-row { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pc-row--reverse { direction: rtl; }
+    .pc-row--reverse > * { direction: ltr; }
+    .pc-text { position: sticky; top: 88px; align-self: start; padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
+    .pc-row--reverse .pc-text { border-right: none; border-left: 1px solid rgba(255,255,255,0.08); }
+    .pc-text-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.22); display: block; margin-bottom: 24px; }
+    .pc-text h3 { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; margin: 28px 0 10px; }
+    .pc-text h3:first-of-type { margin-top: 20px; }
+    .pc-text p { font-size: 17px; line-height: 1.85; color: rgba(255,255,255,0.52); }
+    .pc-text p + p { margin-top: 20px; }
+    .pc-text ul { margin-top: 12px; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .pc-text ul li { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.45); padding-left: 16px; position: relative; }
+    .pc-text ul li::before { content: ' '; position: absolute; left: 0; color: rgba(255,255,255,0.2); }
+    .pc-imgs { display: flex; flex-direction: column; }
+    .pc-img { overflow: hidden; background: #0d0d0f; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .pc-img:last-child { border-bottom: none; }
+    .pc-img img { width: 100%; display: block; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+    .pc-img:hover img { transform: scale(1.03); }
+    .pc-placeholder { min-height: 300px; display: flex; align-items: center; justify-content: center; }
+    .pc-placeholder span { font-size: 12px; color: rgba(255,255,255,0.15); letter-spacing: 0.08em; text-transform: uppercase; }
+    .screens-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: #0d0d0f; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 24px 20px 12px; }
+    .empathy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.08); }
+    .screen-item { display: flex; flex-direction: column; align-items: center; padding: 0 6px 12px; }
+    .screen-item img { width: 100%; display: block; border-radius: 4px; }
+    .screen-item span { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-top: 10px; text-align: center; }
+
+#next-projects { padding: 80px 48px 100px; }
+    .np-head { padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 40px; }
+    .np-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .np-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .np-card { text-decoration: none; color: inherit; display: block; }
+    .np-thumb { position: relative; padding-bottom: 70%; overflow: hidden; background: #0d0d0f; margin-bottom: 16px; }
+    .np-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+    .np-card:hover .np-thumb img { transform: scale(1.05); }
+    .np-card-title { font-size: 16px; font-weight: 600; color: #fff; letter-spacing: -0.01em; margin-bottom: 5px; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .np-card:hover .np-card-title { transform: translateX(6px); }
+    .np-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
+
+    #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
+    #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
+    .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
+    .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+    .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ft-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .ft-col a:hover { color: #fff; transform: translateX(6px); }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
+
+    nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
+    @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
+    .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .clip-outer.in-view .clip-inner { transform: translateY(0); }
+    .proj-content { position: relative; z-index: 1; background: #141517; }
+
+    .nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; position: relative; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s; }
+    nav.menu-open .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+    nav.menu-open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 900px) {
+      nav { padding: 20px; }
+      .nav-burger { display: flex; flex-direction: column; }
+      .nav-links { flex-direction: column; position: fixed; inset: 0; background: rgba(14,15,17,0.98); z-index: 190; align-items: center; justify-content: center; gap: 44px; opacity: 0; pointer-events: none; transition: opacity 0.28s ease; }
+      nav.menu-open .nav-links { opacity: 1; pointer-events: auto; }
+      nav.menu-open .nav-links a { font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.8); }
+      #proj-info { grid-template-columns: 1fr; }
+      .pi-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 60px 20px; }
+      .pi-right { padding: 60px 20px; }
+      .proj-title { position: static; font-size: 48px; }
+      .pc-section-head { padding: 16px 20px; }
+      .pc-row { grid-template-columns: 1fr; direction: ltr; }
+      .pc-text { position: static; border-right: none !important; border-left: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; }
+      .ergo-grid { grid-template-columns: 1fr; }
+      .ergo-item { padding: 24px 20px; }
+      .pi-meta-row { flex-direction: column; gap: 4px; padding: 12px 0; }
+      .pi-meta-label { width: auto; }
+      .screens-group { grid-template-columns: 1fr 1fr; padding: 16px 12px 4px; }
+      .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
+      #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
+      #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
+    }
+    @media (max-width: 540px) {
+      .np-grid { grid-template-columns: 1fr; }
+      .ft-cols { grid-template-columns: 1fr; gap: 32px 0; }
+      .screens-group { grid-template-columns: 1fr; }
+      .empathy-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">Tristan Raoult</a>
+  <ul class="nav-links">
+    <li><a href="../work.html">Work</a></li>
+    <li><a href="../index.html#index-section">Index</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section id="proj-hero">
+  <img src="../assets/images/saucette/sauce-mascotte.png" alt="Club Saucette" />
+</section>
+
+<div class="proj-content">
+
+<section id="proj-info">
+  <div class="pi-left">
+    <h1 class="proj-title">
+      <div class="clip-outer" style="--delay:0ms"><span class="clip-inner">Club</span></div>
+      <div class="clip-outer" style="--delay:120ms"><span class="clip-inner">Saucette</span></div>
+    </h1>
+  </div>
+  <div class="pi-right">
+    <div class="pi-meta-row reveal" style="--delay:0ms">
+      <span class="pi-meta-label">Catégories</span>
+      <span class="pi-meta-val">UX/UI · Branding · Prototypage Figma</span>
+    </div>
+    <div class="pi-meta-row reveal" style="--delay:60ms">
+      <span class="pi-meta-label">Contexte</span>
+      <span class="pi-meta-val">Projet de cours · UX/UI · BTS Communication</span>
+    </div>
+    <div class="pi-meta-row reveal" style="--delay:120ms">
+      <span class="pi-meta-label">Outils</span>
+      <span class="pi-meta-val">Figma · Illustrator · Photoshop</span>
+    </div>
+    <div class="pi-meta-row reveal" style="--delay:180ms">
+      <span class="pi-meta-label">Livrables</span>
+      <span class="pi-meta-val">Cahier des charges · Prototype mobile · Site vitrine · Logo &amp; Mascotte</span>
+    </div>
+    <div class="pi-meta-row reveal" style="--delay:220ms">
+      <span class="pi-meta-label">Année</span>
+      <span class="pi-meta-val">2025</span>
+    </div>
+    <p class="pi-desc reveal" style="--delay:280ms">Projet UX/UI : inventer un restaurant fictif et en prototyper l'application mobile sur Figma. On a imaginé le Club Saucette, un bar à sauces en bord de mer. Cahier des charges, branding, prototype interactif et site vitrine.</p>
+  </div>
+</section>
+
+<!-- ─── CONCEPT ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Concept</span>
+  <span class="pc-section-count">01</span>
+</div>
+
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">01 Bar à Sauces</span>
+    <p>Un restaurant en bord de mer centré sur les sauces maison. Le client choisit ses "supports" frites, légumes crus, chips, pain grillé et compose son plateau sauce par sauce parmi une sélection de 20 à 30 recettes (chaudes, froides, épicées, véganes, saisonnières, éditions limitées).</p>
+    <p>L'idée : transformer l'apéro en expérience sensorielle et interactive. Un lieu convivial, zéro gaspi, produits naturels et locaux, avec terrasse vue mer.</p>
+    <p>Trois formules Dégustation (4 sauces + 1 support), Gourmand (7 sauces + finger food), Illimitée. Carte de fidélité et happy hour pour fidéliser.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-img">
+      <img src="../assets/images/saucette/sauce-mascotte.png" alt="Mascotte Club Saucette" />
+    </div>
+  </div>
+</div>
+
+<!-- ─── CIBLES & RECHERCHE ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Cibles & Recherche UX</span>
+  <span class="pc-section-count">02</span>
+</div>
+
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">02 Personas & Empathy Map</span>
+    <p>Avant de concevoir, on a défini trois profils : les Locaux (QG de fin de journée), les Touristes (vue mer, offre originale) et les Foodies (nouvelles saveurs, partage).</p>
+    <p>L'empathy map résume ce que l'utilisateur voit, fait, ressent et ce qui le bloque. Un outil UX qui aide à concevoir pour des vrais besoins plutôt que des suppositions.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-img" style="padding: 32px 40px;">
+      <div class="empathy-grid" style="display: grid; gap: 1px; background: rgba(255,255,255,0.08);">
+        <div style="padding: 24px; background: #0d0d0f;">
+          <p style="font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 12px;">Voit</p>
+          <p style="font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.45);">La mer, la terrasse, les plats des voisins, un QR code sur la table.</p>
+        </div>
+        <div style="padding: 24px; background: #0d0d0f;">
+          <p style="font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 12px;">Fait</p>
+          <p style="font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.45);">Scanne le menu, scrolle les photos, partage des frites, goûte les sauces.</p>
+        </div>
+        <div style="padding: 24px; background: #0d0d0f;">
+          <p style="font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 12px;">Ressent</p>
+          <p style="font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.45);">Faim, envie de détente, curiosité, impatience si le service est lent.</p>
+        </div>
+        <div style="padding: 24px; background: #0d0d0f;">
+          <p style="font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 12px;">Points de friction</p>
+          <p style="font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.45);">Ne sait pas quoi choisir, peur que ce soit trop épicé, attente serveur.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── DA ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Direction Artistique</span>
+  <span class="pc-section-count">03</span>
+</div>
+
+<div class="pc-row pc-row--reverse reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">03 Identité Visuelle</span>
+    <p>La mascotte c'est une frite avec un visage, une casquette en ketchup, des bras, des jambes et des baskets. Style cartoon vintage américain, un peu rigolo, facile à retenir.</p>
+    <p>Côté couleurs : fond saumon, ketchup rouge bordeaux, frite beige doré. Des tons chauds qui restent lisibles et cohérents sur toutes les interfaces.</p>
+    <p>La typo coule littéralement. Les lettres sont rondes et incurvées, avec des gouttes qui tombent vers le bas comme du ketchup qui dégouline. "Clubsaucette" s'écrit en un seul mot, sans espace. L'idée c'était que même la police rappelle la sauce.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-img">
+      <img src="../assets/images/saucette/sauce-logo.png" alt="Logo Club Saucette" />
+    </div>
+    <div class="pc-img">
+      <img src="../assets/images/saucette/sauce-logo-buste.png" alt="Logo et mascotte Club Saucette" />
+    </div>
+  </div>
+</div>
+
+<!-- ─── UX/UI ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">UX/UI Application & Site Vitrine</span>
+  <span class="pc-section-count">04</span>
+</div>
+
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">04 Prototype Figma Mobile</span>
+    <p>Deux parcours distincts : un site vitrine (accueil, concept, actualités, contact) et une app de commande accessible par QR code en salle. Un seul univers graphique, deux entrées.</p>
+    <p>Prototype Figma entièrement cliquable de la sélection des supports et sauces jusqu'à la confirmation de commande, avec feedbacks visuels, états interactifs et transitions entre écrans.</p>
+    <p>L'interface a été construite à partir d'un benchmark de 5 apps (Sunday, McDonald's, Burger King, UberEats, Too Good To Go) et d'un cahier des charges sur l'ergonomie : architecture, guidage pas à pas, mobile-first, gestion d'erreurs.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="screens-group">
+      <div class="screen-item">
+        <img src="../assets/images/saucette/page-accueil.jpg" alt="Accueil" />
+        <span>Accueil</span>
+      </div>
+      <div class="screen-item">
+        <img src="../assets/images/saucette/menu.jpg" alt="Menu" />
+        <span>Menu</span>
+      </div>
+      <div class="screen-item">
+        <img src="../assets/images/saucette/menu-bases.jpg" alt="Bases" />
+        <span>Choix des bases</span>
+      </div>
+    </div>
+    <div class="screens-group">
+      <div class="screen-item">
+        <img src="../assets/images/saucette/menu-boissons.jpg" alt="Boissons" />
+        <span>Boissons</span>
+      </div>
+      <div class="screen-item">
+        <img src="../assets/images/saucette/menu-desserts.jpg" alt="Desserts" />
+        <span>Desserts</span>
+      </div>
+      <div class="screen-item">
+        <img src="../assets/images/saucette/cart.jpg" alt="Panier" />
+        <span>Panier</span>
+      </div>
+    </div>
+    <div class="screens-group" style="grid-template-columns: 1fr;">
+      <div class="screen-item" style="max-width: 33%; margin: 0 auto;">
+        <img src="../assets/images/saucette/addition.jpg" alt="Addition" />
+        <span>Addition</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NEXT PROJECTS ─── -->
+<section id="next-projects">
+  <div class="np-head reveal">
+    <span class="np-label">Autres projets de cours</span>
+  </div>
+  <div class="np-grid">
+    <a href="affiches-insta.html" class="np-card reveal-scale" style="--delay:0ms">
+      <div class="np-thumb"><img src="../assets/images/cours/affiches-insta/Raoult-Tristan-Premium.jpg" alt="Affiches Instagram" /></div>
+      <p class="np-card-title">Affiches Instagram</p>
+      <p class="np-card-cat">Graphic Design · Typographie</p>
+    </a>
+    <a href="slipknot.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb"><img src="../assets/images/cours/slipknot/slippknot.jpg" alt="Fanzine Slipknot" /></div>
+      <p class="np-card-title">Fanzine Slipknot</p>
+      <p class="np-card-cat">Graphic Design · Print</p>
+    </a>
+    <a href="chippys.html" class="np-card reveal-scale" style="--delay:160ms">
+      <div class="np-thumb"><img src="../assets/images/chippys/5.jpg" alt="Chippy's" /></div>
+      <p class="np-card-title">Chippy's</p>
+      <p class="np-card-cat">Branding · Mascotte</p>
+    </a>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="clip-outer">
+    <p class="cta-text clip-inner">Let's work together.</p>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="ft-cols">
+    <div class="ft-col reveal" style="--delay:0ms">
+      <p class="ft-col-head">Sitemap</p>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../work.html">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:80ms">
+      <p class="ft-col-head">Work</p>
+      <ul>
+        <li><a href="fizzi.html">Fizzi</a></li>
+        <li><a href="focus.html">Focus</a></li>
+        <li><a href="gloomy-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="affiches.html">Affiches</a></li>
+        <li><a href="motion-design.html">Motion Design</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="montage.html">Montage</a></li>
+        <li><a href="stage.html">Stage Owlblack</a></li>
+        <li><a href="freelance.html">Freelance</a></li>
+        <li><a href="cours.html">Cours</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:160ms">
+      <p class="ft-col-head">Contact</p>
+      <ul>
+        <li><a href="mailto:tristan.raoult62@gmail.com">↗ Email</a></li>
+        <li><a href="https://www.instagram.com/gloomygraphic/" target="_blank">↗ Instagram</a></li>
+        <li><a href="tel:+33768665558">↗ 07 68 66 55 58</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="clip-outer" style="--delay:100ms">
+    <div class="ft-wordmark clip-inner">Tristan Raoult</div>
+  </div>
+</footer>
+</div>
+
+<script>
+(function () {
+  const els = document.querySelectorAll('.reveal, .reveal-scale, .clip-outer');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
+  els.forEach(el => io.observe(el));
+  // Fallback : force tout visible après 1.5s si observer bloqué
+  setTimeout(function() { els.forEach(el => el.classList.add('in-view')); }, 1500);
+})();
+document.getElementById('nav-burger').addEventListener('click', function() {
+  var open = document.querySelector('nav').classList.toggle('menu-open');
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    document.querySelector('nav').classList.remove('menu-open');
+    document.body.style.overflow = '';
+  });
+});
+</script>
+<script src="../assets/js/lightbox.js"></script>
+</body>
+</html>
+
+
+
+
+

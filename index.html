@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -151,7 +151,7 @@
       height: 400vh;
     }
 
-    /* One sticky layer per card — all siblings inside .cards-container */
+    /* One sticky layer per card all siblings inside .cards-container */
     .card-sticky {
       position: sticky;
       height: 100vh;
@@ -163,14 +163,14 @@
     .card-sticky:nth-child(3) { top: 110px; z-index: 12; }
     .card-sticky:nth-child(4) { position: relative; top: auto; z-index: 13; }
 
-    /* Gloomy card — extra bottom space + contain so full text is visible */
+    /* Gloomy card extra bottom space + contain so full text is visible */
     .card-sticky:nth-child(3) .card-frame { bottom: 16vh; background: #b31919; }
     .card-sticky:nth-child(3) .card-frame img { object-fit: contain; }
 
-    /* Cards are <a> tags — reset link styles */
+    /* Cards are <a> tags reset link styles */
     a.card-frame { text-decoration: none; color: inherit; display: block; }
 
-    /* Frame raised — leaves 9vh gap at bottom so image text is visible */
+    /* Frame raised leaves 9vh gap at bottom so image text is visible */
     .card-frame {
       position: absolute;
       top: 0;
@@ -234,7 +234,7 @@
       letter-spacing: -0.02em;
     }
 
-    /* progress bar — fills at the very bottom as you scroll through this card */
+    /* progress bar fills at the very bottom as you scroll through this card */
     .card-bar {
       position: absolute;
       bottom: 0; left: 0;
@@ -631,7 +631,7 @@
     }
     .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
 
-    /* Scroll-reveal: opacity only (table rows — transform unreliable on <tr>) */
+    /* Scroll-reveal: opacity only (table rows transform unreliable on <tr>) */
     .reveal-row {
       opacity: 0;
       transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1) var(--delay, 0ms);
@@ -639,7 +639,7 @@
     .reveal-row.in-view { opacity: 1; }
 
     /* Clip-up reveal: for CTA + wordmark (cinematic text entrance) */
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner {
       display: block;
       transform: translateY(110%);
@@ -658,7 +658,7 @@
     }
     .work-item:hover .work-cat { transform: translateX(7px); opacity: 0.55; }
 
-    /* Hover: index rows — name indent + row brighten */
+    /* Hover: index rows name indent + row brighten */
     .idx-table td {
       transition: color 0.25s,
                   padding-left 0.38s cubic-bezier(0.22,1,0.36,1);
@@ -743,6 +743,9 @@
       .idx-table td { font-size: 12px; padding: 10px 0; }
       .ft-wordmark { font-size: 48px; }
     }
+    @media (max-width: 480px) {
+      .ft-cols { grid-template-columns: 1fr; gap: 32px 0; }
+    }
   </style>
 </head>
 <body>
@@ -768,7 +771,7 @@
   <div class="hero-gradient"></div>
   <div class="hero-content">
     <p class="hero-text" id="heroText">
-      We believe design is a dialogue of clarity and expression. Our philosophy values adaptive systems, resonant visuals, and ideas that endure across cultures and time.
+      Graphiste &amp; motion designer, 20 ans. Je crée des identités visuelles, des animations et des vidéos pour des marques et des projets qui ont quelque chose à dire.
     </p>
     <span class="hero-scroll">(Scroll)</span>
   </div>
@@ -779,13 +782,13 @@
      Each card-sticky has position:sticky so it "activates" as you scroll
      into its natural DOM position, then stacks over the previous card.
      The JS drives a cumulative scale(0.88^n) so every background card is
-     progressively smaller — like windows receding into the distance. -->
+     progressively smaller like windows receding into the distance. -->
 <div class="cards-container" id="cardsContainer">
 
-  <!-- Card 1 — Fizzi / Brand Identity -->
+  <!-- Card 1 Fizzi / Brand Identity -->
   <div class="card-sticky">
     <a href="projects/fizzi.html" class="card-frame">
-      <img src="assets/images/fizzi/cans-group.png" alt="Fizzi — Brand Identity" />
+      <img src="assets/images/fizzi/cans-group.png" alt="Fizzi Brand Identity" />
       <div class="card-bottom">
         <div class="card-line"></div>
         <div class="card-info">
@@ -797,10 +800,10 @@
     </a>
   </div>
 
-  <!-- Card 2 — Focus / Podcast Identity -->
+  <!-- Card 2 Focus / Podcast Identity -->
   <div class="card-sticky">
     <a href="projects/focus.html" class="card-frame">
-      <img src="assets/images/focus/focus.png" alt="Focus — Podcast Identity" />
+      <img src="assets/images/focus/focus.png" alt="Focus Podcast Identity" />
       <div class="card-bottom">
         <div class="card-line"></div>
         <div class="card-info">
@@ -812,10 +815,10 @@
     </a>
   </div>
 
-  <!-- Card 3 — Gloomy Graphic / Identité Visuelle -->
+  <!-- Card 3 Gloomy Graphic / Identité Visuelle -->
   <div class="card-sticky">
-    <a href="projects/glumi-graphic.html" class="card-frame">
-      <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic — Identité Visuelle" />
+    <a href="projects/gloomy-graphic.html" class="card-frame">
+      <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic Identité Visuelle" />
       <div class="card-bottom">
         <div class="card-line"></div>
         <div class="card-info">
@@ -827,10 +830,10 @@
     </a>
   </div>
 
-  <!-- Card 4 — Photography / Direction Artistique -->
+  <!-- Card 4 Photography / Direction Artistique -->
   <div class="card-sticky">
     <a href="projects/photography.html" class="card-frame">
-      <img src="assets/images/photography/fair/6.jpg" alt="Photography — Direction Artistique" />
+      <img src="assets/images/photography/fair/6.jpg" alt="Photography Direction Artistique" />
       <div class="card-bottom">
         <div class="card-line"></div>
         <div class="card-info">
@@ -848,7 +851,7 @@
 
 <!-- ABOUT INTRO -->
 <section id="about-intro">
-  <h2 class="ai-heading reveal">Graphiste freelance spécialisé dans la création de visuels uniques. Mon univers mêle authenticité et créativité, avec une approche artisanale et déstructurée qui donne une âme à chaque projet.</h2>
+  <h2 class="ai-heading reveal">Graphiste freelance basé au Pays Basque. Je travaille sur l'identité visuelle, le motion design et la vidéo, pour des clients locaux et des projets personnels qui comptent.</h2>
   <a href="mailto:tristan.raoult62@gmail.com" class="ai-link reveal" style="--delay:150ms">Me contacter →</a>
 </section>
 
@@ -869,8 +872,8 @@
 <section id="work-section">
   <div class="ws-header reveal">
     <span class="ws-label">Work</span>
-    <span class="ws-sub">Brand identity, motion design, and art direction — personal projects and client work.</span>
-    <span class="ws-count">(7)</span>
+    <span class="ws-sub">Identité visuelle, motion design, direction artistique projets persos et missions clients.</span>
+    <span class="ws-count">(10)</span>
   </div>
   <div class="work-grid">
     <!-- Physique: left top, square -->
@@ -894,7 +897,7 @@
       </div>
     </a>
     <!-- Gloomy Graphic: left bottom, square -->
-    <a href="projects/glumi-graphic.html" class="work-item work-item-c reveal-scale" style="--delay:160ms">
+    <a href="projects/gloomy-graphic.html" class="work-item work-item-c reveal-scale" style="--delay:160ms">
       <div class="work-img-wrap ratio-sq">
         <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" />
       </div>
@@ -960,6 +963,24 @@
       <td class="idx-cat">Montage Vidéo</td>
       <td class="idx-year">2024</td>
     </tr>
+    <tr class="reveal-row" style="--delay:420ms">
+      <td class="idx-name">Stage Owlblack</td>
+      <td class="idx-client">Owlblack</td>
+      <td class="idx-cat">Graphisme · Motion · Vidéo</td>
+      <td class="idx-year">2025</td>
+    </tr>
+    <tr class="reveal-row" style="--delay:490ms">
+      <td class="idx-name">Freelance</td>
+      <td class="idx-client">Hold CD · CCCF</td>
+      <td class="idx-cat">Print · Identité · Logo</td>
+      <td class="idx-year">2024–2025</td>
+    </tr>
+    <tr class="reveal-row" style="--delay:560ms">
+      <td class="idx-name">Workshops</td>
+      <td class="idx-client">ISEGCOM</td>
+      <td class="idx-cat">Communication · Direction Artistique</td>
+      <td class="idx-year">2025</td>
+    </tr>
   </table>
 </section>
 
@@ -987,14 +1008,13 @@
       <ul>
         <li><a href="projects/fizzi.html">Fizzi</a></li>
         <li><a href="projects/focus.html">Focus</a></li>
-        <li><a href="projects/glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="projects/gloomy-graphic.html">Gloomy Graphic</a></li>
         <li><a href="projects/affiches.html">Affiches</a></li>
         <li><a href="projects/motion-design.html">Motion Design</a></li>
         <li><a href="projects/photography.html">Photography</a></li>
         <li><a href="projects/montage.html">Montage</a></li>
         <li><a href="projects/stage.html">Stage Owlblack</a></li>
         <li><a href="projects/freelance.html">Freelance</a></li>
-        <li><a href="projects/workshops.html">Workshops</a></li>
       </ul>
     </div>
     <div class="ft-col reveal" style="--delay:160ms">
@@ -1030,7 +1050,7 @@
 
 /* ── Scroll-driven depth zoom ──────────────────────────────────────────────
    Cards 1–3 are sticky and zoom with the depth formula.
-   Card 4 is a plain element — fixed at its preload scale, scrolls naturally
+   Card 4 is a plain element fixed at its preload scale, scrolls naturally
    over the sticky cards (z-index 13) then out of view. */
 (function () {
   const container = document.getElementById('cardsContainer');
@@ -1039,12 +1059,12 @@
   const COUNT     = frames.length;
   const ANIM      = COUNT - 1; // only animate first 3 cards
 
-  /* Pin card 4 at its preload scale — border-radius handled by CSS */
+  /* Pin card 4 at its preload scale border-radius handled by CSS */
   const lastPreload = (COUNT - 1) * 0.5;
   const lastScale   = Math.pow(0.88, lastPreload);
   frames[COUNT - 1].style.transform = 'scale(' + lastScale.toFixed(4) + ')';
 
-  /* Fix 1: cache layout reads once — avoids forced reflow on every scroll frame */
+  /* Fix 1: cache layout reads once avoids forced reflow on every scroll frame */
   let containerT = container.offsetTop;
   let containerH = container.offsetHeight;
   let vh         = window.innerHeight;
@@ -1064,7 +1084,7 @@
       const preload      = i * 0.5;
       const progressPast = Math.max(0, totalProgress - i);
 
-      /* Fix 3: only write transform (GPU-only) — border-radius set via CSS */
+      /* Fix 3: only write transform (GPU-only) border-radius set via CSS */
       const scale = Math.pow(0.88, progressPast + preload);
       frames[i].style.transform = 'scale(' + scale.toFixed(4) + ')';
 
@@ -1076,7 +1096,7 @@
     }
   }
 
-  /* Fix 2: rAF throttle — handler runs at most once per screen refresh */
+  /* Fix 2: rAF throttle handler runs at most once per screen refresh */
   let ticking = false;
   window.addEventListener('scroll', function () {
     if (!ticking) {
@@ -1119,3 +1139,5 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
 
 </body>
 </html>
+
+

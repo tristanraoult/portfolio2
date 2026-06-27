@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://tristanraoult.github.io/portfolio/favicon.png" />
+  <title>Cours – Tristan Raoult</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Fragment+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #141517; color: #fff; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    ::-webkit-scrollbar { display: none; } * { scrollbar-width: none; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; position: relative; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .nav-links a:hover::after { width: 100%; }
+
+    #page-header { padding: 160px 48px 80px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .ph-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+    .ph-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .ph-count { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.3); }
+    .page-title { font-size: clamp(72px, 12vw, 140px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; color: #fff; }
+    .ph-desc { margin-top: 40px; max-width: 560px; font-size: 16px; line-height: 1.85; color: rgba(255,255,255,0.4); }
+
+    #projects { padding: 0 48px 120px; }
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .project-card { position: relative; display: block; text-decoration: none; color: inherit; overflow: hidden; cursor: pointer; }
+
+    .project-img-wrap { position: relative; overflow: hidden; background: #0d0d0f; }
+    .project-img-wrap.ratio-half    { padding-bottom: 75%; }
+    .project-img-wrap.ratio-land    { padding-bottom: 62%; }
+    .project-img-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease; }
+    .project-card:hover .project-img-wrap img { transform: scale(1.05); filter: brightness(1.1); }
+
+    .project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,12,0.85) 0%, rgba(10,10,12,0.15) 45%, transparent 100%); pointer-events: none; }
+    .project-meta { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 32px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .project-info { display: flex; flex-direction: column; gap: 5px; }
+    .project-cat { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); transition: color 0.25s, transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+    .project-card:hover .project-cat { color: rgba(255,255,255,0.7); transform: translateX(-4px); }
+    .project-title { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: #fff; line-height: 1.1; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+    .project-card:hover .project-title { transform: translateX(6px); }
+    .project-num { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.25); align-self: flex-end; }
+
+    #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
+
+    #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
+    .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
+    .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+    .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .ft-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .ft-col a:hover { color: #fff; transform: translateX(6px); }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
+
+    #next-projects { padding: 80px 48px 100px; }
+    .np-head { padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 40px; }
+    .np-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .np-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .np-card { text-decoration: none; color: inherit; display: block; }
+    .np-thumb { position: relative; padding-bottom: 70%; overflow: hidden; background: #0d0d0f; margin-bottom: 16px; }
+    .np-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+    .np-card:hover .np-thumb img { transform: scale(1.05); }
+    .np-card-title { font-size: 16px; font-weight: 600; color: #fff; letter-spacing: -0.01em; margin-bottom: 5px; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); }
+    .np-card:hover .np-card-title { transform: translateX(6px); }
+    .np-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
+
+    nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
+    @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
+    .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
+    .clip-outer.in-view .clip-inner { transform: translateY(0); }
+
+    .nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; position: relative; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s; }
+    nav.menu-open .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
+    nav.menu-open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 810px) {
+      nav { padding: 20px; }
+      .nav-burger { display: flex; flex-direction: column; }
+      .nav-links { flex-direction: column; position: fixed; inset: 0; background: rgba(14,15,17,0.98); z-index: 190; align-items: center; justify-content: center; gap: 44px; opacity: 0; pointer-events: none; transition: opacity 0.28s ease; }
+      nav.menu-open .nav-links { opacity: 1; pointer-events: auto; }
+      nav.menu-open .nav-links a { font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.8); }
+      #page-header { padding: 120px 20px 60px; }
+      .page-title { font-size: 56px; }
+      #projects { padding: 0 0 80px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-title { font-size: 18px; }
+      .project-meta { padding: 20px; }
+      .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
+      #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
+      #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; gap: 40px 24px; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
+    }
+    @media (max-width: 540px) {
+      .np-grid { grid-template-columns: 1fr; }
+      .ft-cols { grid-template-columns: 1fr; gap: 32px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">Tristan Raoult</a>
+  <ul class="nav-links">
+    <li><a href="../work.html">Work</a></li>
+    <li><a href="../index.html#index-section">Index</a></li>
+    <li><a href="../about.html">About</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header id="page-header">
+  <div class="ph-top reveal">
+    <span class="ph-label">Projets de Cours · BTS Communication</span>
+    <span class="ph-count">(5)</span>
+  </div>
+  <div class="clip-outer" style="--delay:80ms">
+    <h1 class="page-title clip-inner">Cours</h1>
+  </div>
+  <p class="ph-desc reveal" style="--delay:180ms">Projets réalisés en classe dans le cadre du BTS Communication en binôme ou seul, sur des briefs courts et concrets. Branding, COM, identité visuelle, Figma.</p>
+</header>
+
+<section id="projects">
+  <div class="projects-grid">
+
+    <!-- C1 Chippy's Mascot -->
+    <a href="chippys.html" class="project-card reveal-scale" style="--delay:0ms">
+      <div class="project-img-wrap ratio-half">
+        <img src="../assets/images/chippys/5.jpg" alt="Chippy's Mascot" />
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Branding · Mascotte · COM</span>
+          <span class="project-title">Chippy's Mascot</span>
+        </div>
+        <span class="project-num">C1</span>
+      </div>
+    </a>
+
+    <!-- C2 Club Saucette -->
+    <a href="saucette.html" class="project-card reveal-scale" style="--delay:80ms">
+      <div class="project-img-wrap ratio-half">
+        <img src="../assets/images/saucette/sauce-mascotte.png" alt="Club Saucette" style="object-fit:contain; padding: 20px;" />
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">UX/UI · Branding · Figma</span>
+          <span class="project-title">Club Saucette</span>
+        </div>
+        <span class="project-num">C2</span>
+      </div>
+    </a>
+
+    <!-- C4 Fanzine Slipknot -->
+    <a href="slipknot.html" class="project-card reveal-scale" style="--delay:80ms">
+      <div class="project-img-wrap ratio-half">
+        <img src="../assets/images/cours/slipknot/slippknot.jpg" alt="Fanzine Slipknot" />
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Editorial · Fanzine · InDesign</span>
+          <span class="project-title">Fanzine Slipknot</span>
+        </div>
+        <span class="project-num">C4</span>
+      </div>
+    </a>
+
+    <!-- C3 Cinéma Utopia — MASQUÉ (assets manquants, remettre display:block quand prêt)
+    <a href="utopia.html" class="project-card reveal-scale" style="--delay:0ms">
+      <div class="project-img-wrap ratio-half" style="background: #0a0a0a; display:flex; align-items:center; justify-content:center;">
+        <span style="font-size: clamp(24px,4vw,60px); font-weight:900; letter-spacing:-0.05em; color:rgba(255,255,255,0.05); pointer-events:none;">Utopia</span>
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Identité Visuelle · UX/UI · Figma</span>
+          <span class="project-title">Cinéma Utopia</span>
+        </div>
+        <span class="project-num">C3</span>
+      </div>
+    </a>
+    -->
+
+    <!-- C5 Triptyque Instagram -->
+    <a href="affiches-insta.html" class="project-card reveal-scale" style="--delay:80ms">
+      <div class="project-img-wrap ratio-half">
+        <img src="../assets/images/cours/affiches-insta/Raoult-Tristan-Premium.jpg" alt="Triptyque Instagram" />
+      </div>
+      <div class="project-overlay"></div>
+      <div class="project-meta">
+        <div class="project-info">
+          <span class="project-cat">Graphic Design · Typographie · Affiche</span>
+          <span class="project-title">Triptyque Instagram</span>
+        </div>
+        <span class="project-num">C5</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<section id="next-projects">
+  <div class="np-head reveal">
+    <span class="np-label">Projets suivants</span>
+  </div>
+  <div class="np-grid">
+    <a href="stage.html" class="np-card reveal-scale" style="--delay:0ms">
+      <div class="np-thumb" style="background:#0a0a0a;"><img src="../assets/images/stage/owlblack-logo.svg" alt="Stage OwlBlack" style="object-fit:contain; padding:18%;" /></div>
+      <p class="np-card-title">Stage OwlBlack</p>
+      <p class="np-card-cat">Stage · Identité · Motion · Print</p>
+    </a>
+    <a href="affiches.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb"><img src="../assets/images/affiches/mockups/urban.png" alt="Affiches" /></div>
+      <p class="np-card-title">Affiches</p>
+      <p class="np-card-cat">Graphic Design</p>
+    </a>
+    <a href="freelance.html" class="np-card reveal-scale" style="--delay:160ms">
+      <div class="np-thumb" style="background:#0a0a0a;"><img src="../assets/images/freelance/Chocolatiers_Confiseurs.png" alt="Freelance" /></div>
+      <p class="np-card-title">Freelance</p>
+      <p class="np-card-cat">Print · Communication</p>
+    </a>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="clip-outer">
+    <p class="cta-text clip-inner">Let's work together.</p>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="ft-cols">
+    <div class="ft-col reveal" style="--delay:0ms">
+      <p class="ft-col-head">Sitemap</p>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../work.html">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:80ms">
+      <p class="ft-col-head">Work</p>
+      <ul>
+        <li><a href="fizzi.html">Fizzi</a></li>
+        <li><a href="focus.html">Focus</a></li>
+        <li><a href="gloomy-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="affiches.html">Affiches</a></li>
+        <li><a href="motion-design.html">Motion Design</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="montage.html">Montage</a></li>
+        <li><a href="stage.html">Stage Owlblack</a></li>
+        <li><a href="freelance.html">Freelance</a></li>
+        <li><a href="cours.html">Cours</a></li>
+      </ul>
+    </div>
+    <div class="ft-col reveal" style="--delay:160ms">
+      <p class="ft-col-head">Contact</p>
+      <ul>
+        <li><a href="mailto:tristan.raoult62@gmail.com">↗ Email</a></li>
+        <li><a href="https://www.instagram.com/gloomygraphic/" target="_blank">↗ Instagram</a></li>
+        <li><a href="tel:+33768665558">↗ 07 68 66 55 58</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="clip-outer" style="--delay:100ms">
+    <div class="ft-wordmark clip-inner">Tristan Raoult</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal, .reveal-scale, .clip-outer').forEach(el => io.observe(el));
+})();
+document.getElementById('nav-burger').addEventListener('click', function() {
+  var open = document.querySelector('nav').classList.toggle('menu-open');
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+  a.addEventListener('click', function() {
+    document.querySelector('nav').classList.remove('menu-open');
+    document.body.style.overflow = '';
+  });
+});
+</script>
+<script src="../assets/js/lightbox.js"></script>
+</body>
+</html>
+
+
+
+

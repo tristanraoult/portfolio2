@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -46,7 +46,7 @@
     .pnav-link.next { text-align: right; }
 
     #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-text { font-size: 80px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    .cta-text { font-size: 80px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
 
     #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
     .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
@@ -54,7 +54,7 @@
     .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ft-col a { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
     .ft-col a:hover { color: #fff; transform: translateX(6px); }
-    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
 
     nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
     @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
@@ -62,7 +62,7 @@
     .reveal.in-view { opacity: 1; transform: translateY(0); }
     .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
 

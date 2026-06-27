@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -26,7 +26,7 @@
     #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .pi-left { padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
     .pi-right { padding: 80px 48px; }
-    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: #fff; position: sticky; top: 88px; }
+    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: #fff; position: sticky; top: 88px; }
     .pi-meta-row { display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); gap: 24px; }
     .pi-meta-label { width: 130px; flex-shrink: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
     .pi-meta-val { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.5; }
@@ -41,7 +41,7 @@
     .pc-full img { width: 100%; display: block; max-height: 85vh; object-fit: cover; }
     .pc-full--auto { overflow: hidden; background: #0d0d0f; }
     .pc-full--auto img { width: 100%; height: auto; display: block; }
-    /* Full-width avec respiration — évite que les bords soient coupés */
+    /* Full-width avec respiration évite que les bords soient coupés */
     .pc-full--inset { overflow: hidden; background: #0d0d0f; padding: 52px 80px; }
     .pc-full--inset img { width: 100%; height: auto; display: block; }
 
@@ -74,14 +74,14 @@
     .np-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
 
     #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
     #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
     .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
     .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
     .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ft-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
     .ft-col a:hover { color: #fff; transform: translateX(6px); }
-    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
 
     nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
     @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
@@ -89,7 +89,7 @@
     .reveal.in-view { opacity: 1; transform: translateY(0); }
     .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
     .proj-content { position: relative; z-index: 1; background: #141517; }
@@ -113,11 +113,13 @@
       .pc-section-head { padding: 16px 20px; }
       .pc-row { grid-template-columns: 1fr; direction: ltr; }
       .pc-text { position: static; border-right: none !important; border-left: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; }
+      .pi-meta-row { flex-direction: column; gap: 4px; padding: 12px 0; }
+      .pi-meta-label { width: auto; }
       .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
       #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
       #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
     }
-    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } .ft-cols { grid-template-columns: 1fr; gap: 32px 0; } }
   </style>
 </head>
 <body>
@@ -159,9 +161,9 @@
     </div>
     <div class="pi-meta-row reveal" style="--delay:180ms">
       <span class="pi-meta-label">Année</span>
-      <span class="pi-meta-val">2025 — 2026</span>
+      <span class="pi-meta-val">2025 2026</span>
     </div>
-    <p class="pi-desc reveal" style="--delay:260ms">FOCUS est un podcast entre création et psychologie. Des conversations profondes avec des créateurs autour de leur parcours, leurs doutes et leur vision. Chaque épisode donne naissance à une affiche de collection, objet tangible qui matérialise l'idée forte de l'échange. Projet co-créé avec Loli Martinez, présenté au Concours Open ISEG 2026.</p>
+    <p class="pi-desc reveal" style="--delay:260ms">FOCUS est un podcast entre création et psychologie. Des conversations avec des créateurs sur leur parcours, leurs doutes et leur vision. Chaque épisode sort une affiche de collection, quelque chose de concret à tenir entre les mains. Projet co-créé avec Loli Martinez, présenté au Concours Open ISEG 2026.</p>
   </div>
 </section>
 
@@ -170,12 +172,12 @@
   <span class="pc-section-title">Concept</span>
 </div>
 
-<!-- Image panoramique pleine largeur — dezoom -->
+<!-- Image panoramique pleine largeur dezoom -->
 <div class="pc-full--inset reveal-scale">
   <img src="../assets/images/focus/sticker.png" alt="Focus – Logo principal" />
 </div>
 
-<!-- Concept — texte + logo variantes -->
+<!-- Concept texte + logo variantes -->
 <div class="pc-row pc-row--reverse">
   <div class="pc-imgs">
     <div class="pc-img reveal-scale">
@@ -184,8 +186,8 @@
   </div>
   <div class="pc-text reveal">
     <span class="pc-text-label">Le Concept</span>
-    <p>Notre société va toujours plus vite. Tout ce que l'on consomme, on l'oublie. FOCUS est né du besoin de revenir aux sources : comprendre non pas le comment de la création, mais le pourquoi. Pourquoi créons-nous ?</p>
-    <p>À chaque épisode, un invité du monde créatif. On parle de doutes, de processus, d'intentions. Et à la fin de chaque épisode, on sort une affiche. L'idée : graver les mots dans quelque chose de concret, transformer une réflexion éphémère en objet mémorable.</p>
+    <p>On consomme tout vite et on oublie vite. FOCUS est né de là : pas expliquer le comment de la création, mais le pourquoi. Pourquoi créons-nous ?</p>
+    <p>À chaque épisode, un invité du monde créatif. On parle de doutes, de processus, d'intentions. Et à la fin, on sort une affiche. L'idée : graver les mots dans quelque chose de concret, transformer une réflexion en objet.</p>
   </div>
 </div>
 
@@ -194,17 +196,17 @@
   <span class="pc-section-title">Logo</span>
 </div>
 
-<!-- Logo pleine largeur — dezoom -->
+<!-- Logo pleine largeur dezoom -->
 <div class="pc-full--inset reveal-scale">
   <img src="../assets/images/focus/logo-3.png" alt="Focus – Logo" />
 </div>
 
-<!-- Logo — texte + sticker -->
+<!-- Logo texte + sticker -->
 <div class="pc-row">
   <div class="pc-text reveal">
     <span class="pc-text-label">Identité Visuelle</span>
-    <p>Le logo FOCUS s'inscrit dans la continuité de l'univers GloomyGraphic : une typographie organique, fluide et volontairement déformée, inspirée d'une esthétique pop et expressive. Les deux O sont transformés en yeux, traduisant l'idée de concentration, d'observation et d'introspection au coeur du projet.</p>
-    <p>Ce regard devient la signature visuelle centrale de FOCUS, facilement déclinable sur les affiches, les stickers et le porte-clé de la gamme.</p>
+    <p>Le logo FOCUS est dans la continuité de l'univers Gloomy Graphic : typo organique, fluide, volontairement déformée, avec une esthétique pop et expressive. Les deux O deviennent des yeux, pour traduire visuellement l'idée de concentration et d'introspection.</p>
+    <p>Ce regard est la signature centrale de FOCUS. Il se retrouve sur les affiches, les stickers et le porte-clé de la gamme.</p>
   </div>
   <div class="pc-imgs">
     <div class="pc-img reveal-scale">
@@ -218,12 +220,12 @@
   <span class="pc-section-title">Direction Artistique</span>
 </div>
 
-<!-- Image pleine largeur — dezoom -->
+<!-- Image pleine largeur dezoom -->
 <div class="pc-full--inset reveal-scale">
   <img src="../assets/images/focus/sticker-4.png" alt="Focus – Déclinaison couleur" />
 </div>
 
-<!-- DA — texte + sticker -->
+<!-- DA texte + sticker -->
 <div class="pc-row pc-row--reverse">
   <div class="pc-imgs">
     <div class="pc-img reveal-scale">
@@ -232,8 +234,8 @@
   </div>
   <div class="pc-text reveal">
     <span class="pc-text-label">Direction Artistique</span>
-    <p>L'univers visuel repose sur un dark mode profond avec un violet intense comme couleur signature. Ce violet incarne la dimension mentale du projet : l'introspection, la concentration et le mystère du processus créatif. En light mode, il devient orange, une couleur plus humaine qui symbolise l'énergie et l'inspiration.</p>
-    <p>Le site a été entièrement codé à la main en HTML, CSS et JavaScript, conçu comme une galerie d'art numérique avec des micro-interactions, des effets de glassmorphism et un curseur personnalisé.</p>
+    <p>L'univers visuel est en dark mode profond avec un violet intense comme couleur principale. Ce violet colle à la dimension mentale du projet : introspection, concentration, mystère. En light mode, il passe à l'orange, une couleur plus directe, qui tire vers l'énergie et l'envie de créer.</p>
+    <p>Le site a été codé entièrement à la main en HTML, CSS et JavaScript. Micro-interactions, glassmorphism, curseur personnalisé. L'idée était de faire quelque chose qui ressemble à une galerie d'art numérique.</p>
   </div>
 </div>
 
@@ -242,35 +244,35 @@
   <span class="pc-section-title">Affiches de Collection</span>
 </div>
 
-<!-- Affiches — texte seul pleine largeur -->
+<!-- Affiches texte seul pleine largeur -->
 <div class="pc-row" style="grid-template-columns: 1fr">
   <div class="pc-text reveal">
     <span class="pc-text-label">Affiches &amp; Goodies</span>
-    <p>Les affiches sont la seconde dimension de FOCUS. Après chaque épisode, une affiche est créée à partir de l'idée forte de la conversation. Séries limitées, imprimées sur papier 350g mat, numérotées et accompagnées d'un certificat d'authenticité et de stickers.</p>
-    <p>L'objectif est de transformer une réflexion souvent éphémère en objet tangible et mémorable, et de créer un lien durable entre l'auditeur et la communauté FOCUS.</p>
+    <p>Après chaque épisode, une affiche sort. Elle part de l'idée centrale de la conversation. Séries limitées, papier 350g mat, numérotées, avec un certificat d'authenticité et des stickers.</p>
+    <p>L'idée : transformer quelque chose d'éphémère en objet qu'on garde. Donner une forme concrète à l'échange entre l'auditeur et la communauté FOCUS.</p>
   </div>
 </div>
 
 <!-- ─────────────────────────────── NEXT PROJECTS ─── -->
 <section id="next-projects">
   <div class="np-head reveal">
-    <span class="np-label">Next Projects</span>
+    <span class="np-label">Projets suivants</span>
   </div>
   <div class="np-grid">
-    <a href="fizzi.html" class="np-card reveal-scale" style="--delay:0ms">
-      <div class="np-thumb"><img src="../assets/images/fizzi/cans-group.png" alt="Fizzi" /></div>
-      <p class="np-card-title">Fizzi</p>
-      <p class="np-card-cat">Brand Identity</p>
-    </a>
-    <a href="glumi-graphic.html" class="np-card reveal-scale" style="--delay:80ms">
+    <a href="gloomy-graphic.html" class="np-card reveal-scale" style="--delay:0ms">
       <div class="np-thumb"><img src="../assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" /></div>
       <p class="np-card-title">Gloomy Graphic</p>
       <p class="np-card-cat">Identity, Motion</p>
     </a>
-    <a href="affiches.html" class="np-card reveal-scale" style="--delay:160ms">
-      <div class="np-thumb"><img src="../assets/images/affiches/mockups/urban.png" alt="Affiches" /></div>
-      <p class="np-card-title">Affiches</p>
-      <p class="np-card-cat">Print Design</p>
+    <a href="cours.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb"><img src="../assets/images/cours/affiches-insta/Raoult-Tristan-Fun.jpg" alt="Cours" /></div>
+      <p class="np-card-title">Cours</p>
+      <p class="np-card-cat">Projets de Cours · BTS COM</p>
+    </a>
+    <a href="stage.html" class="np-card reveal-scale" style="--delay:160ms">
+      <div class="np-thumb" style="background:#0a0a0a;"><img src="../assets/images/stage/owlblack-logo.svg" alt="Stage OwlBlack" style="object-fit:contain; padding:18%;" /></div>
+      <p class="np-card-title">Stage OwlBlack</p>
+      <p class="np-card-cat">Stage · Identité · Motion · Print</p>
     </a>
   </div>
 </section>
@@ -297,14 +299,13 @@
       <ul>
         <li><a href="fizzi.html">Fizzi</a></li>
         <li><a href="focus.html">Focus</a></li>
-        <li><a href="glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="gloomy-graphic.html">Gloomy Graphic</a></li>
         <li><a href="affiches.html">Affiches</a></li>
         <li><a href="motion-design.html">Motion Design</a></li>
         <li><a href="photography.html">Photography</a></li>
         <li><a href="montage.html">Montage</a></li>
         <li><a href="stage.html">Stage Owlblack</a></li>
         <li><a href="freelance.html">Freelance</a></li>
-        <li><a href="workshops.html">Workshops</a></li>
       </ul>
     </div>
     <div class="ft-col reveal" style="--delay:160ms">
@@ -342,5 +343,9 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
   });
 });
 </script>
+<script src="../assets/js/lightbox.js"></script>
 </body>
 </html>
+
+
+

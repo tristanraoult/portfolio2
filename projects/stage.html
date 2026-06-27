@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -26,7 +26,7 @@
     #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .pi-left { padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
     .pi-right { padding: 80px 48px; }
-    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: #fff; position: sticky; top: 88px; }
+    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: #fff; position: sticky; top: 88px; }
     .pi-meta-row { display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); gap: 24px; }
     .pi-meta-label { width: 130px; flex-shrink: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
     .pi-meta-val { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.5; }
@@ -63,6 +63,25 @@
     /* Grid 2 colonnes */
     .pc-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #141517; }
 
+    /* Grid 3 colonnes */
+    .pc-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: #141517; }
+
+    /* Logo SVG container */
+    .pc-img--logo { padding: 48px; display: flex; align-items: center; justify-content: center; min-height: 240px; }
+    .pc-img--logo img { max-width: 100%; height: auto; max-height: 180px; object-fit: contain; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+
+    /* Video player */
+    .pc-video-wrap { position: relative; cursor: pointer; overflow: hidden; background: #000; }
+    .pc-video-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.22); transition: background 0.3s; }
+    .pc-video-wrap:hover::after { background: rgba(0,0,0,0.06); }
+    .pc-video-thumb { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+    .pc-play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 2; width: 68px; height: 68px; background: rgba(255,255,255,0.13); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px); transition: background 0.3s, transform 0.3s; }
+    .pc-play-btn svg { width: 28px; height: 28px; fill: #fff; margin-left: 5px; }
+    .pc-video-wrap:hover .pc-play-btn { background: rgba(255,255,255,0.28); transform: translate(-50%,-50%) scale(1.1); }
+
+    /* PDF embed */
+    .pc-pdf-embed { width: 100%; height: 640px; display: block; border: none; background: #0d0d0f; }
+
     /* Placeholder image slot */
     .pc-placeholder { background: #0d0d0f; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
     .pc-placeholder--sq { aspect-ratio: 1/1; }
@@ -83,14 +102,14 @@
     .np-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
 
     #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
     #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
     .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
     .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
     .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ft-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
     .ft-col a:hover { color: #fff; transform: translateX(6px); }
-    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
 
     nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
     @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
@@ -98,7 +117,7 @@
     .reveal.in-view { opacity: 1; transform: translateY(0); }
     .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
     .proj-content { position: relative; z-index: 1; background: #141517; }
@@ -123,11 +142,14 @@
       .pc-row { grid-template-columns: 1fr; direction: ltr; }
       .pc-text { position: static; border-right: none !important; border-left: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; }
       .pc-grid-2 { grid-template-columns: 1fr; }
+      .pc-grid-3 { grid-template-columns: 1fr; }
+      .pi-meta-row { flex-direction: column; gap: 4px; padding: 12px 0; }
+      .pi-meta-label { width: auto; }
       .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
       #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
       #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
     }
-    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } .ft-cols { grid-template-columns: 1fr; gap: 32px 0; } }
   </style>
 </head>
 <body>
@@ -142,18 +164,20 @@
   <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- Hero sombre — logo en filigrane -->
+<!-- Hero sombre logo OwlBlack -->
 <section id="proj-hero">
-  <span class="hero-logo">Owlblack</span>
+  <img src="../assets/images/stage/owlblack-logo.svg" alt="OwlBlack"
+    style="width:clamp(200px,35vw,440px); height:auto; opacity:0.82;" />
 </section>
 
 <div class="proj-content">
 
 <section id="proj-info">
   <div class="pi-left">
-    <div class="clip-outer" style="--delay:0ms">
-      <h1 class="proj-title clip-inner">Stage<br>Owlblack</h1>
-    </div>
+    <h1 class="proj-title">
+      <div class="clip-outer" style="--delay:0ms"><span class="clip-inner">Stage</span></div>
+      <div class="clip-outer" style="--delay:120ms"><span class="clip-inner">Owlblack</span></div>
+    </h1>
   </div>
   <div class="pi-right">
     <div class="pi-meta-row reveal" style="--delay:0ms">
@@ -161,8 +185,8 @@
       <span class="pi-meta-val">Identité Visuelle · Print · Motion · Web</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:60ms">
-      <span class="pi-meta-label">Client</span>
-      <span class="pi-meta-val">Owlblack</span>
+      <span class="pi-meta-label">Agence</span>
+      <span class="pi-meta-val"><a href="https://www.owlblack.fr/" target="_blank" rel="noopener" style="color:inherit; text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2); padding-bottom:1px; transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.6)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'">Owlblack ↗</a></span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:120ms">
       <span class="pi-meta-label">Services</span>
@@ -170,50 +194,101 @@
     </div>
     <div class="pi-meta-row reveal" style="--delay:180ms">
       <span class="pi-meta-label">Durée</span>
-      <span class="pi-meta-val">8 semaines — Avr–Juin 2025</span>
+      <span class="pi-meta-val">8 semaines Avr–Juin 2025</span>
     </div>
-    <p class="pi-desc reveal" style="--delay:260ms">Stage de 8 semaines au sein de l'agence OwlBlack à Anglet (Pays Basque) — graphisme, motion design, montage vidéo et photographie pour une clientèle locale de TPE, PME et startups.</p>
+    <p class="pi-desc reveal" style="--delay:260ms">Stage de 8 semaines à l'agence OwlBlack à Anglet, en plein Pays Basque. Graphisme, motion design, montage vidéo et photo pour des clients locaux : TPE, PME et startups.</p>
   </div>
 </section>
 
 <!-- ─── TRAVAUX ─── -->
 <div class="pc-section-head reveal">
   <span class="pc-section-title">Travaux réalisés</span>
-  <span class="pc-section-count">(6 missions)</span>
+  <span class="pc-section-count">(7 missions)</span>
 </div>
 
-<!-- 01 — Identité & Graphisme -->
+<!-- 01 Logo SL Épaviste -->
 <div class="pc-row reveal">
   <div class="pc-text">
-    <span class="pc-text-label">01 — Identité & Graphisme</span>
-    <p>Création d'un logo pour un épaviste automobile de Bayonne-Anglet — identité originale intégrant une croix basque stylisée en forme de crochet de remorquage, clin d'œil local tout en évoquant l'activité de dépannage. Réalisé sur Adobe Illustrator.</p>
-    <p>Mockups pour Les Ateliers du Toit (rénovation toitures) et Termitator (traitement termites) — photomontages réalistes conçus sans template sous Photoshop, intégrés au portfolio et aux réseaux sociaux de l'agence.</p>
+    <span class="pc-text-label">01 Logo · SL Épaviste</span>
+    <p>J'ai dessiné le logo de SL Épaviste, épaviste agréé à Bayonne-Anglet. Le brief : une identité locale qui dit tout de suite ce que fait l'entreprise, lisible même en petit. C'est mon premier logo professionnel réalisé de A à Z sous Adobe Illustrator, pour un vrai client, en conditions réelles.</p>
+    <p>L'idée retenue après plusieurs ébauches : une croix basque dont les branches se terminent en crochet de remorquage. Un symbole ancré dans le territoire, lisible d'un coup d'œil même à petite taille. J'ai travaillé les proportions et les épaisseurs sur plusieurs itérations pour que le signe reste lisible quelle que soit la taille d'impression, de la carte de visite au covering de véhicule.</p>
+    <p>Décliné en deux versions : blanc sur fond sombre, noir sur fond clair. Le logo est aujourd'hui utilisé sur le site du client, ses cartes de visite et ses véhicules. <a href="https://epaviste-bayonne-anglet-64.fr/" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.55); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2); padding-bottom:1px; transition:color 0.2s, border-color 0.2s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.55)';this.style.borderColor='rgba(255,255,255,0.2)'">Voir le site →</a></p>
   </div>
   <div class="pc-imgs">
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Logo Épaviste</span></div>
+    <div class="pc-img pc-img--logo">
+      <img src="../assets/images/stage/epaviste/sl_blanc.svg" alt="Logo SL Épaviste version blanche" />
     </div>
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Mockups Clients</span></div>
+    <div class="pc-img pc-img--logo" style="background:#f5f4f2;">
+      <img src="../assets/images/stage/epaviste/sl_noir.svg" alt="Logo SL Épaviste version noire" />
     </div>
   </div>
 </div>
 
-<!-- 02 — Print -->
+<!-- 02 Mockups Instagram · Ateliers du Toit -->
 <div class="pc-row pc-row--reverse reveal">
   <div class="pc-text">
-    <span class="pc-text-label">02 — Print</span>
-    <p>Carte de visite pour Café Boez (coffee shop local) — design et mise en situation réaliste sous Photoshop. Apprentissage des contraintes d'impression avec Julien : CMJN, 300 DPI, PDF haute qualité, polices vectorisées.</p>
-    <p>Triptyques Instagram : division d'un visuel panoramique en trois posts carrés formant un ensemble cohérent sur la grille du profil — format appliqué à plusieurs clients pour valoriser les réalisations web de l'agence.</p>
+    <span class="pc-text-label">02 Mockups · Ateliers du Toit</span>
+    <p>Photomontages pour Les Ateliers du Toit, une entreprise de rénovation de toitures au Pays Basque. Julien m'a fourni des photos brutes de chantiers et de toitures rénovées. Mon travail : les intégrer dans des décors réalistes sous Photoshop pour montrer le rendu final et alimenter le portfolio web de l'agence.</p>
+    <p>Aucun template, tout à la main. Sélections au pixel près, masques de calque, harmonisation de lumière et de colorimétrie entre les différentes sources. C'est sur ce projet que j'ai vraiment progressé en retouche et en assemblage d'images. Le rendu doit être crédible pour convaincre un propriétaire de commander des travaux, donc pas de place pour l'approximatif.</p>
+    <p>Pour Instagram, j'ai conçu un visuel panoramique découpé en trois posts carrés. Sur la grille du profil, les trois images se reconstituent en une seule image large. Chaque post reste lisible individuellement. Le sujet principal est centré, les détails en périphérie. Ce format, je l'ai ensuite appliqué pour d'autres clients de l'agence.</p>
   </div>
   <div class="pc-imgs">
     <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Carte de visite Café Boez</span></div>
+      <img src="../assets/images/stage/pb/mockup%20pc.jpg" alt="Mockup Ateliers du Toit PC" />
     </div>
     <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:16/9"><span>Triptyque Instagram</span></div>
+      <img src="../assets/images/stage/pb/mockup_tel.jpg" alt="Mockup Ateliers du Toit Mobile" />
     </div>
   </div>
+</div>
+<div class="pc-full--auto reveal-scale">
+  <img src="../assets/images/stage/pb/charte.jpg" alt="Ateliers du Toit Visuel panoramique triptyque" />
+</div>
+<div class="pc-grid-3 reveal-scale">
+  <div class="pc-img" style="aspect-ratio:1/1; overflow:hidden">
+    <img src="../assets/images/stage/pb/insta_01.jpg" alt="Triptyque Ateliers du Toit Post 1" style="width:100%; height:100%; object-fit:cover; display:block;" />
+  </div>
+  <div class="pc-img" style="aspect-ratio:1/1; overflow:hidden">
+    <img src="../assets/images/stage/pb/insta_02.jpg" alt="Triptyque Ateliers du Toit Post 2" style="width:100%; height:100%; object-fit:cover; display:block;" />
+  </div>
+  <div class="pc-img" style="aspect-ratio:1/1; overflow:hidden">
+    <img src="../assets/images/stage/pb/insta_03.jpg" alt="Triptyque Ateliers du Toit Post 3" style="width:100%; height:100%; object-fit:cover; display:block;" />
+  </div>
+</div>
+
+<!-- 02 Print -->
+<div class="pc-row pc-row--reverse reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">03 Print · Café Boez</span>
+    <p>Carte de visite recto-verso pour Café Boez, un coffee shop local. Mon premier projet print professionnel de A à Z : brief client, direction artistique, conception sous Photoshop et préparation des fichiers pour l'imprimeur.</p>
+    <p>J'ai appris les contraintes d'impression directement en production avec Julien : conversion en CMJN, résolution 300 DPI minimum, tracés de coupe et fond perdu, polices vectorisées, export PDF haute qualité. Des notions vues en cours que j'ai vraiment saisies en conditions réelles. La différence entre un rendu écran et un rendu imprimé m'a obligé à reprendre les couleurs plusieurs fois avant validation.</p>
+    <p>En parallèle, un triptyque Instagram animé en GIF : même principe que pour Les Ateliers du Toit, mais animé cette fois. Trois posts carrés qui se reconstituent en un visuel panoramique sur la grille du profil. Ce format a ensuite servi de référence pour d'autres clients de l'agence.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-img">
+      <img src="../assets/images/stage/boez/recto@300x.png" alt="Carte de visite Café Boez Recto" />
+    </div>
+    <div class="pc-img">
+      <img src="../assets/images/stage/boez/verso@300x.png" alt="Carte de visite Café Boez Verso" />
+    </div>
+  </div>
+</div>
+<div class="pc-full--auto reveal-scale">
+  <img src="../assets/images/stage/boez/café.gif" alt="Triptyque Instagram Café Boez Panoramique complet" />
+</div>
+<div class="pc-grid-3 reveal-scale">
+  <div class="pc-img" style="aspect-ratio:1/1; overflow:hidden">
+    <img src="../assets/images/stage/boez/caféboez_01.gif" alt="Post Instagram Café Boez 1" style="width:100%; height:100%; object-fit:cover; display:block;" />
+  </div>
+  <div class="pc-img" style="aspect-ratio:1/1; overflow:hidden">
+    <img src="../assets/images/stage/boez/caféboez_02.gif" alt="Post Instagram Café Boez 2" style="width:100%; height:100%; object-fit:cover; display:block;" />
+  </div>
+  <div class="pc-img" style="aspect-ratio:1/1; overflow:hidden">
+    <img src="../assets/images/stage/boez/caféboez_03.gif" alt="Post Instagram Café Boez 3" style="width:100%; height:100%; object-fit:cover; display:block;" />
+  </div>
+</div>
+<div class="pc-full--auto reveal-scale">
+  <img src="../assets/images/stage/boez/instaboez.png" alt="Mockup Instagram Profil Café Boez" />
 </div>
 
 <!-- ─── MOTION DESIGN ─── -->
@@ -222,42 +297,50 @@
   <span class="pc-section-count">(3)</span>
 </div>
 
-<div class="pc-full reveal-scale">
-  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Vidéo SEO — OwlBlack</span></div>
-</div>
-
-<!-- 03 — SEO & SEA -->
+<!-- 04 Motion Design SEO & SEA -->
 <div class="pc-row reveal">
   <div class="pc-text">
-    <span class="pc-text-label">03 — OwlBlack</span>
-    <p>Vidéo pédagogique "Le SEO expliqué par OwlBlack" — script rédigé après formation interne SEO, illustrations sur mesure, animation sous After Effects, voix-off enregistrée, montage final sur Premiere Pro. Diffusée sur le site de l'agence.</p>
-    <p>Suite avec une vidéo SEA (Search Engine Advertising) reprenant la même identité visuelle et le même style pédagogique — deux capsules formant une mini-série éducative sur le marketing digital.</p>
+    <span class="pc-text-label">04 Motion Design · OwlBlack</span>
+    <p>Deux vidéos pédagogiques produites pour OwlBlack : "Le SEO expliqué par OwlBlack" et "Le SEA expliqué par OwlBlack". Des formats courts pensés pour le web, intégrés sur le site de l'agence pour accompagner les prospects.</p>
+    <p>Workflow complet : script rédigé après une formation interne avec Julien sur le référencement et la publicité en ligne. Illustrations issues de la bibliothèque Canva Pro, adaptées à la charte graphique de l'agence. Animations et mise en scène entièrement sur Canva Pro. Voix-off générée sur Eleven Labs avec une voix IA calibrée pour correspondre au ton de l'agence. Montage final, synchronisation son-image et export sous Premiere Pro.</p>
+    <p>Ma première expérience de production vidéo de A à Z, du script au fichier livré. J'ai appris à travailler vite sur Canva Pro tout en gardant un résultat propre, et à caler le rythme des animations sur la voix-off pour que tout reste fluide à regarder.</p>
   </div>
   <div class="pc-imgs">
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:16/9"><span>Frame — Vidéo SEO</span></div>
+    <div class="pc-video-wrap" onclick="loadVid('https://youtu.be/T8DZan8TlRE')" style="cursor:pointer;">
+      <img class="pc-video-thumb" src="https://img.youtube.com/vi/T8DZan8TlRE/maxresdefault.jpg"
+        onerror="this.src='https://img.youtube.com/vi/T8DZan8TlRE/hqdefault.jpg'"
+        alt="Motion Design SEO OwlBlack" />
+      <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
     </div>
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:16/9"><span>Vidéo SEA</span></div>
+    <div class="pc-video-wrap" onclick="loadVid('https://youtu.be/XssHQL3-gnk')" style="cursor:pointer;">
+      <img class="pc-video-thumb" src="https://img.youtube.com/vi/XssHQL3-gnk/maxresdefault.jpg"
+        onerror="this.src='https://img.youtube.com/vi/XssHQL3-gnk/hqdefault.jpg'"
+        alt="Motion Design SEA OwlBlack" />
+      <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
     </div>
   </div>
 </div>
 
-<!-- 04 — Juriactes -->
+<!-- 04 Juriactes -->
 <div class="pc-row pc-row--reverse reveal">
   <div class="pc-text">
-    <span class="pc-text-label">04 — Juriactes</span>
-    <p>Vidéo promotionnelle pour Juriactes, startup legaltech d'automatisation de documents juridiques. Script narratif, storyboard plan par plan sur Illustrator, animation scène par scène sous After Effects — livrée en HD pour projection lors d'un salon professionnel.</p>
-    <p>Direction artistique complète : palette de couleurs, pictogrammes sur mesure (balance, documents, chronomètre), synchronisation voix-off et musique dynamique. Retour très positif du client à la présentation.</p>
+    <span class="pc-text-label">05 Juriactes</span>
+    <p>La mission la plus ambitieuse du stage : une vidéo promo complète pour Juriactes, une startup legaltech qui automatise la génération de documents juridiques. J'ai tout géré de A à Z, de la conception à la livraison.</p>
+    <p>Première étape : le storyboard scène par scène sur Illustrator. Chaque plan cadré, chaque transition pensée avant de toucher After Effects. Ensuite la création des assets graphiques : pictogrammes sur mesure (balance, documents, chronomètre), palette de couleurs, typographie adaptée à l'univers juridique-tech du client. L'objectif était un rendu propre pour une présentation en salon professionnel.</p>
+    <p>Animation entièrement sur After Effects, un logiciel que je n'avais quasiment jamais utilisé avant ce projet. J'ai appris les keyframes, les expressions de base et les compositions imbriquées en avançant. Voix-off enregistrée et synchronisée image par image, montage final sur Premiere Pro. Plusieurs semaines de travail pour quelques minutes de vidéo finale. Le client était satisfait à la présentation.</p>
   </div>
   <div class="pc-imgs">
     <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Storyboard Juriactes</span></div>
-    </div>
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:16/9"><span>Vidéo Juriactes</span></div>
+      <img src="../assets/images/stage/juriactes/soryboard@300x.png" alt="Storyboard Juriactes" style="width:100%; display:block;" />
     </div>
   </div>
+</div>
+<!-- Vidéo Juriactes remplacer TON_ID_VIDEO par l'ID YouTube (11 caractères après watch?v=) -->
+<div class="pc-video-wrap reveal-scale" onclick="loadVid('https://youtu.be/52db-KbGAXM')">
+  <img class="pc-video-thumb" src="https://img.youtube.com/vi/52db-KbGAXM/maxresdefault.jpg"
+    onerror="this.src='https://img.youtube.com/vi/52db-KbGAXM/hqdefault.jpg'"
+    alt="Juriactes Motion Design" />
+  <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
 </div>
 
 <!-- ─── TOURNAGE & MONTAGE ─── -->
@@ -266,23 +349,20 @@
   <span class="pc-section-count">(2)</span>
 </div>
 
-<div class="pc-full reveal-scale">
-  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Clip Promo Nouveau — Bayonne & Biarritz</span></div>
-</div>
-
-<!-- 05 — Nouveau -->
+<!-- 06 Nouveau -->
 <div class="pc-row reveal">
   <div class="pc-text">
-    <span class="pc-text-label">05 — Nouveau (streetwear)</span>
-    <p>Clip promotionnel pour la marque de streetwear Nouveau — tournage d'une journée complète à Bayonne et Biarritz avec 3 mannequins, plusieurs décors emblématiques des deux villes. Assistant vidéaste et photographe sur le terrain.</p>
-    <p>Montage sous Premiere Pro : étalonnage colorimétrique vintage (grain pellicule, cadre 8mm), transitions créatives entre mannequins, animation du logo sur After Effects. Clip diffusé sur les réseaux sociaux avec fort engagement.</p>
+    <span class="pc-text-label">06 Nouveau (streetwear)</span>
+    <p>J'ai participé au clip promo de Nouveau, une marque de streetwear locale. Journée complète de tournage entre Bayonne et Biarritz, plusieurs mannequins, des décors emblématiques du Pays Basque : la Grande Plage, les ruelles du centre-ville, les bords de Nive.</p>
+    <p>Mon rôle sur le terrain : cadreur vidéo aux côtés de Marco Fioretta, directeur artistique de la marque. J'ai géré le cadrage vidéo et quelques prises de vue photo en parallèle. Une journée à s'adapter en continu à la lumière naturelle, aux déplacements rapides et aux imprévus du tournage en extérieur, avec un planning serré.</p>
+    <p>Post-production partagée avec Marco : sélection des plans, étalonnage couleur des photos produits, participation au montage final sur Premiere Pro. Ma première expérience sur un tournage commercial avec une équipe et des exigences de rendu professionnel.</p>
   </div>
   <div class="pc-imgs">
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:3/2"><span>Shooting Bayonne</span></div>
-    </div>
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:3/2"><span>Shooting Biarritz</span></div>
+    <div class="pc-video-wrap" onclick="loadVid('https://youtu.be/TWPfPxrpO0c')" style="cursor:pointer;">
+      <img class="pc-video-thumb" src="https://img.youtube.com/vi/TWPfPxrpO0c/maxresdefault.jpg"
+        onerror="this.src='https://img.youtube.com/vi/TWPfPxrpO0c/hqdefault.jpg'"
+        alt="Clip Promo Nouveau Bayonne & Biarritz" />
+      <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
     </div>
   </div>
 </div>
@@ -293,19 +373,19 @@
   <span class="pc-section-count">(1)</span>
 </div>
 
-<!-- 06 — Chevaux Curly -->
+<!-- 06 Chevaux Curly -->
 <div class="pc-row pc-row--reverse reveal">
   <div class="pc-text">
-    <span class="pc-text-label">06 — Chevaux Curly</span>
-    <p>Shooting photo et vidéo dans un ranch au Pays Basque pour alimenter les réseaux sociaux d'un éleveur de chevaux Curly — une race rare aux crins bouclés. Plans terrestres et aériens (drone), interview filmée de la propriétaire.</p>
-    <p>Pratique des réglages techniques en conditions réelles : ouverture, vitesse d'obturation et ISO adaptés à des sujets en mouvement dans une lumière changeante.</p>
+    <span class="pc-text-label">07 Chevaux Curly</span>
+    <p>Shooting photo dans un ranch au Pays Basque pour les réseaux sociaux d'un éleveur de chevaux Curly, une race rare aux crins bouclés. Journée complète en extérieur : lumière naturelle changeante, sujets en mouvement constant, grands espaces ouverts.</p>
+    <p>Le défi principal : photographier des chevaux en liberté. Pas de mise en scène possible, tout se joue sur les réflexes et les réglages en temps réel. Vitesse d'obturation pour figer les mouvements, ouverture pour isoler les sujets du fond, ISO pour s'adapter aux zones ombragées ou en plein soleil.</p>
+    <p>Livraison brute à la demande du client, sans retouche. Une contrainte qui m'a forcé à être plus rigoureux sur chaque prise au moment du shooting. <a href="https://www.curly-cvv.com/" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.55); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.2); padding-bottom:1px; transition:color 0.2s, border-color 0.2s;" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.55)';this.style.borderColor='rgba(255,255,255,0.2)'">Voir l'élevage →</a></p>
   </div>
   <div class="pc-imgs">
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:3/2"><span>Chevaux Curly — Plans Terrain</span></div>
-    </div>
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:3/2"><span>Vue Drone</span></div>
+    <div class="pc-img" style="overflow:hidden; background:#0d0d0f;">
+      <iframe src="https://www.instagram.com/p/DG5ACGJMhZn/embed/"
+        style="width:100%; height:1020px; border:none; display:block; margin-top:-78px;"
+        allowtransparency="true" scrolling="no" loading="lazy"></iframe>
     </div>
   </div>
 </div>
@@ -313,23 +393,23 @@
 <!-- ─── NEXT PROJECTS ─── -->
 <section id="next-projects">
   <div class="np-head reveal">
-    <span class="np-label">Next Projects</span>
+    <span class="np-label">Projets suivants</span>
   </div>
   <div class="np-grid">
-    <a href="fizzi.html" class="np-card reveal-scale" style="--delay:0ms">
-      <div class="np-thumb"><img src="../assets/images/fizzi/cans-group.png" alt="Fizzi" /></div>
-      <p class="np-card-title">Fizzi</p>
-      <p class="np-card-cat">Brand Identity</p>
-    </a>
-    <a href="focus.html" class="np-card reveal-scale" style="--delay:80ms">
-      <div class="np-thumb"><img src="../assets/images/focus/focus.png" alt="Focus" /></div>
-      <p class="np-card-title">Focus</p>
-      <p class="np-card-cat">Brand Identity</p>
-    </a>
-    <a href="affiches.html" class="np-card reveal-scale" style="--delay:160ms">
+    <a href="affiches.html" class="np-card reveal-scale" style="--delay:0ms">
       <div class="np-thumb"><img src="../assets/images/affiches/mockups/urban.png" alt="Affiches" /></div>
       <p class="np-card-title">Affiches</p>
-      <p class="np-card-cat">Print Design</p>
+      <p class="np-card-cat">Graphic Design</p>
+    </a>
+    <a href="freelance.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb" style="background:#0a0a0a;"><img src="../assets/images/freelance/Chocolatiers_Confiseurs.png" alt="Freelance" /></div>
+      <p class="np-card-title">Freelance</p>
+      <p class="np-card-cat">Print · Communication</p>
+    </a>
+    <a href="photography.html" class="np-card reveal-scale" style="--delay:160ms">
+      <div class="np-thumb"><img src="../assets/images/photography/fair/6.jpg" alt="Photography" /></div>
+      <p class="np-card-title">Photography</p>
+      <p class="np-card-cat">Art Direction</p>
     </a>
   </div>
 </section>
@@ -356,14 +436,13 @@
       <ul>
         <li><a href="fizzi.html">Fizzi</a></li>
         <li><a href="focus.html">Focus</a></li>
-        <li><a href="glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="gloomy-graphic.html">Gloomy Graphic</a></li>
         <li><a href="affiches.html">Affiches</a></li>
         <li><a href="motion-design.html">Motion Design</a></li>
         <li><a href="photography.html">Photography</a></li>
         <li><a href="montage.html">Montage</a></li>
         <li><a href="stage.html">Stage Owlblack</a></li>
         <li><a href="freelance.html">Freelance</a></li>
-        <li><a href="workshops.html">Workshops</a></li>
       </ul>
     </div>
     <div class="ft-col reveal" style="--delay:160ms">
@@ -389,6 +468,8 @@
   document.querySelectorAll('.reveal, .reveal-scale, .clip-outer').forEach(el => io.observe(el));
 })();
 
+function loadVid(url) { window.open(url, '_blank'); }
+
 /* Hamburger */
 document.getElementById('nav-burger').addEventListener('click', function() {
   var open = document.querySelector('nav').classList.toggle('menu-open');
@@ -401,5 +482,9 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
   });
 });
 </script>
+<script src="../assets/js/lightbox.js"></script>
 </body>
 </html>
+
+
+

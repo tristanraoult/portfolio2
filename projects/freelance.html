@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -20,13 +20,13 @@
     .nav-links a:hover::after { width: 100%; }
 
     #proj-hero { height: 100vh; overflow: hidden; background: #0a0a0a; position: sticky; top: 0; z-index: 0; display: flex; align-items: center; justify-content: center; }
-    .hero-logo { font-size: clamp(80px, 14vw, 180px); font-weight: 900; letter-spacing: -0.05em; color: rgba(255,255,255,0.06); user-select: none; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+    .hero-wordmark { font-size: clamp(80px, 14vw, 200px); font-weight: 900; letter-spacing: -0.05em; color: rgba(255,255,255,0.05); user-select: none; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
     @keyframes heroZoom { from { transform: scale(1.08); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .pi-left { padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
     .pi-right { padding: 80px 48px; }
-    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: #fff; position: sticky; top: 88px; }
+    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: #fff; position: sticky; top: 88px; }
     .pi-meta-row { display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); gap: 24px; }
     .pi-meta-label { width: 130px; flex-shrink: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
     .pi-meta-val { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.5; }
@@ -36,10 +36,10 @@
     .pc-section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
     .pc-section-count { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.22); }
 
-    .pc-full { overflow: hidden; background: #0d0d0f; }
-    .pc-full img { width: 100%; display: block; max-height: 85vh; object-fit: cover; }
     .pc-full--auto { overflow: hidden; background: #0d0d0f; }
     .pc-full--auto img { width: 100%; height: auto; display: block; }
+    .pc-full--light { background: #f5f3f0; padding: 56px 80px; overflow: hidden; }
+    .pc-full--light img { width: 100%; height: auto; display: block; }
     .pc-full--inset { overflow: hidden; background: #0d0d0f; padding: 52px 80px; }
     .pc-full--inset img { width: 100%; height: auto; display: block; }
 
@@ -57,12 +57,13 @@
     .pc-img img { width: 100%; display: block; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
     .pc-img:hover img { transform: scale(1.03); }
 
-    .pc-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #141517; }
-
-    .pc-placeholder { background: #0d0d0f; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
-    .pc-placeholder--sq { aspect-ratio: 1/1; }
-    .pc-placeholder--port { aspect-ratio: 3/4; }
-    .pc-placeholder span { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.1); }
+    .pc-embed { width: 100%; border: none; display: block; background: #0d0d0f; }
+    .pc-logo-showcase { background: #f5f3f0; padding: 80px 20%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .pc-logo-showcase img { width: 100%; height: auto; display: block; }
+    .pc-grid-insta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: #141517; }
+    .pc-insta-item { overflow: hidden; background: #0d0d0f; aspect-ratio: 9/16; }
+    .pc-insta-item img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+    .pc-insta-item:hover img { transform: scale(1.04); }
 
     #next-projects { padding: 80px 48px 100px; }
     .np-head { padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 40px; }
@@ -77,14 +78,14 @@
     .np-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
 
     #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
     #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
     .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
     .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
     .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ft-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
     .ft-col a:hover { color: #fff; transform: translateX(6px); }
-    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
 
     nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
     @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
@@ -92,7 +93,7 @@
     .reveal.in-view { opacity: 1; transform: translateY(0); }
     .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
     .proj-content { position: relative; z-index: 1; background: #141517; }
@@ -116,12 +117,13 @@
       .pc-section-head { padding: 16px 20px; }
       .pc-row { grid-template-columns: 1fr; direction: ltr; }
       .pc-text { position: static; border-right: none !important; border-left: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; }
-      .pc-grid-2 { grid-template-columns: 1fr; }
+      .pi-meta-row { flex-direction: column; gap: 4px; padding: 12px 0; }
+      .pi-meta-label { width: auto; }
       .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
       #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
       #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
     }
-    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } .ft-cols { grid-template-columns: 1fr; gap: 32px 0; } }
   </style>
 </head>
 <body>
@@ -137,7 +139,7 @@
 </nav>
 
 <section id="proj-hero">
-  <span class="hero-logo">Freelance</span>
+  <span class="hero-wordmark">Freelance</span>
 </section>
 
 <div class="proj-content">
@@ -151,116 +153,117 @@
   <div class="pi-right">
     <div class="pi-meta-row reveal" style="--delay:0ms">
       <span class="pi-meta-label">Catégories</span>
-      <span class="pi-meta-val">Print · Communication · Identité Visuelle</span>
+      <span class="pi-meta-val">Print · Identité Visuelle · Direction Artistique</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:60ms">
       <span class="pi-meta-label">Clients</span>
       <span class="pi-meta-val">Hold CD · CCCF</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:120ms">
-      <span class="pi-meta-label">Services</span>
-      <span class="pi-meta-val">Design Graphique · Print · Direction Artistique</span>
+      <span class="pi-meta-label">Outils</span>
+      <span class="pi-meta-val">Photoshop · Illustrator</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:180ms">
       <span class="pi-meta-label">Année</span>
       <span class="pi-meta-val">2024–2025</span>
     </div>
-    <p class="pi-desc reveal" style="--delay:260ms">Projets freelance — plaquettes commerciales, supports de présentation et print pour des clients aux univers distincts, du secteur musical à la confiserie artisanale.</p>
+    <p class="pi-desc reveal" style="--delay:260ms">Deux missions freelance menées en parallèle de mes études : une plaquette commerciale pour une structure musicale, et un logo pour un concours national de la confiserie artisanale française.</p>
   </div>
 </section>
 
 <!-- ─── HOLD CD ─── -->
 <div class="pc-section-head reveal">
-  <span class="pc-section-title">Hold CD</span>
-  <span class="pc-section-count">(2)</span>
-</div>
-
-<div class="pc-full reveal-scale">
-  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Hold CD — Vue d'ensemble</span></div>
+  <span class="pc-section-title">Hold CD Plaquette commerciale</span>
+  <span class="pc-section-count">(1)</span>
 </div>
 
 <div class="pc-row reveal">
   <div class="pc-text">
-    <span class="pc-text-label">01 — Plaquette commerciale</span>
-    <p>Conception d'une plaquette commerciale complète pour Hold CD — mise en page éditoriale, hiérarchie typographique et direction artistique cohérente avec l'identité de la marque.</p>
-    <p>Du brief à la livraison des fichiers prêts à l'impression : format, grille, colorimétrie CMJN, exports haute qualité.</p>
+    <span class="pc-text-label">01 Plaquette · Hold CD</span>
+    <p>J'ai conçu une plaquette commerciale pour Hold CD, une structure dans le secteur musical. Le brief : un support print soigné pour les rendez-vous clients et les pitches, cohérent avec leur image.</p>
+    <p>Du brief aux fichiers prêts à l'impression : choix du format, grille typographique, hiérarchie de l'information, illustrations adaptées à la charte, export CMJN. Un travail de mise en page où chaque décision sert la lisibilité du message commercial.</p>
+    <p>Relation client directe, allers-retours sur les corrections, livraison finale sous Photoshop. Ma première plaquette professionnelle conçue seul de A à Z.</p>
   </div>
   <div class="pc-imgs">
     <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Plaquette — Pages intérieures</span></div>
-    </div>
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Plaquette — Couverture</span></div>
-    </div>
-  </div>
-</div>
-
-<div class="pc-row pc-row--reverse reveal">
-  <div class="pc-text">
-    <span class="pc-text-label">02 — Pochette & support de présentation</span>
-    <p>Création de la pochette et d'un support de présentation complémentaire — conception graphique adaptée à l'univers de la marque, pensée pour un usage en pitch et en rendez-vous client.</p>
-    <p>Attention portée à la lisibilité, à la cohérence des supports entre eux et à la qualité du rendu imprimé.</p>
-  </div>
-  <div class="pc-imgs">
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Pochette Hold CD</span></div>
-    </div>
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Support de présentation</span></div>
+      <iframe src="../assets/images/freelance/Hold-CD.pdf#toolbar=0&navpanes=0&scrollbar=0"
+        class="pc-embed" style="height:700px;"></iframe>
     </div>
   </div>
 </div>
 
 <!-- ─── CCCF ─── -->
 <div class="pc-section-head reveal">
-  <span class="pc-section-title">CCCF — Confédération des Chocolatiers & Confiseurs de France</span>
-  <span class="pc-section-count">(1)</span>
+  <span class="pc-section-title">CCCF Trophée des Espoirs</span>
+  <span class="pc-section-count">2025</span>
 </div>
 
-<div class="pc-full reveal-scale">
-  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>CCCF — Vue d'ensemble</span></div>
+<div class="pc-logo-showcase reveal-scale">
+  <img src="../assets/images/freelance/chocolat logocouleur@300x.png"
+       alt="Logo Trophée des Espoirs de la Chocolaterie 2025" />
 </div>
 
 <div class="pc-row reveal">
   <div class="pc-text">
-    <span class="pc-text-label">03 — Supports print</span>
-    <p>Réalisation de supports print pour la Confédération des Chocolatiers & Confiseurs de France — un univers exigeant alliant tradition artisanale et communication institutionnelle.</p>
-    <p>Direction artistique adaptée au prestige de la filière : typographie soignée, palette de couleurs élégante et mise en page aérée pour valoriser le savoir-faire des confiseurs.</p>
+    <span class="pc-text-label">02 Logo · Trophée des Espoirs 2025</span>
+    <p>J'ai conçu le logo du Trophée des Espoirs de la Chocolaterie 2025, un concours national organisé par la Confédération des Chocolatiers &amp; Confiseurs de France (CCCF) en partenariat avec le Club des Croqueurs de Chocolat et les CFAs. Ce concours réunit des apprentis en première année de BTM Chocolaterie, en équipes de quatre, pour réaliser quatre confiseries en chocolat à partir de cacao issu du commerce équitable. Les finalistes s'affrontent sur scène au Salon du Chocolat de Paris.</p>
+    <p>Le brief : un logo qui sente l'artisanat et la fête, lisible de la médaille aux supports du salon. J'ai exploré plusieurs pistes typographiques, de couleurs et de symboles avant d'aboutir à la version finale. Le logo a été retenu par la CCCF et utilisé pour toute la communication du concours : Instagram, site web, supports imprimés.</p>
   </div>
   <div class="pc-imgs">
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>CCCF — Support Print</span></div>
-    </div>
-    <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>CCCF — Déclinaisons</span></div>
+    <div class="pc-img" style="background:#f5f3f0; overflow:hidden;">
+      <img src="../assets/images/freelance/Chocolatiers_Confiseurs.png"
+           alt="CCCF Communication officielle Trophée des Espoirs"
+           style="width:100%; height:auto; display:block;" />
     </div>
   </div>
+</div>
+
+<!-- ─── PROCESS ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Recherches & Essais</span>
+  <span class="pc-section-count">Process</span>
+</div>
+
+<div class="pc-full--light reveal-scale">
+  <img src="../assets/images/freelance/chocolatiertouslestests@300x.png"
+       alt="Planche de recherches Trophée des Espoirs 2025" />
+</div>
+
+<!-- ─── INSTAGRAM ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Logo en contexte Instagram CCCF</span>
+  <span class="pc-section-count">(6)</span>
+</div>
+
+<div class="pc-grid-insta reveal-scale">
+  <div class="pc-insta-item"><img src="../assets/images/freelance/imgi_51_486724937_1004721701846867_4360720640061481751_n.jpg" alt="CCCF Instagram" /></div>
+  <div class="pc-insta-item"><img src="../assets/images/freelance/imgi_4_573588312_18157553632392694_707073438952151904_n.jpg" alt="CCCF Instagram" /></div>
+  <div class="pc-insta-item"><img src="../assets/images/freelance/imgi_4_573209618_18157553659392694_8823307256682181072_n.jpg" alt="CCCF Instagram" /></div>
+  <div class="pc-insta-item"><img src="../assets/images/freelance/imgi_4_572889713_18157553668392694_6991907865234623865_n.jpg" alt="CCCF Instagram" /></div>
+  <div class="pc-insta-item"><img src="../assets/images/freelance/imgi_4_572738904_18157553686392694_9196078165922213991_n.jpg" alt="CCCF Instagram" /></div>
+  <div class="pc-insta-item"><img src="../assets/images/freelance/imgi_4_573001927_18157553695392694_2084142925014112286_n.jpg" alt="CCCF Instagram" /></div>
 </div>
 
 <!-- ─── NEXT PROJECTS ─── -->
 <section id="next-projects">
   <div class="np-head reveal">
-    <span class="np-label">Next Projects</span>
+    <span class="np-label">Projets suivants</span>
   </div>
   <div class="np-grid">
-    <a href="workshops.html" class="np-card reveal-scale" style="--delay:0ms">
-      <div class="np-thumb" style="background:#0a0a0a; display:flex; align-items:center; justify-content:center;">
-        <span style="font-size:clamp(18px,3vw,32px); font-weight:900; letter-spacing:-0.04em; color:rgba(255,255,255,0.08);">Workshops</span>
-      </div>
-      <p class="np-card-title">Workshops</p>
-      <p class="np-card-cat">Communication · DA</p>
+    <a href="photography.html" class="np-card reveal-scale" style="--delay:0ms">
+      <div class="np-thumb"><img src="../assets/images/photography/fair/6.jpg" alt="Photography" /></div>
+      <p class="np-card-title">Photography</p>
+      <p class="np-card-cat">Art Direction</p>
     </a>
-    <a href="stage.html" class="np-card reveal-scale" style="--delay:80ms">
-      <div class="np-thumb" style="background:#0a0a0a; display:flex; align-items:center; justify-content:center;">
-        <span style="font-size:clamp(18px,3vw,32px); font-weight:900; letter-spacing:-0.04em; color:rgba(255,255,255,0.08);">Owlblack</span>
-      </div>
-      <p class="np-card-title">Stage Owlblack</p>
-      <p class="np-card-cat">Graphisme · Motion · Vidéo</p>
+    <a href="motion-design.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb"><img src="https://img.youtube.com/vi/T8DZan8TlRE/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/T8DZan8TlRE/hqdefault.jpg'" alt="Motion Design" /></div>
+      <p class="np-card-title">Motion Design</p>
+      <p class="np-card-cat">Motion Design</p>
     </a>
-    <a href="fizzi.html" class="np-card reveal-scale" style="--delay:160ms">
-      <div class="np-thumb"><img src="../assets/images/fizzi/cans-group.png" alt="Fizzi" /></div>
-      <p class="np-card-title">Fizzi</p>
-      <p class="np-card-cat">Brand Identity</p>
+    <a href="montage.html" class="np-card reveal-scale" style="--delay:160ms">
+      <div class="np-thumb"><img src="../assets/images/montage/jfO6E6TVnbM.jpg" alt="Montage" /></div>
+      <p class="np-card-title">Montage</p>
+      <p class="np-card-cat">Montage Vidéo</p>
     </a>
   </div>
 </section>
@@ -287,13 +290,13 @@
       <ul>
         <li><a href="fizzi.html">Fizzi</a></li>
         <li><a href="focus.html">Focus</a></li>
-        <li><a href="glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="gloomy-graphic.html">Gloomy Graphic</a></li>
         <li><a href="affiches.html">Affiches</a></li>
         <li><a href="motion-design.html">Motion Design</a></li>
+        <li><a href="photography.html">Photography</a></li>
         <li><a href="montage.html">Montage</a></li>
         <li><a href="stage.html">Stage Owlblack</a></li>
         <li><a href="freelance.html">Freelance</a></li>
-        <li><a href="workshops.html">Workshops</a></li>
       </ul>
     </div>
     <div class="ft-col reveal" style="--delay:160ms">
@@ -318,7 +321,6 @@
   }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
   document.querySelectorAll('.reveal, .reveal-scale, .clip-outer').forEach(el => io.observe(el));
 })();
-
 document.getElementById('nav-burger').addEventListener('click', function() {
   var open = document.querySelector('nav').classList.toggle('menu-open');
   document.body.style.overflow = open ? 'hidden' : '';
@@ -330,5 +332,9 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
   });
 });
 </script>
+<script src="../assets/js/lightbox.js"></script>
 </body>
 </html>
+
+
+

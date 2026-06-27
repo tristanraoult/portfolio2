@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -26,7 +26,7 @@
     #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .pi-left { padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
     .pi-right { padding: 80px 48px; }
-    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: #fff; position: sticky; top: 88px; }
+    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: #fff; position: sticky; top: 88px; }
     .pi-meta-row { display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); gap: 24px; }
     .pi-meta-label { width: 130px; flex-shrink: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
     .pi-meta-val { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.5; }
@@ -76,14 +76,14 @@
     .np-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
 
     #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
     #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
     .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
     .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
     .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ft-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
     .ft-col a:hover { color: #fff; transform: translateX(6px); }
-    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
 
     nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
     @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
@@ -91,7 +91,7 @@
     .reveal.in-view { opacity: 1; transform: translateY(0); }
     .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
     .proj-content { position: relative; z-index: 1; background: #141517; }
@@ -154,7 +154,7 @@
     </div>
     <div class="pi-meta-row reveal" style="--delay:60ms">
       <span class="pi-meta-label">Contexte</span>
-      <span class="pi-meta-val">Académique — ISEGCOM</span>
+      <span class="pi-meta-val">Académique ISEGCOM</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:120ms">
       <span class="pi-meta-label">Services</span>
@@ -164,25 +164,25 @@
       <span class="pi-meta-label">Année</span>
       <span class="pi-meta-val">2024–2025</span>
     </div>
-    <p class="pi-desc reveal" style="--delay:260ms">Workshops de communication réalisés dans le cadre de l'ISEGCOM — travaux en équipe sur des briefs réels pour des marques, territoires et événements : Bordeaux, châteaux viticoles et Garorock.</p>
+    <p class="pi-desc reveal" style="--delay:260ms">Workshops de communication en équipe à l'ISEGCOM, sur des briefs réels : Bordeaux, châteaux viticoles, Garorock.</p>
   </div>
 </section>
 
 <!-- ─── BORDEAUX ─── -->
 <div class="pc-section-head reveal">
-  <span class="pc-section-title">Bordeaux — Marques & Territoires</span>
+  <span class="pc-section-title">Bordeaux Marques & Territoires</span>
   <span class="pc-section-count">(1)</span>
 </div>
 
 <div class="pc-full reveal-scale">
-  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Workshop Bordeaux — Vue d'ensemble</span></div>
+  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Workshop Bordeaux Vue d'ensemble</span></div>
 </div>
 
 <div class="pc-row reveal">
   <div class="pc-text">
-    <span class="pc-text-label">01 — Communication territoriale</span>
-    <p>Workshop de communication autour des marques et territoires de Bordeaux — stratégie de communication, direction artistique et productions visuelles pour mettre en valeur l'identité d'un territoire.</p>
-    <p>Réflexion sur le positionnement, les cibles et les supports adaptés à une communication territoriale contemporaine.</p>
+    <span class="pc-text-label">01 Communication territoriale</span>
+    <p>Workshop autour des marques et territoires de Bordeaux. En équipe, on a travaillé la stratégie, les visuels et la direction artistique pour mettre en valeur l'identité d'un territoire.</p>
+    <p>On a réfléchi au positionnement, aux cibles et aux bons supports pour une communication territoriale d'aujourd'hui.</p>
   </div>
   <div class="pc-imgs">
     <div class="pc-img">
@@ -196,19 +196,19 @@
 
 <!-- ─── CHÂTEAUX / VIN ─── -->
 <div class="pc-section-head reveal">
-  <span class="pc-section-title">Châteaux — Univers Vins</span>
+  <span class="pc-section-title">Châteaux Univers Vins</span>
   <span class="pc-section-count">(1)</span>
 </div>
 
 <div class="pc-full reveal-scale">
-  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Workshop Châteaux — Vue d'ensemble</span></div>
+  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Workshop Châteaux Vue d'ensemble</span></div>
 </div>
 
 <div class="pc-row pc-row--reverse reveal">
   <div class="pc-text">
-    <span class="pc-text-label">02 — Univers premium & patrimoine</span>
-    <p>Workshop autour de la communication pour les châteaux et l'univers viticole — un secteur exigeant où l'image de marque doit allier prestige, authenticité et modernité.</p>
-    <p>Travail sur la direction artistique, le choix typographique et la mise en page adaptée aux codes du luxe et de la tradition.</p>
+    <span class="pc-text-label">02 Univers premium & patrimoine</span>
+    <p>Workshop sur la communication des châteaux et de l'univers viticole. Un secteur où l'image de marque doit tenir compte du prestige, de l'authenticité et d'une certaine modernité en même temps.</p>
+    <p>On a travaillé la direction artistique, le choix typographique et la mise en page adaptée aux codes du luxe et de la tradition.</p>
   </div>
   <div class="pc-imgs">
     <div class="pc-img">
@@ -222,23 +222,23 @@
 
 <!-- ─── GAROROCK ─── -->
 <div class="pc-section-head reveal">
-  <span class="pc-section-title">Garorock — Événementiel</span>
+  <span class="pc-section-title">Garorock Événementiel</span>
   <span class="pc-section-count">(1)</span>
 </div>
 
 <div class="pc-full reveal-scale">
-  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Workshop Garorock — Vue d'ensemble</span></div>
+  <div class="pc-placeholder" style="aspect-ratio:16/9; max-height:85vh"><span>Workshop Garorock Vue d'ensemble</span></div>
 </div>
 
 <div class="pc-row reveal">
   <div class="pc-text">
-    <span class="pc-text-label">03 — Communication événementielle</span>
-    <p>Workshop de communication événementielle pour Garorock, festival de musique du Sud-Ouest — réflexion sur la campagne de communication, l'identité visuelle de l'édition et les supports de promotion.</p>
-    <p>Création de visuels adaptés aux codes de la culture musicale et festivalière : dynamisme, énergie et lisibilité à toutes les échelles.</p>
+    <span class="pc-text-label">03 Communication événementielle</span>
+    <p>Workshop sur Garorock, festival de musique du Sud-Ouest. On a planché sur la campagne de com, l'identité visuelle de l'édition et les supports promo.</p>
+    <p>Des visuels qui collent aux codes du monde festivalier : dynamisme, énergie, lisibilité à toutes les échelles.</p>
   </div>
   <div class="pc-imgs">
     <div class="pc-img">
-      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Garorock — Campagne</span></div>
+      <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Garorock Campagne</span></div>
     </div>
     <div class="pc-img">
       <div class="pc-placeholder" style="aspect-ratio:4/3"><span>Supports événementiels</span></div>
@@ -252,10 +252,52 @@
     <span class="np-label">Next Projects</span>
   </div>
   <div class="np-grid">
-    <a href="freelance.html" class="np-card reveal-scale" style="--delay:0ms">
-      <div class="np-thumb" style="background:#0a0a0a; display:flex; align-items:center; justify-content:center;">
-        <span style="font-size:clamp(18px,3vw,32px); font-weight:900; letter-spacing:-0.04em; color:rgba(255,255,255,0.08);">Freelance</span>
-      </div>
+    <a href="fizzi.html" class="np-card reveal-scale" style="--delay:0ms">
+      <div class="np-thumb"><img src="../assets/images/fizzi/cans-group.png" alt="Fizzi" /></div>
+      <p class="np-card-title">Fizzi</p>
+      <p class="np-card-cat">Brand Identity</p>
+    </a>
+    <a href="focus.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb"><img src="../assets/images/focus/focus.png" alt="Focus" /></div>
+      <p class="np-card-title">Focus</p>
+      <p class="np-card-cat">Brand Identity</p>
+    </a>
+    <a href="gloomy-graphic.html" class="np-card reveal-scale" style="--delay:160ms">
+      <div class="np-thumb"><img src="../assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" /></div>
+      <p class="np-card-title">Gloomy Graphic</p>
+      <p class="np-card-cat">Identity · Motion</p>
+    </a>
+    <a href="affiches.html" class="np-card reveal-scale" style="--delay:0ms">
+      <div class="np-thumb"><img src="../assets/images/affiches/mockups/urban.png" alt="Affiches" /></div>
+      <p class="np-card-title">Affiches</p>
+      <p class="np-card-cat">Graphic Design</p>
+    </a>
+    <a href="motion-design.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb"><img src="https://img.youtube.com/vi/T8DZan8TlRE/maxresdefault.jpg" onerror="this.src='https://img.youtube.com/vi/T8DZan8TlRE/hqdefault.jpg'" alt="Motion Design" /></div>
+      <p class="np-card-title">Motion Design</p>
+      <p class="np-card-cat">Motion Design</p>
+    </a>
+    <a href="photography.html" class="np-card reveal-scale" style="--delay:160ms">
+      <div class="np-thumb"><img src="../assets/images/photography/fair/6.jpg" alt="Photography" /></div>
+      <p class="np-card-title">Photography</p>
+      <p class="np-card-cat">Art Direction</p>
+    </a>
+    <a href="montage.html" class="np-card reveal-scale" style="--delay:0ms">
+      <div class="np-thumb"><img src="../assets/images/montage/jfO6E6TVnbM.jpg" alt="Montage" /></div>
+      <p class="np-card-title">Montage</p>
+      <p class="np-card-cat">Montage Vidéo</p>
+    </a>
+    <a href="stage.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb" style="background:#0a0a0a;"><img src="../assets/images/stage/owlblack-logo.svg" alt="Stage Owlblack" style="object-fit:contain; padding:20%;" /></div>
+      <p class="np-card-title">Stage Owlblack</p>
+      <p class="np-card-cat">Identité · Motion · Print</p>
+    </a>
+    <a href="freelance.html" class="np-card reveal-scale" style="--delay:160ms">
+      <div class="np-thumb"><img src="../assets/images/freelance/Chocolatiers_Confiseurs.png" alt="Freelance" /></div>
+      <p class="np-card-title">Freelance</p>
+      <p class="np-card-cat">Print · Communication</p>
+    </a>
+  </div>
       <p class="np-card-title">Freelance</p>
       <p class="np-card-cat">Print · Communication</p>
     </a>
@@ -296,7 +338,7 @@
       <ul>
         <li><a href="fizzi.html">Fizzi</a></li>
         <li><a href="focus.html">Focus</a></li>
-        <li><a href="glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="gloomy-graphic.html">Gloomy Graphic</a></li>
         <li><a href="affiches.html">Affiches</a></li>
         <li><a href="motion-design.html">Motion Design</a></li>
         <li><a href="montage.html">Montage</a></li>
@@ -341,3 +383,5 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
 </script>
 </body>
 </html>
+
+

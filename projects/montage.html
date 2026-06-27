@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -22,7 +22,7 @@
     #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .pi-left { padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
     .pi-right { padding: 80px 48px; }
-    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: #fff; position: sticky; top: 88px; }
+    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: #fff; position: sticky; top: 88px; }
     .pi-meta-row { display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); gap: 24px; }
     .pi-meta-label { width: 130px; flex-shrink: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
     .pi-meta-val { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.5; }
@@ -58,21 +58,21 @@
     .np-card:hover .np-card-title { transform: translateX(6px); }
     .np-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
     #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
     #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
     .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
     .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
     .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ft-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
     .ft-col a:hover { color: #fff; transform: translateX(6px); }
-    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
     nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
     @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
     .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal.in-view { opacity: 1; transform: translateY(0); }
     .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
     .proj-content { position: relative; z-index: 1; background: #141517; }
@@ -94,11 +94,13 @@
       .proj-title { position: static; font-size: 52px; }
       .pc-section-head { padding: 16px 20px; }
       .pc-video-grid { grid-template-columns: 1fr; }
+      .pi-meta-row { flex-direction: column; gap: 4px; padding: 12px 0; }
+      .pi-meta-label { width: auto; }
       .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
       #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
       #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
     }
-    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } .ft-cols { grid-template-columns: 1fr; gap: 32px 0; } }
   </style>
 </head>
 <body>
@@ -113,7 +115,7 @@
   <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- Hero sombre — pas d'image, fond noir -->
+<!-- Hero sombre pas d'image, fond noir -->
 <section id="proj-hero"></section>
 
 <div class="proj-content">
@@ -141,7 +143,7 @@
       <span class="pi-meta-label">Année</span>
       <span class="pi-meta-val">2024</span>
     </div>
-    <p class="pi-desc reveal" style="--delay:260ms">Montages vidéo réalisés pour des projets personnels et des clients — motion, clips, captations et séquences rythmées sur mesure.</p>
+    <p class="pi-desc reveal" style="--delay:260ms">Montages vidéo réalisés pour des projets personnels et des clients motion, clips, captations et séquences rythmées sur mesure.</p>
   </div>
 </section>
 
@@ -151,13 +153,13 @@
   <span class="pc-section-count">(6)</span>
 </div>
 
-<!-- Hunger Games — horizontale 16:9 -->
+<!-- Hunger Games horizontale 16:9 -->
 <div class="pc-video-wrap reveal-scale" onclick="loadVid(this,'https://youtu.be/jfO6E6TVnbM')">
   <img class="pc-video-thumb" src="../assets/images/montage/jfO6E6TVnbM.jpg" onerror="thumbErr(this,'jfO6E6TVnbM')" alt="Hunger Games" />
   <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
 </div>
 
-<!-- Cinématique + Flash Cut — verticales 9:16 côte à côte -->
+<!-- Cinématique + Flash Cut verticales 9:16 côte à côte -->
 <div class="pc-video-grid reveal-scale">
   <div class="pc-video-wrap pc-video-wrap--v" onclick="loadVid(this,'https://youtu.be/1Oo5POKiMjw')">
     <img class="pc-video-thumb" src="../assets/images/montage/1Oo5POKiMjw.jpg" onerror="thumbErr(this,'1Oo5POKiMjw')" alt="Cinématique" />
@@ -169,7 +171,7 @@
   </div>
 </div>
 
-<!-- Kaweko — horizontale 16:9 -->
+<!-- Kaweko horizontale 16:9 -->
 <div class="pc-video-wrap reveal-scale" onclick="loadVid(this,'https://youtu.be/9QkmyyjBZKE')">
   <img class="pc-video-thumb" src="../assets/images/montage/9QkmyyjBZKE.jpg" onerror="thumbErr(this,'9QkmyyjBZKE')" alt="Pub Kaweko" />
   <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
@@ -192,7 +194,7 @@
 <!-- ─────────────────────────────────────── NEXT PROJECTS ─── -->
 <section id="next-projects">
   <div class="np-head reveal">
-    <span class="np-label">Next Projects</span>
+    <span class="np-label">Projets suivants</span>
   </div>
   <div class="np-grid">
     <a href="fizzi.html" class="np-card reveal-scale" style="--delay:0ms">
@@ -200,15 +202,15 @@
       <p class="np-card-title">Fizzi</p>
       <p class="np-card-cat">Brand Identity</p>
     </a>
-    <a href="glumi-graphic.html" class="np-card reveal-scale" style="--delay:80ms">
+    <a href="focus.html" class="np-card reveal-scale" style="--delay:80ms">
+      <div class="np-thumb" style="background:#000;"><img src="../assets/images/focus/focus.png" alt="Focus" /></div>
+      <p class="np-card-title">Focus</p>
+      <p class="np-card-cat">Brand Identity</p>
+    </a>
+    <a href="gloomy-graphic.html" class="np-card reveal-scale" style="--delay:160ms">
       <div class="np-thumb"><img src="../assets/images/gloomy/gloomy.png" alt="Gloomy Graphic" /></div>
       <p class="np-card-title">Gloomy Graphic</p>
       <p class="np-card-cat">Identity, Motion</p>
-    </a>
-    <a href="photography.html" class="np-card reveal-scale" style="--delay:160ms">
-      <div class="np-thumb"><img src="../assets/images/photography/fair/6.jpg" alt="Photography" /></div>
-      <p class="np-card-title">Photography</p>
-      <p class="np-card-cat">Art Direction</p>
     </a>
   </div>
 </section>
@@ -235,14 +237,13 @@
       <ul>
         <li><a href="fizzi.html">Fizzi</a></li>
         <li><a href="focus.html">Focus</a></li>
-        <li><a href="glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="gloomy-graphic.html">Gloomy Graphic</a></li>
         <li><a href="affiches.html">Affiches</a></li>
         <li><a href="motion-design.html">Motion Design</a></li>
         <li><a href="photography.html">Photography</a></li>
         <li><a href="montage.html">Montage</a></li>
         <li><a href="stage.html">Stage Owlblack</a></li>
         <li><a href="freelance.html">Freelance</a></li>
-        <li><a href="workshops.html">Workshops</a></li>
       </ul>
     </div>
     <div class="ft-col reveal" style="--delay:160ms">
@@ -296,5 +297,9 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
   });
 });
 </script>
+<script src="../assets/js/lightbox.js"></script>
 </body>
 </html>
+
+
+

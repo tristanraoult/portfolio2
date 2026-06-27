@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -54,7 +54,7 @@
 
     /* ─── CTA ─── */
     #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
 
     /* ─── FOOTER ─── */
     #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
@@ -63,14 +63,14 @@
     .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ft-col a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); display: inline-block; }
     .ft-col a:hover { color: #fff; transform: translateX(6px); }
-    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
 
     /* ─── ANIMATIONS ─── */
     nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
     @keyframes navIn { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:translateY(0); } }
     .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal.in-view { opacity: 1; transform: translateY(0); }
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
 
@@ -100,6 +100,7 @@
     }
     @media (max-width: 480px) {
       .contact-grid { grid-template-columns: 1fr; }
+      .ft-cols { grid-template-columns: 1fr; gap: 32px 0; }
     }
   </style>
 </head>
@@ -170,7 +171,7 @@
 
 <!-- SHORT BIO -->
 <section id="contact-bio">
-  <p class="contact-bio-text reveal">Graphiste freelance passionné par l'identité visuelle, le motion design et la direction artistique. Disponible pour des missions ponctuelles ou des collaborations durables — n'hésitez pas à me contacter.</p>
+  <p class="contact-bio-text reveal">Graphiste freelance passionné par l'identité visuelle, le motion design et la direction artistique. Disponible pour des missions ponctuelles ou des collaborations durables n'hésitez pas à me contacter.</p>
 </section>
 
 <!-- CTA -->
@@ -197,14 +198,13 @@
       <ul>
         <li><a href="projects/fizzi.html">Fizzi</a></li>
         <li><a href="projects/focus.html">Focus</a></li>
-        <li><a href="projects/glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="projects/gloomy-graphic.html">Gloomy Graphic</a></li>
         <li><a href="projects/affiches.html">Affiches</a></li>
         <li><a href="projects/motion-design.html">Motion Design</a></li>
         <li><a href="projects/photography.html">Photography</a></li>
         <li><a href="projects/montage.html">Montage</a></li>
         <li><a href="projects/stage.html">Stage Owlblack</a></li>
         <li><a href="projects/freelance.html">Freelance</a></li>
-        <li><a href="projects/workshops.html">Workshops</a></li>
       </ul>
     </div>
     <div class="ft-col reveal" style="--delay:160ms">
@@ -243,3 +243,5 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
 </script>
 </body>
 </html>
+
+

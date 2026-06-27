@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -72,7 +72,7 @@
     .tl-sub { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.35); letter-spacing: 0.04em; margin-bottom: 20px; }
     .tl-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .tl-list li { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.65; padding-left: 18px; position: relative; }
-    .tl-list li::before { content: '—'; position: absolute; left: 0; color: rgba(255,255,255,0.18); }
+    .tl-list li::before { content: ' '; position: absolute; left: 0; color: rgba(255,255,255,0.18); }
     .tl-freelance { display: flex; flex-direction: column; gap: 22px; }
     .tl-freelance-client { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.55); margin-bottom: 5px; }
     .tl-freelance-desc { font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.65; }
@@ -84,7 +84,7 @@
 
     /* ─── CTA ─── */
     #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
 
     /* ─── FOOTER ─── */
     #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
@@ -93,14 +93,14 @@
     .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ft-col a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); display: inline-block; }
     .ft-col a:hover { color: #fff; transform: translateX(6px); }
-    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
 
     /* ─── ANIMATIONS ─── */
     nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
     @keyframes navIn { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:translateY(0); } }
     .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal.in-view { opacity: 1; transform: translateY(0); }
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
 
@@ -126,11 +126,13 @@
       .section-wrap { padding: 60px 20px; }
       .tl-item { grid-template-columns: 1fr; gap: 10px; }
       #cta { padding: 80px 20px; }
+      .cta-text { font-size: 40px; }
       #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; gap: 40px 24px; padding-bottom: 40px; }
       .ft-wordmark { font-size: 48px; }
     }
     @media (max-width: 430px) {
       .pg-grid { grid-template-columns: 1fr; }
+      .ft-cols { grid-template-columns: 1fr; gap: 32px 0; }
     }
   </style>
 </head>
@@ -168,9 +170,9 @@
       <img src="assets/images/about/portrait.jpg" alt="Tristan Raoult" />
     </div>
     <div class="bio-text">
-      <p class="reveal" style="--delay:80ms">Graphiste freelance, je suis spécialisé dans la création de visuels uniques. Mon univers mêle authenticité et créativité, avec une approche artisanale et déstructurée qui donne une âme à chaque projet.</p>
-      <p class="reveal" style="--delay:160ms">Fort d'une expérience variée, je travaille sur des projets allant de l'identité visuelle au packaging, en passant par la stratégie de marque. J'accorde une attention particulière à la cohérence et à la singularité des concepts que je développe.</p>
-      <p class="reveal" style="--delay:240ms">Autodidacte passionné, j'ai affûté mon savoir-faire en créant et en expérimentant au fil des projets. Aujourd'hui, j'affine mes compétences en les mettant également en pratique dans le cadre de ma formation à l'ISEGCOM Bordeaux.</p>
+      <p class="reveal" style="--delay:80ms">Graphiste freelance, 20 ans, Pays Basque. Je crée des identités visuelles, du packaging, du motion design. Une approche artisanale où chaque projet part d'une idée simple et se construit à la main.</p>
+      <p class="reveal" style="--delay:160ms">J'aime les projets où on fait les choses sérieusement sans en faire trop. Logo, affiches, vidéo, photo : je travaille sur des projets variés, mais le fil conducteur reste toujours la cohérence visuelle et quelque chose de mémorable.</p>
+      <p class="reveal" style="--delay:240ms">J'ai appris en créant, projet après projet. Je suis aussi en formation à l'ISEGCOM Bordeaux où je mets tout ça en pratique sur des briefs réels.</p>
       <div class="bio-info reveal" style="--delay:320ms">
         <div class="bio-info-row">
           <span class="bio-info-label">Localisation</span>
@@ -182,7 +184,7 @@
         </div>
         <div class="bio-info-row">
           <span class="bio-info-label">Formation</span>
-          <span class="bio-info-val">ISEGCOM Bordeaux — Master Marketing &amp; Design</span>
+          <span class="bio-info-val">ISEGCOM Bordeaux Master Marketing &amp; Design</span>
         </div>
         <div class="bio-info-row">
           <span class="bio-info-label">Outils</span>
@@ -217,7 +219,7 @@
     <span class="cv-label">Curriculum Vitae</span>
   </div>
   <div class="cv-img-wrap reveal" style="--delay:80ms">
-    <img src="assets/images/about/cv-photo.jpg" alt="CV — Tristan Raoult" />
+    <img src="assets/images/about/cv-photo.jpg" alt="CV Tristan Raoult" />
   </div>
 </section>
 
@@ -227,7 +229,7 @@
   <div class="timeline">
 
     <div class="tl-item reveal">
-      <div class="tl-period">2023 — 2025<em>Marquons</em></div>
+      <div class="tl-period">2023 2025<em>Marquons</em></div>
       <div class="tl-content">
         <h3 class="tl-title">Workshops &amp; Réalisations</h3>
         <p class="tl-sub">Bordeaux Média · Châteaux Coufran &amp; Verdignan · Garorock</p>
@@ -241,10 +243,10 @@
     </div>
 
     <div class="tl-item reveal">
-      <div class="tl-period">Avr. 2025 — Juin 2025<em>L'histoire</em></div>
+      <div class="tl-period">Avr. 2025 Juin 2025<em>L'histoire</em></div>
       <div class="tl-content">
         <h3 class="tl-title">Graphiste &amp; Motion Designer</h3>
-        <p class="tl-sub">Stage — OwlBlack</p>
+        <p class="tl-sub">Stage OwlBlack</p>
         <ul class="tl-list">
           <li>Création de logos, mockups et vidéos en motion design pour divers clients de l'agence</li>
           <li>Animation et montage sur After Effects &amp; Premiere Pro</li>
@@ -255,7 +257,7 @@
     </div>
 
     <div class="tl-item reveal">
-      <div class="tl-period">2024 — Présent<em>Ensemble</em></div>
+      <div class="tl-period">2024 Présent<em>Ensemble</em></div>
       <div class="tl-content">
         <h3 class="tl-title">Gloomy Graphic &amp; Focus Podcast</h3>
         <p class="tl-sub">Projets personnels</p>
@@ -267,22 +269,22 @@
     </div>
 
     <div class="tl-item reveal">
-      <div class="tl-period">2024 — Présent</div>
+      <div class="tl-period">2024 Présent</div>
       <div class="tl-content">
         <h3 class="tl-title">Graphiste Freelance</h3>
         <p class="tl-sub">Missions indépendantes</p>
         <div class="tl-freelance">
           <div>
             <p class="tl-freelance-client">Hold CD</p>
-            <p class="tl-freelance-desc">Création d'une plaquette commerciale A4 recto/verso adaptée au site web de l'entreprise, dans le respect des délais et des codes graphiques.</p>
+            <p class="tl-freelance-desc">Plaquette commerciale A4 recto/verso, dans les codes graphiques de la marque et livrée dans les délais.</p>
           </div>
           <div>
-            <p class="tl-freelance-client">CCCF — Confédération des Chocolatiers &amp; Confiseurs de France</p>
-            <p class="tl-freelance-desc">Réalisation de deux flyers alignés avec l'identité visuelle, livrés sous deadline de 2 jours.</p>
+            <p class="tl-freelance-client">CCCF Confédération des Chocolatiers &amp; Confiseurs de France</p>
+            <p class="tl-freelance-desc">Deux flyers dans l'identité visuelle existante, livrés en 2 jours.</p>
           </div>
           <div>
             <p class="tl-freelance-client">Juriactes</p>
-            <p class="tl-freelance-desc">Vidéo de présentation complète pour un salon professionnel — script, storyboard sur Illustrator, animation sur After Effects et export final.</p>
+            <p class="tl-freelance-desc">Vidéo promo pour un salon professionnel : script, storyboard sur Illustrator, animation sur After Effects et export final.</p>
           </div>
         </div>
       </div>
@@ -297,10 +299,10 @@
   <div class="timeline">
 
     <div class="tl-item reveal">
-      <div class="tl-period">2023 — 2028</div>
+      <div class="tl-period">2023 2028</div>
       <div class="tl-content">
         <h3 class="tl-title">Master Cycle Marketing et Communication Digital et Design</h3>
-        <p class="tl-sub">ISEGCOM Bordeaux — 3ème année</p>
+        <p class="tl-sub">ISEGCOM Bordeaux 3ème année</p>
         <ul class="tl-list">
           <li>Marketing Digital</li>
           <li>Design</li>
@@ -310,9 +312,9 @@
     </div>
 
     <div class="tl-item reveal">
-      <div class="tl-period">2020 — 2023</div>
+      <div class="tl-period">2020 2023</div>
       <div class="tl-content">
-        <h3 class="tl-title">BAC Général — Avec mention</h3>
+        <h3 class="tl-title">BAC Général Avec mention</h3>
         <p class="tl-sub">Lycée Largente</p>
       </div>
     </div>
@@ -363,14 +365,13 @@
       <ul>
         <li><a href="projects/fizzi.html">Fizzi</a></li>
         <li><a href="projects/focus.html">Focus</a></li>
-        <li><a href="projects/glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="projects/gloomy-graphic.html">Gloomy Graphic</a></li>
         <li><a href="projects/affiches.html">Affiches</a></li>
         <li><a href="projects/motion-design.html">Motion Design</a></li>
         <li><a href="projects/photography.html">Photography</a></li>
         <li><a href="projects/montage.html">Montage</a></li>
         <li><a href="projects/stage.html">Stage Owlblack</a></li>
         <li><a href="projects/freelance.html">Freelance</a></li>
-        <li><a href="projects/workshops.html">Workshops</a></li>
       </ul>
     </div>
     <div class="ft-col reveal" style="--delay:160ms">
@@ -409,3 +410,5 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
 </script>
 </body>
 </html>
+
+

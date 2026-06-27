@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -18,28 +18,49 @@
     .nav-links a:hover { color: #fff; }
     .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
     .nav-links a:hover::after { width: 100%; }
+
     #proj-hero { height: 100vh; overflow: hidden; background: #090909; position: sticky; top: 0; z-index: 0; }
     #proj-hero img { width: 100%; height: 100%; object-fit: cover; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
     @keyframes heroZoom { from { transform: scale(1.08); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
     #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .pi-left { padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
     .pi-right { padding: 80px 48px; }
-    .proj-title { font-size: clamp(40px, 5.5vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 0.95; color: #fff; position: sticky; top: 88px; }
+    .proj-title { font-size: clamp(52px, 7vw, 96px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: #fff; position: sticky; top: 88px; }
     .pi-meta-row { display: flex; align-items: baseline; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); gap: 24px; }
     .pi-meta-label { width: 130px; flex-shrink: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
     .pi-meta-val { font-size: 13px; color: rgba(255,255,255,0.62); line-height: 1.5; }
     .pi-desc { margin-top: 40px; font-size: 16px; line-height: 1.85; color: rgba(255,255,255,0.5); }
-    .pc-full { overflow: hidden; background: #0d0d0f; }
-    .pc-full img { width: 100%; display: block; max-height: 85vh; object-fit: cover; }
+
+    .pc-section-head { display: flex; justify-content: space-between; align-items: baseline; padding: 20px 48px; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pc-section-title { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .pc-section-count { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.22); }
+
+    .pc-full--auto { overflow: hidden; background: #0d0d0f; }
+    .pc-full--auto img { width: 100%; height: auto; display: block; }
+
     .pc-row { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pc-row--reverse { direction: rtl; }
+    .pc-row--reverse > * { direction: ltr; }
     .pc-text { position: sticky; top: 88px; align-self: start; padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
+    .pc-row--reverse .pc-text { border-right: none; border-left: 1px solid rgba(255,255,255,0.08); }
     .pc-text-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.22); display: block; margin-bottom: 24px; }
     .pc-text p { font-size: 17px; line-height: 1.85; color: rgba(255,255,255,0.52); }
+    .pc-text p + p { margin-top: 20px; }
     .pc-imgs { display: flex; flex-direction: column; }
     .pc-img { overflow: hidden; background: #0d0d0f; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .pc-img:last-child { border-bottom: none; }
     .pc-img img { width: 100%; display: block; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
     .pc-img:hover img { transform: scale(1.03); }
+
+    .pc-video-wrap { position: relative; cursor: pointer; overflow: hidden; background: #000; }
+    .pc-video-wrap::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.22); transition: background 0.3s; }
+    .pc-video-wrap:hover::after { background: rgba(0,0,0,0.06); }
+    .pc-video-thumb { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+    .pc-play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 2; width: 68px; height: 68px; background: rgba(255,255,255,0.13); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px); transition: background 0.3s, transform 0.3s; }
+    .pc-play-btn svg { width: 28px; height: 28px; fill: #fff; margin-left: 5px; }
+    .pc-video-wrap:hover .pc-play-btn { background: rgba(255,255,255,0.28); transform: translate(-50%,-50%) scale(1.1); }
+
     #next-projects { padding: 80px 48px 100px; }
     .np-head { padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 40px; }
     .np-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
@@ -51,31 +72,34 @@
     .np-card-title { font-size: 16px; font-weight: 600; color: #fff; letter-spacing: -0.01em; margin-bottom: 5px; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); }
     .np-card:hover .np-card-title { transform: translateX(6px); }
     .np-card-cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); }
+
     #cta { padding: 140px 48px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
-    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+    .cta-text { font-size: clamp(40px, 7vw, 80px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: #fff; padding-bottom: 0.12em; }
     #footer { border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 48px 0; background: #141517; }
     .ft-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 40px; padding-bottom: 80px; }
     .ft-col-head { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
     .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .ft-col a { font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-block; transition: color 0.2s, transform 0.4s cubic-bezier(0.22,1,0.36,1); }
     .ft-col a:hover { color: #fff; transform: translateX(6px); }
-    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 0.9; padding-bottom: 16px; overflow: hidden; white-space: nowrap; }
+    .ft-wordmark { font-size: 100px; font-weight: 900; letter-spacing: -0.05em; color: #fff; line-height: 1; padding-bottom: 24px; overflow: visible; white-space: nowrap; }
+
     nav { animation: navIn 0.85s cubic-bezier(0.22,1,0.36,1) both; }
     @keyframes navIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
     .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.95s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal.in-view { opacity: 1; transform: translateY(0); }
     .reveal-scale { opacity: 0; transform: scale(0.95) translateY(24px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms), transform 0.9s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .reveal-scale.in-view { opacity: 1; transform: scale(1) translateY(0); }
-    .clip-outer { overflow: hidden; display: block; }
+    .clip-outer { overflow: hidden; display: block; padding-bottom: 0.15em; }
     .clip-inner { display: block; transform: translateY(110%); transition: transform 1.15s cubic-bezier(0.22,1,0.36,1) var(--delay,0ms); }
     .clip-outer.in-view .clip-inner { transform: translateY(0); }
     .proj-content { position: relative; z-index: 1; background: #141517; }
-    .pc-row--reverse .pc-text { border-right: none; border-left: 1px solid rgba(255,255,255,0.08); }
+
     .nav-burger { display: none; background: none; border: none; cursor: pointer; padding: 6px; z-index: 210; position: relative; }
     .nav-burger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.25s; }
     nav.menu-open .nav-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     nav.menu-open .nav-burger span:nth-child(2) { opacity: 0; }
     nav.menu-open .nav-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
     @media (max-width: 900px) {
       nav { padding: 20px; }
       .nav-burger { display: flex; flex-direction: column; }
@@ -85,14 +109,17 @@
       #proj-info { grid-template-columns: 1fr; }
       .pi-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 60px 20px; }
       .pi-right { padding: 60px 20px; }
-      .proj-title { position: static; font-size: 48px; }
-      .pc-row { grid-template-columns: 1fr; }
-      .pc-text { position: static; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; }
+      .proj-title { position: static; font-size: 52px; }
+      .pc-section-head { padding: 16px 20px; }
+      .pc-row { grid-template-columns: 1fr; direction: ltr; }
+      .pc-text { position: static; border-right: none !important; border-left: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; }
+      .pi-meta-row { flex-direction: column; gap: 4px; padding: 12px 0; }
+      .pi-meta-label { width: auto; }
       .np-grid { grid-template-columns: 1fr 1fr; } #next-projects { padding: 60px 20px 80px; }
       #cta { padding: 80px 20px; } .cta-text { font-size: 40px; }
       #footer { padding: 40px 20px 0; } .ft-cols { grid-template-columns: 1fr 1fr; padding-bottom: 40px; } .ft-wordmark { font-size: 48px; }
     }
-    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 540px) { .np-grid { grid-template-columns: 1fr; } .ft-cols { grid-template-columns: 1fr; gap: 32px 0; } }
   </style>
 </head>
 <body>
@@ -108,78 +135,117 @@
 </nav>
 
 <section id="proj-hero">
+  <img src="https://img.youtube.com/vi/52db-KbGAXM/maxresdefault.jpg"
+       onerror="this.src='https://img.youtube.com/vi/52db-KbGAXM/hqdefault.jpg'"
+       alt="Motion Design" />
 </section>
 
 <div class="proj-content">
 
 <section id="proj-info">
   <div class="pi-left">
-    <div class="clip-outer" style="--delay:0ms">
-      <h1 class="proj-title clip-inner">Motion Design</h1>
-    </div>
+    <h1 class="proj-title">
+      <div class="clip-outer" style="--delay:0ms"><span class="clip-inner">Motion</span></div>
+      <div class="clip-outer" style="--delay:120ms"><span class="clip-inner">Design</span></div>
+    </h1>
   </div>
   <div class="pi-right">
     <div class="pi-meta-row reveal" style="--delay:0ms">
       <span class="pi-meta-label">Catégories</span>
-      <span class="pi-meta-val">Motion Design</span>
+      <span class="pi-meta-val">Motion Design · Animation · Vidéo</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:60ms">
-      <span class="pi-meta-label">Client</span>
-      <span class="pi-meta-val">OwlBlack · Projets Personnels</span>
+      <span class="pi-meta-label">Clients</span>
+      <span class="pi-meta-val">OwlBlack · Juriactes</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:120ms">
-      <span class="pi-meta-label">Services</span>
-      <span class="pi-meta-val">Animation · Montage · Direction Artistique</span>
+      <span class="pi-meta-label">Outils</span>
+      <span class="pi-meta-val">After Effects · Canva Pro · Premiere Pro · Eleven Labs</span>
     </div>
     <div class="pi-meta-row reveal" style="--delay:180ms">
       <span class="pi-meta-label">Année</span>
-      <span class="pi-meta-val">2024</span>
+      <span class="pi-meta-val">2025</span>
     </div>
-    <p class="pi-desc reveal" style="--delay:260ms">Animations réalisées en motion design pour l'agence OwlBlack et pour mes projets personnels — Gloomy Graphic et Focus. Animations typographiques, transitions fluides et logos animés en boucle.</p>
+    <p class="pi-desc reveal" style="--delay:260ms">Trois productions vidéo réalisées pendant mon stage chez OwlBlack à Anglet. Des formats et des workflows très différents : vidéos pédagogiques sur Canva Pro avec voix IA, et animation promotionnelle entièrement construite sur After Effects.</p>
   </div>
 </section>
 
-<div class="pc-row pc-row--reverse">
-  <div class="pc-imgs">
-    <div class="pc-img reveal-scale" style="min-height: 320px;"></div>
-    <div class="pc-img reveal-scale" style="min-height: 320px;"></div>
+<!-- ─── OWLBLACK VIDÉOS PÉDAGOGIQUES ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">OwlBlack Vidéos pédagogiques</span>
+  <span class="pc-section-count">(2)</span>
+</div>
+
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">01 SEO & SEA · OwlBlack</span>
+    <p>Deux vidéos pédagogiques pour OwlBlack : "Le SEO expliqué par OwlBlack" et "Le SEA expliqué par OwlBlack". Formats courts pensés pour le web, intégrés sur le site de l'agence pour accompagner les prospects dans leur compréhension du référencement et de la publicité en ligne.</p>
+    <p>Workflow : script rédigé après une formation interne avec Julien. Illustrations issues de la bibliothèque Canva Pro, adaptées à la charte graphique de l'agence. Animations et mises en scène entièrement sur Canva Pro. Voix-off générée sur Eleven Labs avec une voix IA configurée pour coller au ton de l'agence. Montage final, synchronisation son-image et export sur Premiere Pro.</p>
+    <p>Ma première expérience de production vidéo de A à Z. J'ai appris à travailler vite sur Canva Pro tout en gardant un résultat propre, et à caler le rythme des animations sur la voix-off pour que tout reste fluide.</p>
   </div>
-  <div class="pc-text reveal">
-    <span class="pc-text-label">Animations</span>
-    <p>Animations réalisées en motion design pour l'agence OwlBlack et pour mes projets personnels — Gloomy Graphic et Focus. Animations typographiques, transitions fluides et logos animés en boucle.</p>
+  <div class="pc-imgs">
+    <div class="pc-video-wrap" onclick="loadVid('https://youtu.be/T8DZan8TlRE')" style="cursor:pointer;">
+      <img class="pc-video-thumb" src="https://img.youtube.com/vi/T8DZan8TlRE/maxresdefault.jpg"
+        onerror="this.src='https://img.youtube.com/vi/T8DZan8TlRE/hqdefault.jpg'"
+        alt="Motion Design SEO OwlBlack" />
+      <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+    <div class="pc-video-wrap" onclick="loadVid('https://youtu.be/XssHQL3-gnk')" style="cursor:pointer;">
+      <img class="pc-video-thumb" src="https://img.youtube.com/vi/XssHQL3-gnk/maxresdefault.jpg"
+        onerror="this.src='https://img.youtube.com/vi/XssHQL3-gnk/hqdefault.jpg'"
+        alt="Motion Design SEA OwlBlack" />
+      <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
   </div>
 </div>
 
-<div class="pc-row">
-  <div class="pc-text reveal">
-    <span class="pc-text-label">Technique</span>
-    <p>Travail réalisé sur After Effects, en lien avec les chartes graphiques des marques. Une discipline où le design se met en mouvement pour créer une présence visuelle forte sur les réseaux sociaux.</p>
+<!-- ─── JURIACTES ─── -->
+<div class="pc-section-head reveal">
+  <span class="pc-section-title">Juriactes Animation complète</span>
+  <span class="pc-section-count">(1)</span>
+</div>
+
+<div class="pc-row pc-row--reverse reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">02 Juriactes · After Effects</span>
+    <p>La production la plus ambitieuse du stage : une vidéo promo pour Juriactes, startup legaltech qui automatise la génération de documents juridiques. J'ai tout géré de A à Z, de la conception à la livraison.</p>
+    <p>Première étape : le storyboard scène par scène sur Illustrator. Chaque plan cadré, chaque transition pensée avant de toucher After Effects. Création de tous les assets graphiques : pictogrammes sur mesure (balance, documents, chronomètre), palette de couleurs, typographie adaptée à l'univers juridique-tech du client.</p>
+    <p>Animation entièrement sur After Effects, un logiciel que je n'avais quasiment jamais utilisé avant ce projet. J'ai appris les keyframes, les expressions de base et les compositions imbriquées en avançant. Voix-off enregistrée, synchronisation image par image, montage final sur Premiere Pro. Livraison en HD pour un salon professionnel. Plusieurs semaines de travail, le client était satisfait.</p>
   </div>
   <div class="pc-imgs">
-    <div class="pc-img reveal-scale" style="min-height: 320px;"></div>
-    <div class="pc-img reveal-scale" style="min-height: 320px;"></div>
+    <div class="pc-video-wrap" onclick="loadVid('https://youtu.be/52db-KbGAXM')" style="cursor:pointer;">
+      <img class="pc-video-thumb" src="https://img.youtube.com/vi/52db-KbGAXM/maxresdefault.jpg"
+        onerror="this.src='https://img.youtube.com/vi/52db-KbGAXM/hqdefault.jpg'"
+        alt="Juriactes Motion Design" />
+      <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
   </div>
 </div>
 
+<div class="pc-full--auto reveal-scale">
+  <img src="../assets/images/stage/juriactes/soryboard@300x.png" alt="Storyboard Juriactes" />
+</div>
+
+<!-- ─── NEXT PROJECTS ─── -->
 <section id="next-projects">
   <div class="np-head reveal">
-    <span class="np-label">Next Projects</span>
+    <span class="np-label">Projets suivants</span>
   </div>
   <div class="np-grid">
-    <a href="fizzi.html" class="np-card reveal-scale" style="--delay:0ms">
+    <a href="montage.html" class="np-card reveal-scale" style="--delay:0ms">
+      <div class="np-thumb"><img src="../assets/images/montage/jfO6E6TVnbM.jpg" alt="Montage" /></div>
+      <p class="np-card-title">Montage</p>
+      <p class="np-card-cat">Montage Vidéo</p>
+    </a>
+    <a href="fizzi.html" class="np-card reveal-scale" style="--delay:80ms">
       <div class="np-thumb"><img src="../assets/images/fizzi/cans-group.png" alt="Fizzi" /></div>
       <p class="np-card-title">Fizzi</p>
       <p class="np-card-cat">Brand Identity</p>
     </a>
-    <a href="affiches.html" class="np-card reveal-scale" style="--delay:80ms">
-      <div class="np-thumb"><img src="../assets/images/affiches/mockups/urban.png" alt="Affiches" /></div>
-      <p class="np-card-title">Affiches</p>
-      <p class="np-card-cat">Graphic Design</p>
-    </a>
-    <a href="photography.html" class="np-card reveal-scale" style="--delay:160ms">
-      <div class="np-thumb"><img src="https://tristanraoult.github.io/portfolio/images/portfolio/fete.png" alt="Photography" /></div>
-      <p class="np-card-title">Photography</p>
-      <p class="np-card-cat">Art Direction</p>
+    <a href="focus.html" class="np-card reveal-scale" style="--delay:160ms">
+      <div class="np-thumb" style="background:#000;"><img src="../assets/images/focus/focus.png" alt="Focus" /></div>
+      <p class="np-card-title">Focus</p>
+      <p class="np-card-cat">Brand Identity</p>
     </a>
   </div>
 </section>
@@ -206,14 +272,13 @@
       <ul>
         <li><a href="fizzi.html">Fizzi</a></li>
         <li><a href="focus.html">Focus</a></li>
-        <li><a href="glumi-graphic.html">Gloomy Graphic</a></li>
+        <li><a href="gloomy-graphic.html">Gloomy Graphic</a></li>
         <li><a href="affiches.html">Affiches</a></li>
         <li><a href="motion-design.html">Motion Design</a></li>
         <li><a href="photography.html">Photography</a></li>
         <li><a href="montage.html">Montage</a></li>
         <li><a href="stage.html">Stage Owlblack</a></li>
         <li><a href="freelance.html">Freelance</a></li>
-        <li><a href="workshops.html">Workshops</a></li>
       </ul>
     </div>
     <div class="ft-col reveal" style="--delay:160ms">
@@ -238,6 +303,9 @@
   }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
   document.querySelectorAll('.reveal, .reveal-scale, .clip-outer').forEach(el => io.observe(el));
 })();
+
+function loadVid(url) { window.open(url, '_blank'); }
+
 document.getElementById('nav-burger').addEventListener('click', function() {
   var open = document.querySelector('nav').classList.toggle('menu-open');
   document.body.style.overflow = open ? 'hidden' : '';
@@ -249,5 +317,9 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
   });
 });
 </script>
+<script src="../assets/js/lightbox.js"></script>
 </body>
 </html>
+
+
+
