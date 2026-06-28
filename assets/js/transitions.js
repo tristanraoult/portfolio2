@@ -104,11 +104,18 @@
       'padding-top:80px;' +
       'opacity:0;pointer-events:none;transition:opacity 0.28s ease;}' +
       '#tr-mob.open{opacity:1;pointer-events:auto;}' +
-      /* Réinitialise le ul.nav-links cloné qui hérite du CSS mobile (opacity:0, position:fixed) */
       '#tr-mob .nav-links{position:static!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;background:none!important;z-index:auto!important;flex-direction:column!important;gap:44px!important;align-items:center!important;justify-content:center!important;transition:none!important;}' +
       '#tr-mob a{font-size:22px;font-weight:600;color:rgba(255,255,255,0.8);text-decoration:none;display:block;padding:8px 0;}' +
       '#tr-mob a:active{color:#fff;}' +
-      '#tr-mob a::after{display:none!important;}';
+      '#tr-mob a::after{display:none!important;}' +
+      /* Burger raffiné — mobile uniquement, remplace le CSS des pages HTML */
+      '@media(max-width:810px){' +
+      '.nav-burger{width:44px!important;height:44px!important;padding:0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;overflow:visible!important;}' +
+      '.nav-burger span{display:block!important;width:22px!important;height:1.5px!important;background:rgba(255,255,255,0.9)!important;margin:5px 0!important;border-radius:1px!important;transition:transform 0.4s cubic-bezier(0.22,1,0.36,1),opacity 0.2s ease!important;}' +
+      'nav.menu-open .nav-burger span:nth-child(1){transform:translateY(12px) rotate(45deg)!important;}' +
+      'nav.menu-open .nav-burger span:nth-child(2){opacity:0!important;}' +
+      'nav.menu-open .nav-burger span:nth-child(3){transform:translateY(-12px) rotate(-45deg)!important;}' +
+      '}';
     document.head.appendChild(mStyle);
 
     /* Création de l'overlay avec liens clonés */
