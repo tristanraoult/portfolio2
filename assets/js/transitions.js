@@ -27,6 +27,8 @@
 
     /* Hamburger : z-index élevé quand menu ouvert pour passer au-dessus de tout */
     'nav.menu-open{z-index:9998!important;}',
+    /* Masquer l'ancienne nav-links quand le mob overlay est actif */
+    'nav.menu-open .nav-links{opacity:0!important;pointer-events:none!important;}',
   ].join('');
   document.head.appendChild(style);
 
@@ -116,8 +118,9 @@
     /* CSS de l'overlay */
     var mStyle = document.createElement('style');
     mStyle.textContent =
-      '#tr-mob{position:fixed;inset:0;z-index:9996;background:rgba(14,15,17,0.98);' +
+      '#tr-mob{position:fixed;inset:0;z-index:9996;background:#0e0f11;' +
       'display:flex;align-items:center;justify-content:center;' +
+      'padding-top:80px;' +
       'opacity:0;pointer-events:none;transition:opacity 0.28s ease;}' +
       '#tr-mob.open{opacity:1;pointer-events:auto;}' +
       '#tr-mob ul{list-style:none;display:flex;flex-direction:column;gap:44px;align-items:center;}' +
@@ -134,25 +137,15 @@
     var _sy = 0;
 
     function openMob() {
-      _sy = window.scrollY;
       mob.classList.add('open');
       if (nav) nav.classList.add('menu-open');
-      /* Scroll lock iOS-compatible */
-      document.body.style.overflow = '';
-      document.body.style.position = 'fixed';
-      document.body.style.top = '-' + _sy + 'px';
-      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
     }
 
     function closeMob() {
       mob.classList.remove('open');
       if (nav) nav.classList.remove('menu-open');
-      /* Restauration du scroll */
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
       document.body.style.overflow = '';
-      window.scrollTo(0, _sy);
     }
 
     /* Remplace le handler inline (qui ne fait que body.overflow) */
