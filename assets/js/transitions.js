@@ -10,10 +10,6 @@
     /* Barre de progression au scroll */
     '.tr-progress{position:fixed;top:0;left:0;height:1px;background:rgba(255,255,255,0.35);z-index:9999;width:0%;pointer-events:none;}',
 
-    /* Nav fond au scroll */
-    'nav{transition:background 0.4s ease,backdrop-filter 0.4s ease,border-color 0.4s ease,-webkit-backdrop-filter 0.4s ease;}',
-    'nav.nav-scrolled{background:rgba(20,21,23,0.88)!important;backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important;border-bottom:1px solid rgba(255,255,255,0.07)!important;}',
-
     /* Hover sur les images de contenu : légère scale */
     '.pc-img img{transition:transform 0.85s cubic-bezier(0.22,1,0.36,1)!important;}',
 
@@ -73,14 +69,6 @@
 
   /* ── Comportements au scroll ─────────────────────────────── */
   var nav = document.querySelector('nav');
-  /* Sur les pages projet (hero 100vh sticky), le nav-scrolled
-     s'active seulement quand le contenu remonte derrière le nav */
-  var heroEl = document.getElementById('proj-hero');
-  var scrollThreshold = heroEl ? (window.innerHeight * 0.85) : 60;
-
-  window.addEventListener('resize', function () {
-    if (heroEl) scrollThreshold = window.innerHeight * 0.85;
-  });
 
   var ticking = false;
   window.addEventListener('scroll', function () {
@@ -92,11 +80,6 @@
 
       /* Barre de progression */
       bar.style.width = (total > 0 ? (sy / total) * 100 : 0) + '%';
-
-      /* Nav fond */
-      if (nav) {
-        nav.classList.toggle('nav-scrolled', sy > scrollThreshold);
-      }
 
       ticking = false;
     });
