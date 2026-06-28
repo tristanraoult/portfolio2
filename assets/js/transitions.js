@@ -123,9 +123,11 @@
       'padding-top:80px;' +
       'opacity:0;pointer-events:none;transition:opacity 0.28s ease;}' +
       '#tr-mob.open{opacity:1;pointer-events:auto;}' +
-      '#tr-mob ul{list-style:none;display:flex;flex-direction:column;gap:44px;align-items:center;}' +
-      '#tr-mob a{font-size:22px;font-weight:600;color:rgba(255,255,255,0.8);text-decoration:none;display:block;padding:4px 0;}' +
-      '#tr-mob a:active{color:#fff;}';
+      /* Réinitialise le ul.nav-links cloné qui hérite du CSS mobile (opacity:0, position:fixed) */
+      '#tr-mob .nav-links{position:static!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;background:none!important;z-index:auto!important;flex-direction:column!important;gap:44px!important;align-items:center!important;justify-content:center!important;transition:none!important;}' +
+      '#tr-mob a{font-size:22px;font-weight:600;color:rgba(255,255,255,0.8);text-decoration:none;display:block;padding:8px 0;}' +
+      '#tr-mob a:active{color:#fff;}' +
+      '#tr-mob a::after{display:none!important;}';
     document.head.appendChild(mStyle);
 
     /* Création de l'overlay avec liens clonés */
