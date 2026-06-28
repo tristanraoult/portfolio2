@@ -27,8 +27,6 @@
 
     /* Hamburger : z-index élevé quand menu ouvert pour passer au-dessus de tout */
     'nav.menu-open{z-index:9998!important;}',
-    /* Masquer l'ancienne nav-links quand le mob overlay est actif */
-    'nav.menu-open .nav-links{opacity:0!important;pointer-events:none!important;}',
   ].join('');
   document.head.appendChild(style);
 
