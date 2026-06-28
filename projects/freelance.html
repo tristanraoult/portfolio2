@@ -19,8 +19,8 @@
     .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
     .nav-links a:hover::after { width: 100%; }
 
-    #proj-hero { height: 100vh; overflow: hidden; background: #0a0a0a; position: sticky; top: 0; z-index: 0; display: flex; align-items: center; justify-content: center; }
-    .hero-wordmark { font-size: clamp(80px, 14vw, 200px); font-weight: 900; letter-spacing: -0.05em; color: rgba(255,255,255,0.05); user-select: none; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+    #proj-hero { height: 100vh; overflow: hidden; background: #f5f3f0; position: sticky; top: 0; z-index: 0; display: flex; align-items: center; justify-content: center; }
+    #proj-hero img { width: 100%; height: 100%; object-fit: contain; padding: 10%; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
     @keyframes heroZoom { from { transform: scale(1.08); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
     #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
@@ -139,7 +139,7 @@
 </nav>
 
 <section id="proj-hero">
-  <span class="hero-wordmark">Freelance</span>
+  <img src="../assets/images/freelance/Chocolatiers_Confiseurs.png" alt="Freelance – CCCF Trophée des Espoirs 2025" />
 </section>
 
 <div class="proj-content">
@@ -185,9 +185,8 @@
     <p>Relation client directe, allers-retours sur les corrections, livraison finale sous Photoshop. Ma première plaquette professionnelle conçue seul de A à Z.</p>
   </div>
   <div class="pc-imgs">
-    <div class="pc-img">
-      <iframe src="../assets/images/freelance/Hold-CD.pdf#toolbar=0&navpanes=0&scrollbar=0"
-        class="pc-embed" style="height:700px;"></iframe>
+    <div class="pc-img" style="display:flex; align-items:center; justify-content:center; min-height:320px; background:#111; border-bottom:1px solid rgba(255,255,255,0.06);">
+      <p style="font-size:13px; color:rgba(255,255,255,0.25); font-family:'Fragment Mono',monospace; letter-spacing:0.04em;">Document disponible sur demande</p>
     </div>
   </div>
 </div>
