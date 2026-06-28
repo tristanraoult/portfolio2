@@ -167,8 +167,14 @@
     .card-sticky:nth-child(3) .card-frame { bottom: 16vh; background: #b31919; }
     .card-sticky:nth-child(3) .card-frame img { object-fit: contain; }
 
-    /* Cards are <a> tags reset link styles */
-    a.card-frame { text-decoration: none; color: inherit; display: block; }
+    /* Wrapper plein écran : zone cliquable toujours 100% peu importe le scale du card-frame */
+    .card-link-cover {
+      position: absolute;
+      inset: 0;
+      display: block;
+      z-index: 5;
+      text-decoration: none;
+    }
 
     /* Frame raised leaves 9vh gap at bottom so image text is visible */
     .card-frame {
@@ -744,6 +750,10 @@
       .ft-cols { grid-template-columns: 1fr 1fr; gap: 40px 24px; padding-bottom: 40px; }
       .idx-table td { font-size: 12px; padding: 10px 0; }
       .ft-wordmark { font-size: 48px; }
+      /* Touch targets minimum 44px sur mobile */
+      .ft-col a { min-height: 44px; display: flex; align-items: center; }
+      .ai-link { min-height: 44px; display: inline-flex; align-items: center; }
+      .ws-viewall { min-height: 44px; display: inline-flex; align-items: center; }
     }
     @media (max-width: 480px) {
       .ft-cols { grid-template-columns: 1fr; gap: 32px 0; }
@@ -789,7 +799,8 @@
 
   <!-- Card 1 Fizzi / Brand Identity -->
   <div class="card-sticky">
-    <a href="projects/fizzi.html" class="card-frame">
+    <a href="projects/fizzi.html" class="card-link-cover" aria-label="Brand Identity – Fizzi"></a>
+    <div class="card-frame">
       <img src="assets/images/fizzi/cans-group.png" alt="Fizzi Brand Identity" />
       <div class="card-bottom">
         <div class="card-line"></div>
@@ -799,12 +810,13 @@
         </div>
       </div>
       <div class="card-bar" data-bar="0"></div>
-    </a>
+    </div>
   </div>
 
   <!-- Card 2 Focus / Podcast Identity -->
   <div class="card-sticky">
-    <a href="projects/focus.html" class="card-frame">
+    <a href="projects/focus.html" class="card-link-cover" aria-label="Podcast Identity – Focus"></a>
+    <div class="card-frame">
       <img src="assets/images/focus/focus.png" alt="Focus Podcast Identity" />
       <div class="card-bottom">
         <div class="card-line"></div>
@@ -814,12 +826,13 @@
         </div>
       </div>
       <div class="card-bar" data-bar="1"></div>
-    </a>
+    </div>
   </div>
 
   <!-- Card 3 Gloomy Graphic / Identité Visuelle -->
   <div class="card-sticky">
-    <a href="projects/gloomy-graphic.html" class="card-frame">
+    <a href="projects/gloomy-graphic.html" class="card-link-cover" aria-label="Identité Visuelle – Gloomy Graphic"></a>
+    <div class="card-frame">
       <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic Identité Visuelle" />
       <div class="card-bottom">
         <div class="card-line"></div>
@@ -829,12 +842,13 @@
         </div>
       </div>
       <div class="card-bar" data-bar="2"></div>
-    </a>
+    </div>
   </div>
 
   <!-- Card 4 Photography / Direction Artistique -->
   <div class="card-sticky">
-    <a href="projects/photography.html" class="card-frame">
+    <a href="projects/photography.html" class="card-link-cover" aria-label="Direction Artistique – Photography"></a>
+    <div class="card-frame">
       <img src="assets/images/photography/fair/6.jpg" alt="Photography Direction Artistique" />
       <div class="card-bottom">
         <div class="card-line"></div>
@@ -844,7 +858,7 @@
         </div>
       </div>
       <div class="card-bar" data-bar="3"></div>
-    </a>
+    </div>
   </div>
 
 </div>
