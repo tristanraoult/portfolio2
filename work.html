@@ -95,7 +95,10 @@
       #projects { padding: 0 0 80px; }
       .projects-grid { grid-template-columns: 1fr; }
       .project-card.full { grid-column: span 1; }
-      .project-img-wrap.ratio-full { padding-bottom: 70%; }
+      .project-img-wrap.ratio-full     { padding-bottom: 50%; }
+      .project-img-wrap.ratio-half     { padding-bottom: 58%; }
+      .project-img-wrap.ratio-portrait { padding-bottom: 70%; }
+      .project-img-wrap.ratio-land     { padding-bottom: 50%; }
       .project-title { font-size: 18px; }
       .project-meta { padding: 20px; }
 #cta { padding: 80px 20px; }
@@ -358,6 +361,7 @@ document.querySelectorAll('.nav-links a').forEach(function(a) {
 });
 </script>
 
+<script src="assets/js/transitions.js"></script>
 </body>
 </html>
 
