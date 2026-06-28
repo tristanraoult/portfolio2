@@ -1,51 +1,26 @@
 (function () {
 
-  /* ── CSS injecté ─────────────────────────────────────────── */
+  /* ── CSS global ──────────────────────────────────────────── */
   var style = document.createElement('style');
   style.textContent = [
-    /* Overlay de transition entre pages */
     '.tr-overlay{position:fixed;inset:0;z-index:9997;background:#141517;pointer-events:none;opacity:1;transition:opacity 0.55s cubic-bezier(0.22,1,0.36,1);}',
     '.tr-overlay.visible{opacity:0;}',
-
-    /* Barre de progression au scroll */
     '.tr-progress{position:fixed;top:0;left:0;height:1px;background:rgba(255,255,255,0.35);z-index:9999;width:0%;pointer-events:none;}',
-
-    /* Hover sur les images de contenu : légère scale */
     '.pc-img img{transition:transform 0.85s cubic-bezier(0.22,1,0.36,1)!important;}',
-
-    /* np-card : slide + scale plus fluide */
     '.np-card{transition:transform 0.45s cubic-bezier(0.22,1,0.36,1);}',
     '.np-card:hover{transform:translateY(-4px);}',
-
-    /* project-card sur work/cours : lift au hover */
     '.project-card{transition:transform 0.45s cubic-bezier(0.22,1,0.36,1),box-shadow 0.45s ease;}',
     '.project-card:hover{transform:translateY(-3px);}',
-
-    /* Hamburger z-index */
+    /* Nav en avant-plan + nav-links originale masquée quand overlay actif */
     'nav.menu-open{z-index:9998!important;}',
-
-    /* ── Mobile uniquement ── */
+    'nav.menu-open .nav-links{opacity:0!important;pointer-events:none!important;}',
+    /* Burger raffiné — mobile uniquement */
     '@media(max-width:810px){',
-
-    /* Burger button raffiné */
     '.nav-burger{width:44px!important;height:44px!important;padding:0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;overflow:visible!important;}',
     '.nav-burger span{display:block!important;width:22px!important;height:1.5px!important;background:rgba(255,255,255,0.88)!important;margin:3.5px 0!important;border-radius:1px!important;transition:transform 0.4s cubic-bezier(0.22,1,0.36,1),opacity 0.2s ease!important;}',
     'nav.menu-open .nav-burger span:nth-child(1){transform:translateY(8.5px) rotate(45deg)!important;}',
     'nav.menu-open .nav-burger span:nth-child(2){opacity:0!important;}',
     'nav.menu-open .nav-burger span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)!important;}',
-
-    /* Menu overlay redesigné : fond plein, liens gauche alignés avec compteur */
-    '.nav-links{counter-reset:nav!important;padding:0!important;align-items:stretch!important;justify-content:center!important;gap:0!important;background:#0a0b0d!important;}',
-    '.nav-links li{counter-increment:nav!important;padding:0 32px!important;border-bottom:1px solid rgba(255,255,255,0.06)!important;opacity:0!important;transform:translateX(-20px)!important;transition:opacity 0.3s ease,transform 0.4s cubic-bezier(0.22,1,0.36,1)!important;}',
-    '.nav-links li:first-child{border-top:1px solid rgba(255,255,255,0.06)!important;}',
-    'nav.menu-open .nav-links li{opacity:1!important;transform:none!important;}',
-    'nav.menu-open .nav-links li:nth-child(1){transition-delay:100ms!important;}',
-    'nav.menu-open .nav-links li:nth-child(2){transition-delay:145ms!important;}',
-    'nav.menu-open .nav-links li:nth-child(3){transition-delay:190ms!important;}',
-    'nav.menu-open .nav-links li:nth-child(4){transition-delay:235ms!important;}',
-    'nav.menu-open .nav-links a{display:flex!important;align-items:baseline!important;gap:18px!important;padding:26px 0!important;font-size:28px!important;font-weight:600!important;color:rgba(255,255,255,0.92)!important;letter-spacing:-0.3px!important;text-decoration:none!important;}',
-    'nav.menu-open .nav-links a::before{content:"0" counter(nav)!important;font-size:10px!important;font-weight:400!important;letter-spacing:2px!important;color:rgba(255,255,255,0.28)!important;font-family:"Fragment Mono",monospace!important;flex-shrink:0!important;}',
-
     '}',
   ].join('');
   document.head.appendChild(style);
@@ -56,14 +31,10 @@
   overlay.className = 'tr-overlay';
   document.body.appendChild(overlay);
 
-  /* Fade-in à l'arrivée sur la page */
   requestAnimationFrame(function () {
-    requestAnimationFrame(function () {
-      overlay.classList.add('visible');
-    });
+    requestAnimationFrame(function () { overlay.classList.add('visible'); });
   });
 
-  /* Fade-out avant de quitter la page */
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href]');
     if (!a) return;
@@ -73,7 +44,6 @@
     if (href.startsWith('mailto:') || href.startsWith('tel:')) return;
     if (href.startsWith('#')) return;
     if (href.startsWith('http') && href.indexOf(location.hostname) === -1) return;
-
     e.preventDefault();
     var dest = a.href;
     overlay.style.transition = 'opacity 0.38s cubic-bezier(0.4,0,1,1)';
@@ -99,5 +69,87 @@
       ticking = false;
     });
   }, { passive: true });
+
+
+  /* ── Menu mobile : overlay standalone dans <body> ───────────
+     Div#tr-mob créé directement en root (z-9996) pour éviter
+     les conflits de stacking context avec la nav fixed.        */
+  (function () {
+    var burger = document.getElementById('nav-burger');
+    if (!burger) return;
+    var sourceLinks = document.querySelector('.nav-links');
+    if (!sourceLinks) return;
+    var nav = document.querySelector('nav');
+
+    var mStyle = document.createElement('style');
+    mStyle.textContent =
+      /* Overlay plein écran */
+      '#tr-mob{position:fixed;inset:0;z-index:9996;background:#0a0b0d;' +
+      'display:flex;flex-direction:column;align-items:stretch;justify-content:center;' +
+      'padding:0 32px;' +
+      'opacity:0;pointer-events:none;transition:opacity 0.28s ease;}' +
+      '#tr-mob.open{opacity:1;pointer-events:auto;}' +
+      /* Réinitialise le ul.nav-links cloné */
+      '#tr-mob .nav-links{position:static!important;inset:auto!important;' +
+      'opacity:1!important;pointer-events:auto!important;background:none!important;' +
+      'z-index:auto!important;display:flex!important;flex-direction:column!important;' +
+      'gap:0!important;align-items:stretch!important;justify-content:center!important;' +
+      'transition:none!important;padding:0!important;' +
+      'counter-reset:nav!important;}' +
+      /* Chaque item */
+      '#tr-mob .nav-links li{' +
+      'counter-increment:nav;' +
+      'border-bottom:1px solid rgba(255,255,255,0.07);' +
+      'opacity:0;transform:translateX(-18px);' +
+      'transition:opacity 0.3s ease,transform 0.42s cubic-bezier(0.22,1,0.36,1);}' +
+      '#tr-mob .nav-links li:first-child{border-top:1px solid rgba(255,255,255,0.07);}' +
+      '#tr-mob.open .nav-links li{opacity:1;transform:none;}' +
+      '#tr-mob.open .nav-links li:nth-child(1){transition-delay:90ms;}' +
+      '#tr-mob.open .nav-links li:nth-child(2){transition-delay:130ms;}' +
+      '#tr-mob.open .nav-links li:nth-child(3){transition-delay:170ms;}' +
+      '#tr-mob.open .nav-links li:nth-child(4){transition-delay:210ms;}' +
+      /* Liens */
+      '#tr-mob .nav-links a{' +
+      'display:flex!important;align-items:center!important;gap:16px!important;' +
+      'padding:24px 0!important;' +
+      'font-size:28px!important;font-weight:600!important;' +
+      'color:rgba(255,255,255,0.92)!important;' +
+      'letter-spacing:-0.3px!important;text-decoration:none!important;}' +
+      '#tr-mob .nav-links a:active{color:#fff!important;}' +
+      /* Numéro avant chaque lien */
+      '#tr-mob .nav-links a::before{' +
+      'content:"0" counter(nav)!important;' +
+      'font-size:10px!important;font-weight:400!important;letter-spacing:2px!important;' +
+      'color:rgba(255,255,255,0.28)!important;' +
+      'font-family:"Fragment Mono",monospace!important;flex-shrink:0!important;}' +
+      /* Neutralise tout ::after hérité des pages */
+      '#tr-mob .nav-links a::after{display:none!important;}';
+    document.head.appendChild(mStyle);
+
+    var mob = document.createElement('div');
+    mob.id = 'tr-mob';
+    mob.appendChild(sourceLinks.cloneNode(true));
+    document.body.appendChild(mob);
+
+    function openMob() {
+      mob.classList.add('open');
+      if (nav) nav.classList.add('menu-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMob() {
+      mob.classList.remove('open');
+      if (nav) nav.classList.remove('menu-open');
+      document.body.style.overflow = '';
+    }
+
+    burger.addEventListener('click', function () {
+      mob.classList.contains('open') ? closeMob() : openMob();
+    });
+
+    mob.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', closeMob);
+    });
+  })();
 
 })();
