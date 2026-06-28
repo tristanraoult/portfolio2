@@ -35,6 +35,16 @@
     requestAnimationFrame(function () { overlay.classList.add('visible'); });
   });
 
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      overlay.style.transition = 'opacity 0.55s cubic-bezier(0.22,1,0.36,1)';
+      overlay.style.pointerEvents = 'none';
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { overlay.classList.add('visible'); });
+      });
+    }
+  });
+
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href]');
     if (!a) return;
