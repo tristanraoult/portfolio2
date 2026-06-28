@@ -103,29 +103,67 @@
   }, { passive: true });
 
 
-  /* ── Hamburger : scroll lock iOS-compatible ──────────────────── */
-  if (nav) {
-    var _savedScrollY = 0;
-    var _wasMenuOpen = false;
-    new MutationObserver(function () {
-      var isOpen = nav.classList.contains('menu-open');
-      if (isOpen === _wasMenuOpen) return; /* ignore nav-scrolled toggles */
-      _wasMenuOpen = isOpen;
-      if (isOpen) {
-        _savedScrollY = window.scrollY;
-        /* Remplace overflow:hidden (inefficace sur iOS) par position:fixed */
-        document.body.style.overflow = '';
-        document.body.style.position = 'fixed';
-        document.body.style.top = '-' + _savedScrollY + 'px';
-        document.body.style.width = '100%';
-      } else {
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.overflow = '';
-        window.scrollTo(0, _savedScrollY);
-      }
-    }).observe(nav, { attributes: true, attributeFilter: ['class'] });
-  }
+  /* ── Hamburger mobile : overlay standalone dans body ────────────
+     On crée un div#tr-mob directement dans <body> (contexte de
+     stacking racine, z-index 9996) pour éviter les bugs iOS liés
+     à position:fixed imbriqué dans un nav lui-même fixed.         */
+  (function () {
+    var burger = document.getElementById('nav-burger');
+    if (!burger) return;
+    var sourceLinks = document.querySelector('.nav-links');
+    if (!sourceLinks) return;
+
+    /* CSS de l'overlay */
+    var mStyle = document.createElement('style');
+    mStyle.textContent =
+      '#tr-mob{position:fixed;inset:0;z-index:9996;background:rgba(14,15,17,0.98);' +
+      'display:flex;align-items:center;justify-content:center;' +
+      'opacity:0;pointer-events:none;transition:opacity 0.28s ease;}' +
+      '#tr-mob.open{opacity:1;pointer-events:auto;}' +
+      '#tr-mob ul{list-style:none;display:flex;flex-direction:column;gap:44px;align-items:center;}' +
+      '#tr-mob a{font-size:22px;font-weight:600;color:rgba(255,255,255,0.8);text-decoration:none;display:block;padding:4px 0;}' +
+      '#tr-mob a:active{color:#fff;}';
+    document.head.appendChild(mStyle);
+
+    /* Création de l'overlay avec liens clonés */
+    var mob = document.createElement('div');
+    mob.id = 'tr-mob';
+    mob.appendChild(sourceLinks.cloneNode(true));
+    document.body.appendChild(mob);
+
+    var _sy = 0;
+
+    function openMob() {
+      _sy = window.scrollY;
+      mob.classList.add('open');
+      if (nav) nav.classList.add('menu-open');
+      /* Scroll lock iOS-compatible */
+      document.body.style.overflow = '';
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + _sy + 'px';
+      document.body.style.width = '100%';
+    }
+
+    function closeMob() {
+      mob.classList.remove('open');
+      if (nav) nav.classList.remove('menu-open');
+      /* Restauration du scroll */
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, _sy);
+    }
+
+    /* Remplace le handler inline (qui ne fait que body.overflow) */
+    burger.addEventListener('click', function () {
+      mob.classList.contains('open') ? closeMob() : openMob();
+    });
+
+    /* Fermeture au clic sur un lien du menu */
+    mob.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', closeMob);
+    });
+  })();
 
 })();
