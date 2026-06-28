@@ -167,12 +167,11 @@
     .card-sticky:nth-child(3) .card-frame { bottom: 16vh; background: #b31919; }
     .card-sticky:nth-child(3) .card-frame img { object-fit: contain; }
 
-    /* Wrapper plein écran : zone cliquable toujours 100% peu importe le scale du card-frame */
+    /* Wrapper plein écran : enveloppe card-frame pour que closest(a[href]) fonctionne depuis l'image */
     .card-link-cover {
       position: absolute;
       inset: 0;
       display: block;
-      z-index: 5;
       text-decoration: none;
     }
 
@@ -799,66 +798,70 @@
 
   <!-- Card 1 Fizzi / Brand Identity -->
   <div class="card-sticky">
-    <a href="projects/fizzi.html" class="card-link-cover" aria-label="Brand Identity – Fizzi"></a>
-    <div class="card-frame">
-      <img src="assets/images/fizzi/cans-group.png" alt="Fizzi Brand Identity" />
-      <div class="card-bottom">
-        <div class="card-line"></div>
-        <div class="card-info">
-          <span class="card-idx">01</span>
-          <span class="card-cat">Brand Identity</span>
+    <a href="projects/fizzi.html" class="card-link-cover" aria-label="Brand Identity – Fizzi">
+      <div class="card-frame">
+        <img src="assets/images/fizzi/cans-group.png" alt="Fizzi Brand Identity" />
+        <div class="card-bottom">
+          <div class="card-line"></div>
+          <div class="card-info">
+            <span class="card-idx">01</span>
+            <span class="card-cat">Brand Identity</span>
+          </div>
         </div>
+        <div class="card-bar" data-bar="0"></div>
       </div>
-      <div class="card-bar" data-bar="0"></div>
-    </div>
+    </a>
   </div>
 
   <!-- Card 2 Focus / Podcast Identity -->
   <div class="card-sticky">
-    <a href="projects/focus.html" class="card-link-cover" aria-label="Podcast Identity – Focus"></a>
-    <div class="card-frame">
-      <img src="assets/images/focus/focus.png" alt="Focus Podcast Identity" />
-      <div class="card-bottom">
-        <div class="card-line"></div>
-        <div class="card-info">
-          <span class="card-idx">02</span>
-          <span class="card-cat">Podcast Identity</span>
+    <a href="projects/focus.html" class="card-link-cover" aria-label="Podcast Identity – Focus">
+      <div class="card-frame" style="background:#000;">
+        <img src="assets/images/focus/focus.png" alt="Focus Podcast Identity" style="object-position:center 60%; transform:scale(1.35); transform-origin:center 60%;" />
+        <div class="card-bottom">
+          <div class="card-line"></div>
+          <div class="card-info">
+            <span class="card-idx">02</span>
+            <span class="card-cat">Podcast Identity</span>
+          </div>
         </div>
+        <div class="card-bar" data-bar="1"></div>
       </div>
-      <div class="card-bar" data-bar="1"></div>
-    </div>
+    </a>
   </div>
 
   <!-- Card 3 Gloomy Graphic / Identité Visuelle -->
   <div class="card-sticky">
-    <a href="projects/gloomy-graphic.html" class="card-link-cover" aria-label="Identité Visuelle – Gloomy Graphic"></a>
-    <div class="card-frame">
-      <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic Identité Visuelle" />
-      <div class="card-bottom">
-        <div class="card-line"></div>
-        <div class="card-info">
-          <span class="card-idx">03</span>
-          <span class="card-cat">Identité Visuelle</span>
+    <a href="projects/gloomy-graphic.html" class="card-link-cover" aria-label="Identité Visuelle – Gloomy Graphic">
+      <div class="card-frame">
+        <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic Identité Visuelle" />
+        <div class="card-bottom">
+          <div class="card-line"></div>
+          <div class="card-info">
+            <span class="card-idx">03</span>
+            <span class="card-cat">Identité Visuelle</span>
+          </div>
         </div>
+        <div class="card-bar" data-bar="2"></div>
       </div>
-      <div class="card-bar" data-bar="2"></div>
-    </div>
+    </a>
   </div>
 
   <!-- Card 4 Photography / Direction Artistique -->
   <div class="card-sticky">
-    <a href="projects/photography.html" class="card-link-cover" aria-label="Direction Artistique – Photography"></a>
-    <div class="card-frame">
-      <img src="assets/images/photography/fair/6.jpg" alt="Photography Direction Artistique" />
-      <div class="card-bottom">
-        <div class="card-line"></div>
-        <div class="card-info">
-          <span class="card-idx">04</span>
-          <span class="card-cat">Direction Artistique</span>
+    <a href="projects/photography.html" class="card-link-cover" aria-label="Direction Artistique – Photography">
+      <div class="card-frame">
+        <img src="assets/images/photography/fair/6.jpg" alt="Photography Direction Artistique" />
+        <div class="card-bottom">
+          <div class="card-line"></div>
+          <div class="card-info">
+            <span class="card-idx">04</span>
+            <span class="card-cat">Direction Artistique</span>
+          </div>
         </div>
+        <div class="card-bar" data-bar="3"></div>
       </div>
-      <div class="card-bar" data-bar="3"></div>
-    </div>
+    </a>
   </div>
 
 </div>
@@ -904,18 +907,18 @@
     </a>
     <!-- Focus: right, tall, spans 2 rows -->
     <a href="projects/focus.html" class="work-item work-item-b reveal-scale" style="--delay:80ms">
-      <div class="work-img-wrap ratio-tall">
-        <img src="assets/images/focus/focus.png" alt="Focus" />
+      <div class="work-img-wrap ratio-tall" style="background:#000;">
+        <img src="assets/images/focus/focus.png" alt="Focus" style="object-position:center 60%;" />
       </div>
       <div class="work-meta">
-        <p class="work-cat">Brand Identity</p>
+        <p class="work-cat">Podcast Identity</p>
         <p class="work-title">Focus</p>
       </div>
     </a>
     <!-- Cours: left bottom, square -->
     <a href="projects/cours.html" class="work-item work-item-c reveal-scale" style="--delay:160ms">
       <div class="work-img-wrap ratio-sq">
-        <img src="assets/images/cours/slipknot/slippknot.jpg" alt="Cours" />
+        <img src="assets/images/cours/affiches-insta/Raoult-Tristan-Fun.jpg" alt="Cours" />
       </div>
       <div class="work-meta">
         <p class="work-cat">Identité, Édito</p>
@@ -924,8 +927,8 @@
     </a>
     <!-- Stage: full-width bottom row, landscape -->
     <a href="projects/stage.html" class="work-item work-item-d reveal-scale" style="--delay:240ms">
-      <div class="work-img-wrap ratio-wide">
-        <img src="assets/images/stage/pb/charte.jpg" alt="Stage Owlblack" />
+      <div class="work-img-wrap ratio-wide" style="background:#0a0a0a;">
+        <img src="assets/images/stage/owlblack-logo.svg" alt="Stage Owlblack" style="object-fit:contain; padding:18%;" />
       </div>
       <div class="work-meta">
         <p class="work-cat">Brand Identity</p>
