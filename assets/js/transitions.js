@@ -170,18 +170,18 @@
   /* Desktop uniquement (pointer précis = souris) */
   if (!window.matchMedia('(pointer:fine)').matches) return;
 
-  /* cursor:none sur les éléments déclencheurs */
+  /* Masque le curseur système globalement */
   var cs = document.createElement('style');
-  cs.textContent = '.card-frame,.np-card{cursor:none!important;}';
+  cs.textContent = '*{cursor:none!important;}input,textarea,select{cursor:text!important;}';
   document.head.appendChild(cs);
 
   /* ── Dot curseur lumineux ── */
   var dot = document.createElement('div');
   dot.style.cssText =
     'position:fixed;top:0;left:0;z-index:9999;pointer-events:none;' +
-    'width:7px;height:7px;border-radius:50%;' +
-    'background:rgba(255,255,255,0.85);' +
-    'box-shadow:0 0 10px 2px rgba(255,255,255,0.22);' +
+    'width:12px;height:12px;border-radius:50%;' +
+    'background:rgba(255,255,255,0.95);' +
+    'box-shadow:0 0 16px 4px rgba(255,255,255,0.45),0 0 4px 1px rgba(255,255,255,0.9);' +
     'transform:translate(-50%,-50%);opacity:0;will-change:left,top;';
   document.body.appendChild(dot);
 
@@ -235,7 +235,7 @@
 
   /* ── Bind sur les cartes ── */
   function bindTriggers() {
-    document.querySelectorAll('.card-frame,.np-card').forEach(function (el) {
+    document.querySelectorAll('.np-card,.project-card').forEach(function (el) {
       el.addEventListener('mouseenter', showPill);
       el.addEventListener('mouseleave', hidePill);
     });
