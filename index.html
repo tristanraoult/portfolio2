@@ -1098,14 +1098,10 @@
       const scale = Math.pow(0.88, progressPast + preload);
       frames[i].style.transform = 'scale(' + scale.toFixed(4) + ')';
 
-      /* Carte 0 : s'arrondit via son propre recul */
-      if (i === 0) {
-        frames[0].style.borderRadius = (Math.min(progressPast * 2, 1) * 20).toFixed(2) + 'px';
-      }
-      /* Carte suivante : commence à s'arrondir dès qu'elle entre, finit arrondie à mi-entrée */
-      if (i + 1 < COUNT) {
-        frames[i + 1].style.borderRadius = (Math.min(progressPast * 2, 1) * 20).toFixed(2) + 'px';
-      }
+      /* rayon max 12px, démarre après 20% de progressPast, finit à 70% */
+      const r = (Math.min(Math.max(progressPast - 0.2, 0) * 2, 1) * 12).toFixed(2);
+      if (i === 0) frames[0].style.borderRadius = r + 'px';
+      if (i + 1 < COUNT) frames[i + 1].style.borderRadius = r + 'px';
 
       const bar = bars[i];
       if (bar) {
