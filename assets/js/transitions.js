@@ -264,56 +264,46 @@
 })();
 
 
-/* ── Scroll cinématique section cartes sticky ─────────────────────────────
-   Zone : exactement entre cc.offsetTop et cc.offsetTop + cc.offsetHeight.
-   Hors de cette plage, scroll 100 % natif — rien d'autre n'est touché.   */
+/* ── Smooth scroll Lenis (section cartes sticky uniquement) ───────────────
+   Lenis intercepte la molette seulement dans la zone .cards-container.
+   Hors de cette zone : scroll natif normal.                              */
 (function () {
   function init() {
     var cc = document.querySelector('.cards-container');
     if (!cc) return;
 
-    var current = window.scrollY;
-    var target  = window.scrollY;
-    var raf     = 0;
-    var inZone  = false;
+    /* Charge Lenis via CDN si pas déjà présent */
+    if (window.__lenisDone) return;
+    window.__lenisDone = true;
 
-    function animate() {
-      var diff = target - current;
-      if (Math.abs(diff) < 0.5) {
-        window.scrollTo(0, target);
-        current = target;
-        raf = 0;
-        return;
+    var script = document.createElement('script');
+    script.src = 'https://unpkg.com/lenis@1.1.14/dist/lenis.min.js';
+    script.onload = function () {
+      var lenis = new Lenis({
+        duration: 1.4,
+        easing: function (t) { return 1 - Math.pow(1 - t, 3); },
+        smoothWheel: true,
+        wheelMultiplier: 0.85,
+        touchMultiplier: 1,
+      });
+
+      /* N'active Lenis que quand on est dans la zone cartes */
+      function onWheel() {
+        var sy     = window.scrollY;
+        var zStart = cc.offsetTop;
+        var zEnd   = cc.offsetTop + cc.offsetHeight;
+        var inZone = sy >= zStart && sy < zEnd;
+        lenis.options.smoothWheel = inZone;
       }
-      current += diff * 0.16;
-      window.scrollTo(0, current);
-      raf = requestAnimationFrame(animate);
-    }
+      window.addEventListener('wheel', onWheel, { passive: true });
 
-    window.addEventListener('wheel', function (e) {
-      var sy     = window.scrollY;
-      var zStart = cc.offsetTop;
-      var zEnd   = cc.offsetTop + cc.offsetHeight;
-      var active = sy >= zStart && sy < zEnd;
-
-      if (!active) {
-        if (inZone) {
-          inZone = false;
-          current = sy; target = sy;
-          if (raf) { cancelAnimationFrame(raf); raf = 0; }
-        }
-        return;
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
       }
-
-      e.preventDefault();
-      if (!inZone) { inZone = true; current = sy; target = sy; }
-
-      var scale = e.deltaMode === 0 ? 0.82 : 0.55;
-      var max   = document.documentElement.scrollHeight - window.innerHeight;
-      target    = Math.max(0, Math.min(max, target + e.deltaY * scale));
-
-      if (!raf) raf = requestAnimationFrame(animate);
-    }, { passive: false });
+      requestAnimationFrame(raf);
+    };
+    document.head.appendChild(script);
   }
 
   if (document.readyState === 'loading') {
