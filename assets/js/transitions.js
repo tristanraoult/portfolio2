@@ -163,3 +163,102 @@
   })();
 
 })();
+
+
+/* ── Explore pill + cursor dot ───────────────────────────────────────────── */
+(function () {
+  /* Desktop uniquement (pointer précis = souris) */
+  if (!window.matchMedia('(pointer:fine)').matches) return;
+
+  /* cursor:none sur les éléments déclencheurs */
+  var cs = document.createElement('style');
+  cs.textContent = '.card-frame,.np-card{cursor:none!important;}';
+  document.head.appendChild(cs);
+
+  /* ── Dot curseur lumineux ── */
+  var dot = document.createElement('div');
+  dot.style.cssText =
+    'position:fixed;top:0;left:0;z-index:9999;pointer-events:none;' +
+    'width:7px;height:7px;border-radius:50%;' +
+    'background:rgba(255,255,255,0.85);' +
+    'box-shadow:0 0 10px 2px rgba(255,255,255,0.22);' +
+    'transform:translate(-50%,-50%);opacity:0;will-change:left,top;';
+  document.body.appendChild(dot);
+
+  /* ── Pill "Explore" glassmorphisme ── */
+  var pill = document.createElement('div');
+  pill.textContent = 'Explore';
+  pill.style.cssText =
+    'position:fixed;top:0;left:0;z-index:9998;pointer-events:none;' +
+    'padding:13px 28px;border-radius:100px;' +
+    'background:rgba(10,11,13,0.52);' +
+    'backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);' +
+    'border:1px solid rgba(255,255,255,0.15);' +
+    'color:rgba(255,255,255,0.92);' +
+    "font-family:Inter,sans-serif;font-size:14px;font-weight:500;letter-spacing:0.03em;" +
+    'white-space:nowrap;will-change:left,top;' +
+    'opacity:0;transform:translate(-50%,-50%) scale(0.82);' +
+    'transition:opacity 0.22s cubic-bezier(0.22,1,0.36,1),transform 0.22s cubic-bezier(0.22,1,0.36,1);';
+  document.body.appendChild(pill);
+
+  /* ── État ── */
+  var dx = -300, dy = -300, dtx = -300, dty = -300;
+  var px = -300, py = -300, ptx = -300, pty = -300;
+  var alive = false;
+
+  document.addEventListener('mousemove', function (e) {
+    dtx = ptx = e.clientX;
+    dty = pty = e.clientY;
+    if (!alive) {
+      alive = true;
+      dx = dtx; dy = dty; px = ptx; py = pty;
+      dot.style.opacity = '1';
+    }
+  });
+  document.addEventListener('mouseleave', function () {
+    dot.style.opacity = '0';
+    pill.style.opacity = '0';
+    pill.style.transform = 'translate(-50%,-50%) scale(0.82)';
+  });
+
+  /* ── Montrer / cacher la pill ── */
+  function showPill() {
+    pill.style.opacity = '1';
+    pill.style.transform = 'translate(-50%,-50%) scale(1)';
+    dot.style.opacity = '0';
+  }
+  function hidePill() {
+    pill.style.opacity = '0';
+    pill.style.transform = 'translate(-50%,-50%) scale(0.82)';
+    if (alive) dot.style.opacity = '1';
+  }
+
+  /* ── Bind sur les cartes ── */
+  function bindTriggers() {
+    document.querySelectorAll('.card-frame,.np-card').forEach(function (el) {
+      el.addEventListener('mouseenter', showPill);
+      el.addEventListener('mouseleave', hidePill);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindTriggers);
+  } else {
+    bindTriggers();
+  }
+
+  /* ── Boucle RAF ── */
+  function tick() {
+    dx += (dtx - dx) * 0.22;
+    dy += (dty - dy) * 0.22;
+    dot.style.left = (dx | 0) + 'px';
+    dot.style.top  = (dy | 0) + 'px';
+
+    px += (ptx - px) * 0.09;
+    py += (pty - py) * 0.09;
+    pill.style.left = (px | 0) + 'px';
+    pill.style.top  = (py | 0) + 'px';
+
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
