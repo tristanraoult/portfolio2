@@ -263,4 +263,26 @@
   tick();
 })();
 
+/* ── Smooth scroll global via Lenis ───────────────────────────────────── */
+(function () {
+  /* scroll-behavior:smooth sur <html> ferait un double-lissage avec Lenis */
+  var ss = document.createElement('style');
+  ss.textContent = 'html{scroll-behavior:auto!important;}';
+  document.head.appendChild(ss);
 
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js';
+  s.onload = function () {
+    var lenis = new Lenis({
+      duration: 1.2,
+      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      smoothWheel: true,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.0,
+      smoothTouch: false,
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+  };
+  document.head.appendChild(s);
+})();
