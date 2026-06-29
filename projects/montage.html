@@ -19,6 +19,14 @@
     .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: rgba(255,255,255,0.55); transition: width 0.4s cubic-bezier(0.22,1,0.36,1); }
     .nav-links a:hover::after { width: 100%; }
     #proj-hero { height: 100vh; overflow: hidden; background: #0a0a0a; position: sticky; top: 0; z-index: 0; }
+    #proj-hero img { width: 100%; height: 100%; object-fit: cover; animation: heroZoom 1.4s cubic-bezier(0.22,1,0.36,1) forwards; }
+    @keyframes heroZoom { from { transform: scale(1.08); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .pc-row { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .pc-text { position: sticky; top: 88px; align-self: start; padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
+    .pc-text-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.22); display: block; margin-bottom: 24px; }
+    .pc-text p { font-size: 17px; line-height: 1.85; color: rgba(255,255,255,0.52); }
+    .pc-text p + p { margin-top: 20px; }
+    .pc-imgs { display: flex; flex-direction: column; }
     #proj-info { display: grid; grid-template-columns: 5fr 7fr; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .pi-left { padding: 80px 48px; border-right: 1px solid rgba(255,255,255,0.08); }
     .pi-right { padding: 80px 48px; }
@@ -34,8 +42,8 @@
     .pc-section-count { font-family: 'Fragment Mono', monospace; font-size: 12px; color: rgba(255,255,255,0.22); }
 
     /* Video embeds */
-    .pc-video-wrap { position: relative; padding-bottom: 56.25%; overflow: hidden; background: #0d0d0f; cursor: pointer; max-width: 1280px; margin-left: auto; margin-right: auto; } /* 16:9 */
-    .pc-video-wrap--v { padding-bottom: 177.78%; max-width: 480px; } /* 9:16 vertical */
+    .pc-video-wrap { position: relative; padding-bottom: 56.25%; overflow: hidden; background: #0d0d0f; cursor: pointer; } /* 16:9 */
+    .pc-video-wrap--v { padding-bottom: 177.78%; } /* 9:16 vertical */
     .pc-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .pc-video-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); }
     .pc-video-wrap:hover .pc-video-thumb { transform: scale(1.03); }
@@ -44,7 +52,7 @@
     .pc-video-wrap:hover .pc-play-btn { transform: translate(-50%, -50%) scale(1.12); background: #fff; }
 
     /* Grid 2 colonnes pour paires de vidéos */
-    .pc-video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #141517; max-width: 1280px; margin-left: auto; margin-right: auto; }
+    .pc-video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #141517; }
 
     #next-projects { padding: 80px 48px 100px; }
     .np-head { padding: 18px 0; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 40px; }
@@ -93,6 +101,8 @@
       .pi-right { padding: 60px 20px; }
       .proj-title { position: static; font-size: 52px; }
       .pc-section-head { padding: 16px 20px; }
+      .pc-row { grid-template-columns: 1fr; }
+      .pc-text { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 48px 20px; position: static; }
       .pc-video-grid { grid-template-columns: 1fr; }
       .pi-meta-row { flex-direction: column; gap: 4px; padding: 12px 0; }
       .pi-meta-label { width: auto; }
@@ -115,8 +125,9 @@
   <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- Hero sombre pas d'image, fond noir -->
-<section id="proj-hero"></section>
+<section id="proj-hero">
+  <img src="../assets/images/montage/TWPfPxrpO0c.jpg" alt="Montage – Tristan Raoult" />
+</section>
 
 <div class="proj-content">
 
@@ -150,44 +161,88 @@
 <!-- ─────────────────────────────────────── VIDÉOS ─── -->
 <div class="pc-section-head reveal">
   <span class="pc-section-title">Vidéos</span>
-  <span class="pc-section-count">(6)</span>
+  <span class="pc-section-count">(7)</span>
 </div>
 
-<!-- Hunger Games horizontale 16:9 -->
-<div class="pc-video-wrap reveal-scale" onclick="loadVid(this,'https://youtu.be/jfO6E6TVnbM')">
-  <img class="pc-video-thumb" src="../assets/images/montage/jfO6E6TVnbM.jpg" onerror="thumbErr(this,'jfO6E6TVnbM')" alt="Hunger Games" />
-  <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-</div>
-
-<!-- Cinématique + Flash Cut verticales 9:16 côte à côte -->
-<div class="pc-video-grid reveal-scale">
-  <div class="pc-video-wrap pc-video-wrap--v" onclick="loadVid(this,'https://youtu.be/1Oo5POKiMjw')">
-    <img class="pc-video-thumb" src="../assets/images/montage/1Oo5POKiMjw.jpg" onerror="thumbErr(this,'1Oo5POKiMjw')" alt="Cinématique" />
-    <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+<!-- 01 Nouveau -->
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">01 Stage Owlblack · Nouveau</span>
+    <p>Vidéo de présentation réalisée pendant mon stage pour Nouveau, marque de vêtements homme à Biarritz et Bayonne. Photos, vidéos et montage pour mettre en valeur chaque tenue sur une musique originale.</p>
   </div>
-  <div class="pc-video-wrap pc-video-wrap--v" onclick="loadVid(this,'https://youtube.com/shorts/4BNwfqb_udI')">
-    <img class="pc-video-thumb" src="../assets/images/montage/4BNwfqb_udI.jpg" onerror="thumbErr(this,'4BNwfqb_udI')" alt="Flash Cut" />
-    <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+  <div class="pc-imgs">
+    <div class="pc-video-wrap" onclick="loadVid(this,'https://youtu.be/TWPfPxrpO0c')">
+      <img class="pc-video-thumb" src="../assets/images/montage/TWPfPxrpO0c.jpg" onerror="thumbErr(this,'TWPfPxrpO0c')" alt="Nouveau" />
+      <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
   </div>
 </div>
 
-<!-- Kaweko horizontale 16:9 -->
-<div class="pc-video-wrap reveal-scale" onclick="loadVid(this,'https://youtu.be/9QkmyyjBZKE')">
-  <img class="pc-video-thumb" src="../assets/images/montage/9QkmyyjBZKE.jpg" onerror="thumbErr(this,'9QkmyyjBZKE')" alt="Pub Kaweko" />
-  <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+<!-- 02 Flash Cuts -->
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">02 Flash Cuts · Couleurs, Animaux, Hereiam</span>
+    <p>Trois exercices autour du montage rythmique. Un test d'étalonnage avec un preset cinématique Lightroom créé sur mesure (avant/après en split-screen), un flash cut hypnotisant d'animaux et de sujets variés, et un Short pour Hereiam avec des stickers collés dans Bordeaux pour promouvoir la marque.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-video-wrap" onclick="loadVid(this,'https://youtu.be/1Oo5POKiMjw')">
+      <img class="pc-video-thumb" src="../assets/images/montage/1Oo5POKiMjw.jpg" onerror="thumbErr(this,'1Oo5POKiMjw')" alt="Test colorimétrique" />
+      <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+    <div style="max-width: 560px;">
+      <div class="pc-video-grid">
+        <div class="pc-video-wrap pc-video-wrap--v" onclick="loadVid(this,'https://youtube.com/shorts/4BNwfqb_udI')">
+          <img class="pc-video-thumb" src="../assets/images/montage/4BNwfqb_udI.jpg" onerror="thumbErr(this,'4BNwfqb_udI')" alt="Flash Cut Animaux" />
+          <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="pc-video-wrap pc-video-wrap--v" onclick="loadVid(this,'https://youtube.com/shorts/DJnZZSs86KQ')">
+          <img class="pc-video-thumb" src="../assets/images/montage/DJnZZSs86KQ.jpg" onerror="thumbErr(this,'DJnZZSs86KQ')" alt="Hereiam" />
+          <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- Hereiam + Tousenscène -->
-<div class="pc-video-grid reveal-scale">
-  <!-- Hereiam (vertical Shorts) -->
-  <div class="pc-video-wrap pc-video-wrap--v" onclick="loadVid(this,'https://youtube.com/shorts/DJnZZSs86KQ')">
-    <img class="pc-video-thumb" src="../assets/images/montage/DJnZZSs86KQ.jpg" onerror="thumbErr(this,'DJnZZSs86KQ')" alt="Hereiam" />
-    <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+<!-- 03 Tousenscène -->
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">03 Captation · Tousenscène</span>
+    <p>Vidéo présentée au concours Tousenscène, édition dédiée au handicap. Un personnage amputé d'une jambe affronte ses blocages du quotidien — les escaliers vécus comme un enfer, l'ascenseur comme un ange. Des dessins faits à la main incrustés sur la vidéo illustrent ses pensées. Il finit par les dépasser et créer son entreprise.</p>
   </div>
-  <!-- Tousenscène (horizontale) -->
-  <div class="pc-video-wrap" onclick="loadVid(this,'https://youtu.be/qIxzh7ci9qM')">
-    <img class="pc-video-thumb" src="../assets/images/montage/qIxzh7ci9qM.jpg" onerror="thumbErr(this,'qIxzh7ci9qM')" alt="Tousenscène" />
-    <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+  <div class="pc-imgs">
+    <div class="pc-video-wrap" onclick="loadVid(this,'https://youtu.be/qIxzh7ci9qM')">
+      <img class="pc-video-thumb" src="../assets/images/montage/qIxzh7ci9qM.jpg" onerror="thumbErr(this,'qIxzh7ci9qM')" alt="Tousenscène" />
+      <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 Kaweko -->
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">04 Publicité · Kaweko</span>
+    <p>Premier spot publicitaire complet réalisé en cours : photos, vidéos, montage et musique originale entièrement produits par le groupe. De A à Z, une pub Kaweko sans aucun asset externe.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-video-wrap" onclick="loadVid(this,'https://youtu.be/9QkmyyjBZKE')">
+      <img class="pc-video-thumb" src="../assets/images/montage/9QkmyyjBZKE.jpg" onerror="thumbErr(this,'9QkmyyjBZKE')" alt="Pub Kaweko" />
+      <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 Hunger Games -->
+<div class="pc-row reveal">
+  <div class="pc-text">
+    <span class="pc-text-label">05 Cours · Hunger Games</span>
+    <p>Projet de cours : retravailler les images d'un film pour raconter une histoire radicalement différente. Les Hunger Games revisités en jeu de survie dans la nature, à la manière de The Island sur M6.</p>
+  </div>
+  <div class="pc-imgs">
+    <div class="pc-video-wrap" onclick="loadVid(this,'https://youtu.be/jfO6E6TVnbM')">
+      <img class="pc-video-thumb" src="../assets/images/montage/jfO6E6TVnbM.jpg" onerror="thumbErr(this,'jfO6E6TVnbM')" alt="Hunger Games" />
+      <div class="pc-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
   </div>
 </div>
 
