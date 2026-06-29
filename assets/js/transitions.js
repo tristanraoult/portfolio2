@@ -262,3 +262,66 @@
   }
   tick();
 })();
+
+
+/* ── Scroll cinématique section cartes sticky ─────────────────────────────
+   Intercepte la molette uniquement quand .cards-container est dans le viewport.
+   Rien ne change visuellement : positions, animations CSS = identiques.
+   Seule la vitesse d'avancement du scroll est ralentie + lissée.        */
+(function () {
+  function init() {
+    var cc = document.querySelector('.cards-container');
+    if (!cc) return;
+
+    var current = window.scrollY;
+    var target  = window.scrollY;
+    var raf     = 0;
+    var inZone  = false;
+
+    function animate() {
+      var diff = target - current;
+      if (Math.abs(diff) < 0.5) {
+        window.scrollTo(0, target);
+        current = target;
+        raf = 0;
+        return;
+      }
+      current += diff * 0.10; /* lerp : 10 % de la distance restante par frame */
+      window.scrollTo(0, current);
+      raf = requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('wheel', function (e) {
+      var r = cc.getBoundingClientRect();
+      var active = r.bottom > 0 && r.top < window.innerHeight;
+
+      if (!active) {
+        /* hors de la zone : resync et laisse le scroll natif opérer */
+        if (inZone) { inZone = false; current = window.scrollY; target = window.scrollY; }
+        return;
+      }
+
+      e.preventDefault();
+
+      if (!inZone) {
+        inZone  = true;
+        current = window.scrollY;
+        target  = window.scrollY;
+      }
+
+      /* Trackpad (deltaMode 0, petits px) → léger ralentissement
+         Molette souris (deltaMode 1, grandes valeurs) → fort ralentissement */
+      var scale = e.deltaMode === 0 ? 0.75 : 0.35;
+      var max   = document.documentElement.scrollHeight - window.innerHeight;
+      target    = Math.max(0, Math.min(max, target + e.deltaY * scale));
+
+      if (!raf) raf = requestAnimationFrame(animate);
+    }, { passive: false });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
