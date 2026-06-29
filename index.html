@@ -1069,7 +1069,9 @@
   const COUNT     = frames.length;
   const ANIM      = COUNT - 1; // only animate first 3 cards
 
-  frames[COUNT - 1].style.transform    = 'scale(1)';
+  const lastPreload = (COUNT - 1) * 0.5;
+  const lastScale   = Math.pow(0.88, lastPreload);
+  frames[COUNT - 1].style.transform    = 'scale(' + lastScale.toFixed(4) + ')';
   frames[COUNT - 1].style.borderRadius = '0px';
 
   /* Fix 1: cache layout reads once avoids forced reflow on every scroll frame */
