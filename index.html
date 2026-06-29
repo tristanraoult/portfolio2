@@ -158,10 +158,10 @@
       width: 100%;
     }
 
-    .card-sticky:nth-child(1) { top:   0px; z-index: 10; }
-    .card-sticky:nth-child(2) { top:  55px; z-index: 11; }
-    .card-sticky:nth-child(3) { top: 110px; z-index: 12; }
-    .card-sticky:nth-child(4) { position: sticky; top: 165px; z-index: 13; }
+    .card-sticky:nth-child(1) { top:  0px; z-index: 10; }
+    .card-sticky:nth-child(2) { top: 40px; z-index: 11; }
+    .card-sticky:nth-child(3) { top: 80px; z-index: 12; }
+    .card-sticky:nth-child(4) { position: sticky; top: 120px; z-index: 13; }
 
     /* Gloomy card extra bottom space + contain so full text is visible */
     .card-sticky:nth-child(3) .card-frame { bottom: 16vh; background: #b31919; }
@@ -1069,10 +1069,8 @@
   const COUNT     = frames.length;
   const ANIM      = COUNT - 1; // only animate first 3 cards
 
-  /* Pin card 4 at its preload scale, square corners (it's the active foreground card) */
-  const lastPreload = (COUNT - 1) * 0.5;
-  const lastScale   = Math.pow(0.88, lastPreload);
-  frames[COUNT - 1].style.transform    = 'scale(' + lastScale.toFixed(4) + ')';
+  /* Card 4 : plein écran au départ, pas de preload */
+  frames[COUNT - 1].style.transform    = 'scale(1)';
   frames[COUNT - 1].style.borderRadius = '0px';
 
   /* Fix 1: cache layout reads once avoids forced reflow on every scroll frame */
@@ -1092,10 +1090,10 @@
     const totalProgress = (scrollY - containerT) / perCard;
 
     for (let i = 0; i < ANIM; i++) {
-      const preload      = i * 0.5;
       const progressPast = Math.max(0, totalProgress - i);
 
-      const scale = Math.pow(0.88, progressPast + preload);
+      /* pas de preload : chaque carte arrive à scale 1.0 */
+      const scale = Math.pow(0.88, progressPast);
       frames[i].style.transform = 'scale(' + scale.toFixed(4) + ')';
 
       /* rayon max 12px, démarre après 20% de progressPast, finit à 70% */
