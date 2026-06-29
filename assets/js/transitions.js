@@ -265,9 +265,8 @@
 
 
 /* ── Scroll cinématique section cartes sticky ─────────────────────────────
-   Intercepte la molette uniquement quand .cards-container est dans le viewport.
-   Rien ne change visuellement : positions, animations CSS = identiques.
-   Seule la vitesse d'avancement du scroll est ralentie + lissée.        */
+   Zone : exactement entre cc.offsetTop et cc.offsetTop + cc.offsetHeight.
+   Hors de cette plage, scroll 100 % natif — rien d'autre n'est touché.   */
 (function () {
   function init() {
     var cc = document.querySelector('.cards-container');
@@ -286,32 +285,30 @@
         raf = 0;
         return;
       }
-      current += diff * 0.10; /* lerp : 10 % de la distance restante par frame */
+      current += diff * 0.16;
       window.scrollTo(0, current);
       raf = requestAnimationFrame(animate);
     }
 
     window.addEventListener('wheel', function (e) {
-      var r = cc.getBoundingClientRect();
-      var active = r.bottom > 0 && r.top < window.innerHeight;
+      var sy     = window.scrollY;
+      var zStart = cc.offsetTop;
+      var zEnd   = cc.offsetTop + cc.offsetHeight;
+      var active = sy >= zStart && sy < zEnd;
 
       if (!active) {
-        /* hors de la zone : resync et laisse le scroll natif opérer */
-        if (inZone) { inZone = false; current = window.scrollY; target = window.scrollY; }
+        if (inZone) {
+          inZone = false;
+          current = sy; target = sy;
+          if (raf) { cancelAnimationFrame(raf); raf = 0; }
+        }
         return;
       }
 
       e.preventDefault();
+      if (!inZone) { inZone = true; current = sy; target = sy; }
 
-      if (!inZone) {
-        inZone  = true;
-        current = window.scrollY;
-        target  = window.scrollY;
-      }
-
-      /* Trackpad (deltaMode 0, petits px) → léger ralentissement
-         Molette souris (deltaMode 1, grandes valeurs) → fort ralentissement */
-      var scale = e.deltaMode === 0 ? 0.75 : 0.35;
+      var scale = e.deltaMode === 0 ? 0.82 : 0.55;
       var max   = document.documentElement.scrollHeight - window.innerHeight;
       target    = Math.max(0, Math.min(max, target + e.deltaY * scale));
 
