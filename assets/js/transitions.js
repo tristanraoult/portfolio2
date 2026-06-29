@@ -205,15 +205,13 @@
   var dx = -300, dy = -300, dtx = -300, dty = -300;
   var px = -300, py = -300, ptx = -300, pty = -300;
   var alive = false;
+  var pillActive = false;
 
   document.addEventListener('mousemove', function (e) {
     dtx = ptx = e.clientX;
     dty = pty = e.clientY;
-    if (!alive) {
-      alive = true;
-      dx = dtx; dy = dty; px = ptx; py = pty;
-      dot.style.opacity = '1';
-    }
+    if (!alive) { alive = true; dx = dtx; dy = dty; px = ptx; py = pty; }
+    if (!pillActive) dot.style.opacity = '1';
   });
   document.addEventListener('mouseleave', function () {
     dot.style.opacity = '0';
@@ -223,11 +221,13 @@
 
   /* ── Montrer / cacher la pill ── */
   function showPill() {
+    pillActive = true;
     pill.style.opacity = '1';
     pill.style.transform = 'translate(-50%,-50%) scale(1)';
     dot.style.opacity = '0';
   }
   function hidePill() {
+    pillActive = false;
     pill.style.opacity = '0';
     pill.style.transform = 'translate(-50%,-50%) scale(0.82)';
     if (alive) dot.style.opacity = '1';
@@ -235,7 +235,7 @@
 
   /* ── Bind sur les cartes ── */
   function bindTriggers() {
-    document.querySelectorAll('.np-card,.project-card').forEach(function (el) {
+    document.querySelectorAll('.np-card,.project-card,.work-item').forEach(function (el) {
       el.addEventListener('mouseenter', showPill);
       el.addEventListener('mouseleave', hidePill);
     });
