@@ -286,6 +286,8 @@
     }
     cur += diff * 0.10;
     window.scrollTo(0, cur);
+    /* appel synchrone pour éviter le décalage d'une frame sur les cartes */
+    if (typeof window.__cardsUpdate === 'function') window.__cardsUpdate();
     raf = requestAnimationFrame(step);
   }
 

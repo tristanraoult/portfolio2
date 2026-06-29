@@ -1115,6 +1115,10 @@
     }
   }, { passive: true });
 
+  /* expose update pour que le smooth-scroll de transitions.js puisse
+     l'appeler en synchrone et éviter le décalage d'une frame */
+  window.__cardsUpdate = update;
+
   update();
 })();
 
