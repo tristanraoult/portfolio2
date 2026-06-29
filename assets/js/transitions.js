@@ -263,26 +263,46 @@
   tick();
 })();
 
-/* ── Smooth scroll global via Lenis ───────────────────────────────────── */
+/* ── Smooth scroll cinématique (vanilla, sans lib externe) ────────────── */
 (function () {
-  /* scroll-behavior:smooth sur <html> ferait un double-lissage avec Lenis */
+  if (!window.matchMedia('(pointer:fine)').matches) return;
+
+  /* évite le double-lissage si la page a scroll-behavior:smooth */
   var ss = document.createElement('style');
   ss.textContent = 'html{scroll-behavior:auto!important;}';
   document.head.appendChild(ss);
 
-  var s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js';
-  s.onload = function () {
-    var lenis = new Lenis({
-      duration: 1.2,
-      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.0,
-      smoothTouch: false,
-    });
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-  };
-  document.head.appendChild(s);
+  var tgt = window.scrollY;
+  var cur = window.scrollY;
+  var raf = 0;
+
+  function step() {
+    var diff = tgt - cur;
+    if (Math.abs(diff) < 0.5) {
+      window.scrollTo(0, tgt);
+      cur = tgt;
+      raf = 0;
+      return;
+    }
+    cur += diff * 0.10;
+    window.scrollTo(0, cur);
+    raf = requestAnimationFrame(step);
+  }
+
+  window.addEventListener('wheel', function (e) {
+    e.preventDefault();
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    tgt = Math.max(0, Math.min(max, tgt + e.deltaY));
+    if (!raf) raf = requestAnimationFrame(step);
+  }, { passive: false });
+
+  /* resync si l'utilisateur utilise la barre de scroll ou les flèches clavier */
+  window.addEventListener('scroll', function () {
+    if (!raf) {
+      tgt = window.scrollY; cur = window.scrollY;
+    } else if (Math.abs(window.scrollY - cur) > 80) {
+      tgt = window.scrollY; cur = window.scrollY;
+      cancelAnimationFrame(raf); raf = 0;
+    }
+  }, { passive: true });
 })();
