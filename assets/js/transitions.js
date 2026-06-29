@@ -101,7 +101,7 @@
       '#tr-mob.open{opacity:1;pointer-events:auto;}' +
       /* Réinitialise le ul.nav-links cloné */
       '#tr-mob .nav-links{position:static!important;inset:auto!important;' +
-      'opacity:1!important;pointer-events:auto!important;background:none!important;' +
+      'opacity:1!important;background:none!important;' +
       'z-index:auto!important;display:flex!important;flex-direction:column!important;' +
       'gap:0!important;align-items:stretch!important;justify-content:center!important;' +
       'transition:none!important;padding:0!important;' +
