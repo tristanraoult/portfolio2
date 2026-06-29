@@ -167,15 +167,7 @@
     .card-sticky:nth-child(3) .card-frame { bottom: 16vh; background: #b31919; }
     .card-sticky:nth-child(3) .card-frame img { object-fit: contain; }
 
-    /* Wrapper plein écran : enveloppe card-frame pour que closest(a[href]) fonctionne depuis l'image */
-    .card-link-cover {
-      position: absolute;
-      inset: 0;
-      display: block;
-      text-decoration: none;
-    }
-
-    /* Frame raised leaves 9vh gap at bottom so image text is visible */
+    /* Frame : est maintenant le lien direct — pas d'intermédiaire position:absolute */
     .card-frame {
       position: absolute;
       top: 0;
@@ -187,6 +179,8 @@
       cursor: pointer;
       will-change: transform;
       transform-origin: center center;
+      display: block;
+      text-decoration: none;
     }
 
     .card-frame img {
@@ -715,9 +709,7 @@
     @media (max-width: 810px) {
       nav { padding: 20px 20px; }
       .nav-burger { display: flex; flex-direction: column; }
-      .nav-links { flex-direction: column; position: fixed; inset: 0; background: rgba(14,15,17,0.98); z-index: 190; align-items: center; justify-content: center; gap: 44px; opacity: 0; pointer-events: none; transition: opacity 0.28s ease; }
-      nav.menu-open .nav-links { opacity: 1; pointer-events: auto; }
-      nav.menu-open .nav-links a { font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.8); }
+      .nav-links { display: none !important; }
       .hero-content { left: 20px; right: 20px; bottom: 36px; flex-direction: column; align-items: flex-start; }
       .hero-text { font-size: 17px; max-width: 100%; }
       .hero-scroll { white-space: normal; }
@@ -798,69 +790,61 @@
 
   <!-- Card 1 Fizzi / Brand Identity -->
   <div class="card-sticky">
-    <a href="projects/fizzi.html" class="card-link-cover" aria-label="Brand Identity – Fizzi">
-      <div class="card-frame">
-        <img src="assets/images/fizzi/cans-group.png" alt="Fizzi Brand Identity" />
-        <div class="card-bottom">
-          <div class="card-line"></div>
-          <div class="card-info">
-            <span class="card-idx">01</span>
-            <span class="card-cat">Brand Identity</span>
-          </div>
+    <a href="projects/fizzi.html" class="card-frame" aria-label="Brand Identity – Fizzi">
+      <img src="assets/images/fizzi/cans-group.png" alt="Fizzi Brand Identity" />
+      <div class="card-bottom">
+        <div class="card-line"></div>
+        <div class="card-info">
+          <span class="card-idx">01</span>
+          <span class="card-cat">Brand Identity</span>
         </div>
-        <div class="card-bar" data-bar="0"></div>
       </div>
+      <div class="card-bar" data-bar="0"></div>
     </a>
   </div>
 
   <!-- Card 2 Focus / Podcast Identity -->
   <div class="card-sticky">
-    <a href="projects/focus.html" class="card-link-cover" aria-label="Podcast Identity – Focus">
-      <div class="card-frame" style="background:#000;">
-        <img src="assets/images/focus/focus.png" alt="Focus Podcast Identity" style="object-position:center 60%; transform:scale(1.35); transform-origin:center 60%;" />
-        <div class="card-bottom">
-          <div class="card-line"></div>
-          <div class="card-info">
-            <span class="card-idx">02</span>
-            <span class="card-cat">Podcast Identity</span>
-          </div>
+    <a href="projects/focus.html" class="card-frame" style="background:#000;" aria-label="Podcast Identity – Focus">
+      <img src="assets/images/focus/focus.png" alt="Focus Podcast Identity" style="object-position:center 60%; transform:scale(1.35); transform-origin:center 60%;" />
+      <div class="card-bottom">
+        <div class="card-line"></div>
+        <div class="card-info">
+          <span class="card-idx">02</span>
+          <span class="card-cat">Podcast Identity</span>
         </div>
-        <div class="card-bar" data-bar="1"></div>
       </div>
+      <div class="card-bar" data-bar="1"></div>
     </a>
   </div>
 
   <!-- Card 3 Gloomy Graphic / Identité Visuelle -->
   <div class="card-sticky">
-    <a href="projects/gloomy-graphic.html" class="card-link-cover" aria-label="Identité Visuelle – Gloomy Graphic">
-      <div class="card-frame">
-        <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic Identité Visuelle" />
-        <div class="card-bottom">
-          <div class="card-line"></div>
-          <div class="card-info">
-            <span class="card-idx">03</span>
-            <span class="card-cat">Identité Visuelle</span>
-          </div>
+    <a href="projects/gloomy-graphic.html" class="card-frame" aria-label="Identité Visuelle – Gloomy Graphic">
+      <img src="assets/images/gloomy/gloomy.png" alt="Gloomy Graphic Identité Visuelle" />
+      <div class="card-bottom">
+        <div class="card-line"></div>
+        <div class="card-info">
+          <span class="card-idx">03</span>
+          <span class="card-cat">Identité Visuelle</span>
         </div>
-        <div class="card-bar" data-bar="2"></div>
       </div>
+      <div class="card-bar" data-bar="2"></div>
     </a>
   </div>
 
   <!-- Card 4 Photography / Direction Artistique -->
   <div class="card-sticky">
-    <a href="projects/photography.html" class="card-link-cover" aria-label="Direction Artistique – Photography">
-      <div class="card-frame">
-        <img src="assets/images/photography/fair/6.jpg" alt="Photography Direction Artistique" />
-        <div class="card-bottom">
-          <div class="card-line"></div>
-          <div class="card-info">
-            <span class="card-idx">04</span>
-            <span class="card-cat">Direction Artistique</span>
-          </div>
+    <a href="projects/photography.html" class="card-frame" aria-label="Direction Artistique – Photography">
+      <img src="assets/images/photography/fair/6.jpg" alt="Photography Direction Artistique" />
+      <div class="card-bottom">
+        <div class="card-line"></div>
+        <div class="card-info">
+          <span class="card-idx">04</span>
+          <span class="card-cat">Direction Artistique</span>
         </div>
-        <div class="card-bar" data-bar="3"></div>
       </div>
+      <div class="card-bar" data-bar="3"></div>
     </a>
   </div>
 
@@ -1144,17 +1128,6 @@
   ).forEach(el => io.observe(el));
 })();
 
-/* Hamburger */
-document.getElementById('nav-burger').addEventListener('click', function() {
-  var open = document.querySelector('nav').classList.toggle('menu-open');
-  document.body.style.overflow = open ? 'hidden' : '';
-});
-document.querySelectorAll('.nav-links a').forEach(function(a) {
-  a.addEventListener('click', function() {
-    document.querySelector('nav').classList.remove('menu-open');
-    document.body.style.overflow = '';
-  });
-});
 </script>
 
 <script src="assets/js/transitions.js"></script>
