@@ -273,3 +273,50 @@
     }
   }, { passive: true });
 })();
+
+
+/* ── Clip-path reveal sur les images projet ─────────────────────────────── */
+(function () {
+  var SELECTORS = '.pc-img, .pc-full, .np-thumb, .pg-item';
+
+  function init() {
+    var els = document.querySelectorAll(SELECTORS);
+    if (!els.length) return;
+
+    var css = document.createElement('style');
+    css.textContent =
+      '.pc-img img, .pc-full img, .np-thumb img, .pg-item img {' +
+        'clip-path: inset(100% 0 0 0);' +
+        'transition: clip-path 1.05s cubic-bezier(0.22, 1, 0.36, 1);' +
+        'will-change: clip-path;' +
+      '}' +
+      '.img-in img {' +
+        'clip-path: inset(0% 0 0 0) !important;' +
+      '}';
+    document.head.appendChild(css);
+
+    /* Stagger pour les images côte à côte dans .pc-imgs */
+    document.querySelectorAll('.pc-imgs').forEach(function (row) {
+      row.querySelectorAll('.pc-img img').forEach(function (img, i) {
+        if (i > 0) img.style.transitionDelay = (i * 0.12) + 's';
+      });
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('img-in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.07 });
+
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
