@@ -175,19 +175,12 @@
     '*{cursor:none!important;}input,textarea,select{cursor:text!important;}' +
     '#cursor{position:fixed;inset:0;pointer-events:none;z-index:9999;}' +
     '.cursor-core,.cursor-halo{position:fixed;left:0;top:0;pointer-events:none;transform:translate(-50%,-50%);will-change:left,top;}' +
-    /* Point central — blanc lumineux au repos */
-    '.cursor-core{width:9px;height:9px;border-radius:50%;background:#fff;' +
-    'box-shadow:0 0 6px 2px rgba(255,255,255,0.95),0 0 18px 4px rgba(255,255,255,0.55),0 0 32px 8px rgba(255,255,255,0.18);' +
-    'z-index:9999;transition:background .25s,box-shadow .25s;}' +
-    /* Halo flou — plus visible, légèrement chaud */
-    '.cursor-halo{width:52px;height:52px;border-radius:50%;' +
-    'background:radial-gradient(circle,rgba(255,248,230,0.28) 0%,rgba(255,255,255,0.10) 45%,transparent 70%);' +
-    'opacity:1;filter:blur(5px);transition:width .22s,height .22s,background .25s,opacity .22s;}' +
-    /* État hover : or chaud sur le point + halo élargi et coloré */
-    '#cursor.cursor-hover .cursor-core{background:#D4A756;' +
-    'box-shadow:0 0 6px 2px rgba(212,167,86,0.95),0 0 18px 5px rgba(212,167,86,0.55),0 0 36px 10px rgba(212,167,86,0.20);}' +
-    '#cursor.cursor-hover .cursor-halo{width:68px;height:68px;' +
-    'background:radial-gradient(circle,rgba(212,167,86,0.22) 0%,rgba(212,167,86,0.08) 50%,transparent 72%);opacity:1;}';
+    '.cursor-core{width:8px;height:8px;border-radius:50%;background:#f5f5f5;' +
+    'box-shadow:0 0 12px rgba(255,255,255,0.75);mix-blend-mode:difference;z-index:9999;}' +
+    '.cursor-halo{width:40px;height:40px;border-radius:50%;' +
+    'background:radial-gradient(circle,rgba(119,119,119,0.25),transparent 60%);' +
+    'filter:blur(6px);opacity:0.6;transition:width .2s,height .2s,opacity .2s;}' +
+    '#cursor.cursor-hover .cursor-halo{width:58px;height:58px;opacity:0.9;}';
   document.head.appendChild(cs);
 
   /* Éléments DOM */
