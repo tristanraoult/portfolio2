@@ -92,6 +92,11 @@
       pointer-events: none;
     }
 
+    #hero-wrap {
+      position: relative;
+      height: 100vh;
+    }
+
     .hero-content {
       position: absolute;
       bottom: 52px;
@@ -101,6 +106,7 @@
       justify-content: space-between;
       align-items: flex-end;
       gap: 40px;
+      z-index: 6;
     }
 
     .hero-text {
@@ -766,19 +772,21 @@
 </nav>
 
 <!-- HERO -->
-<section id="hero">
-  <img class="hero-img"
-       src="assets/images/about/portrait-main.jpg"
-       alt="Tristan Raoult"
-       style="object-position: 50% 30%;" />
-  <div class="hero-gradient"></div>
+<div id="hero-wrap">
+  <section id="hero">
+    <img class="hero-img"
+         src="assets/images/about/portrait-main.jpg"
+         alt="Tristan Raoult"
+         style="object-position: 50% 30%;" />
+    <div class="hero-gradient"></div>
+  </section>
   <div class="hero-content">
     <p class="hero-text" id="heroText">
       Graphiste &amp; motion designer, 20 ans. Je crée des identités visuelles, des animations et des vidéos pour des marques et des projets qui ont quelque chose à dire.
     </p>
     <span class="hero-scroll">(Scroll)</span>
   </div>
-</section>
+</div>
 
 <!-- STACKED FULL-SCREEN CARDS ──────────────────────────────────────────────
      All 5 cards are direct siblings inside ONE parent (.cards-container).
