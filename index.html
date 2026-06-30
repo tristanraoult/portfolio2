@@ -92,12 +92,16 @@
       pointer-events: none;
     }
 
-    #hero-wrap {
+    #hero-text-overlay {
       position: relative;
       height: 100vh;
+      margin-top: -100vh;
+      z-index: 6;
+      pointer-events: none;
     }
 
     .hero-content {
+      pointer-events: auto;
       position: absolute;
       bottom: 52px;
       left: 48px;
@@ -106,7 +110,6 @@
       justify-content: space-between;
       align-items: flex-end;
       gap: 40px;
-      z-index: 6;
     }
 
     .hero-text {
@@ -772,14 +775,17 @@
 </nav>
 
 <!-- HERO -->
-<div id="hero-wrap">
-  <section id="hero">
-    <img class="hero-img"
-         src="assets/images/about/portrait-main.jpg"
-         alt="Tristan Raoult"
-         style="object-position: 50% 30%;" />
-    <div class="hero-gradient"></div>
-  </section>
+<!-- HERO: photo sticky, reste en place -->
+<section id="hero">
+  <img class="hero-img"
+       src="assets/images/about/portrait-main.jpg"
+       alt="Tristan Raoult"
+       style="object-position: 50% 30%;" />
+  <div class="hero-gradient"></div>
+</section>
+
+<!-- TEXTE HERO: en flux normal, remonte avec le scroll et passe sur la photo -->
+<div id="hero-text-overlay">
   <div class="hero-content">
     <p class="hero-text" id="heroText">
       Graphiste &amp; motion designer, 20 ans. Je crée des identités visuelles, des animations et des vidéos pour des marques et des projets qui ont quelque chose à dire.
