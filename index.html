@@ -1199,38 +1199,35 @@
   var table = document.querySelector('.idx-table');
   if (!table) return;
 
-  /* Créer la preview */
   var preview = document.createElement('div');
   preview.id = 'idx-preview';
   var previewImg = document.createElement('img');
   preview.appendChild(previewImg);
   document.body.appendChild(preview);
 
-  var mx = 0, my = 0;
   document.addEventListener('mousemove', function (e) {
-    mx = e.clientX; my = e.clientY;
-    /* Ajuste la position : à droite/au-dessus du curseur, reste dans la fenêtre */
-    var x = mx + 28;
-    var y = my - 80;
-    if (x + 230 > window.innerWidth)  x = mx - 248;
-    if (y < 10) y = my + 20;
+    var x = e.clientX + 28;
+    var y = e.clientY - 80;
+    if (x + 230 > window.innerWidth) x = e.clientX - 248;
+    if (y < 10) y = e.clientY + 20;
     preview.style.left = x + 'px';
     preview.style.top  = y + 'px';
   });
 
+  /* Dim/undim géré au niveau du TABLE pour éviter le flash entre lignes */
+  table.addEventListener('mouseenter', function () { table.classList.add('has-hover'); });
+  table.addEventListener('mouseleave', function () {
+    table.classList.remove('has-hover');
+    preview.classList.remove('visible');
+  });
+
   table.querySelectorAll('tr[data-href]').forEach(function (tr) {
     tr.addEventListener('click', function () { window.location.href = tr.dataset.href; });
-
     tr.addEventListener('mouseenter', function () {
       if (tr.dataset.thumb) {
         previewImg.src = tr.dataset.thumb;
         preview.classList.add('visible');
       }
-      table.classList.add('has-hover');
-    });
-    tr.addEventListener('mouseleave', function () {
-      preview.classList.remove('visible');
-      table.classList.remove('has-hover');
     });
   });
 })();
