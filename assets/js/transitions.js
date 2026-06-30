@@ -182,7 +182,7 @@
     /* Point : z-index plus élevé → toujours au-dessus du halo */
     '#cursor-core{position:fixed;left:0;top:0;width:8px;height:8px;border-radius:50%;' +
     'pointer-events:none;z-index:9999;transform:translate(-50%,-50%);will-change:left,top;' +
-    'background:#f5f5f5;box-shadow:0 0 12px rgba(255,255,255,0.75);mix-blend-mode:difference;}';
+    'background:#f5f5f5;box-shadow:0 0 12px rgba(255,255,255,0.75);}';
   document.head.appendChild(cs);
 
   /* Éléments DOM — séparés pour isoler leurs stacking contexts */
