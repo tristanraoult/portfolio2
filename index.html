@@ -381,43 +381,14 @@
       padding: 48px 0 0;
     }
 
-    /* ── Neon-btn (View All Projects) ── */
-    .neon-btn {
-      position: relative; display: inline-flex; align-items: center; justify-content: center;
-      padding: 0 32px; height: 48px; border-radius: 999px;
-      border: 1px solid transparent; background: #141517; color: rgba(255,255,255,0.8);
-      text-decoration: none; overflow: visible; left: 0; top: 0;
-      font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
-      transition: border-color .25s, background .25s, color .25s,
-                  left .35s cubic-bezier(.22,.61,.36,1), top .35s cubic-bezier(.22,.61,.36,1);
+    .ws-viewall {
+      font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,0.5); text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 12px 28px; border-radius: 24px;
+      transition: color 0.2s, border-color 0.2s;
     }
-    .neon-btn__inner {
-      position: relative; padding: 0 4px; height: 100%;
-      display: inline-flex; align-items: center; justify-content: center; z-index: 2;
-    }
-    .neon-btn__label {
-      position: relative; z-index: 10; left: 0; top: 0;
-      transition: left .25s, top .25s, background .25s, color .25s;
-    }
-    .neon-btn::after {
-      content: ""; position: absolute; left: 50%; top: 50%;
-      width: 100%; height: 100%; transform: translate(-50%,-50%);
-      border-radius: 999px; border: 1px solid rgba(255,255,255,0.25);
-      pointer-events: none; z-index: 1; opacity: 1;
-      transition: width .45s cubic-bezier(.22,.61,.36,1), height .45s, border-radius .45s, opacity .45s;
-    }
-    .neon-btn.is-hovered::after { opacity: 0; width: 150px; height: 150px; border-radius: 50%; }
-    .neon-btn::before {
-      content: ""; position: absolute; left: 50%; top: 50%;
-      width: 0; height: 0; transform: translate(-50%,-50%) scale(0.2);
-      border-radius: 50%; pointer-events: none; z-index: 0;
-      background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 40%, transparent 80%);
-      opacity: 0; filter: blur(18px);
-      transition: opacity .35s, transform .35s, width .35s, height .35s, filter .35s;
-    }
-    .neon-btn.is-hovered::before { opacity: 1; transform: translate(-50%,-50%) scale(1); width: 180px; height: 180px; filter: blur(25px); }
-    .neon-btn.is-hovered { background: transparent; border-color: transparent; }
-    .neon-btn.is-hovered .neon-btn__label { color: transparent; -webkit-background-clip: text; background-clip: text; }
+    .ws-viewall:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
 
     /* ─── INDEX SECTION ─── */
     #index-section { padding: 0 48px 100px; }
@@ -962,9 +933,7 @@
     </a>
   </div>
   <div class="ws-viewall-wrap reveal" style="--delay:120ms">
-    <a href="work.html" class="neon-btn">
-      <span class="neon-btn__inner"><span class="neon-btn__label">View All Projects →</span></span>
-    </a>
+    <a href="work.html" class="ws-viewall">View All Projects →</a>
   </div>
 </section>
 
@@ -1198,53 +1167,6 @@ document.querySelectorAll('.idx-table tr[data-href]').forEach(function (tr) {
   tr.addEventListener('click', function () { window.location.href = tr.dataset.href; });
 });
 
-/* ── Neon-btn : magnétisme + dégradé texte ── */
-(function () {
-  document.querySelectorAll('.neon-btn').forEach(function (btn) {
-    var label = btn.querySelector('.neon-btn__label');
-
-    btn.addEventListener('mouseenter', function () {
-      btn.classList.add('is-hovered');
-      if (label) {
-        var r = label.getBoundingClientRect();
-        setGrad(label, r.width / 2, r.height / 2);
-      }
-    });
-
-    btn.addEventListener('mousemove', function (e) {
-      if (!label) return;
-      var lr = label.getBoundingClientRect();
-      setGrad(label, e.clientX - lr.left, e.clientY - lr.top);
-      var br = btn.getBoundingClientRect();
-      var nx = (e.clientX - (br.left + br.width / 2)) / (br.width / 2);
-      var ny = (e.clientY - (br.top  + br.height / 2)) / (br.height / 2);
-      btn.style.left = (nx * 18) + 'px';
-      btn.style.top  = (ny * 18) + 'px';
-      label.style.left = (nx * 8) + 'px';
-      label.style.top  = (ny * 8) + 'px';
-      btn.dataset.lnx = nx; btn.dataset.lny = ny;
-    });
-
-    btn.addEventListener('mouseleave', function () {
-      btn.classList.remove('is-hovered');
-      if (label) label.style.backgroundImage = '';
-      var nx = parseFloat(btn.dataset.lnx || 0) * 1.9;
-      var ny = parseFloat(btn.dataset.lny || 0) * 1.9;
-      btn.style.left = (nx * 18) + 'px'; btn.style.top = (ny * 18) + 'px';
-      if (label) { label.style.left = (nx * 8) + 'px'; label.style.top = (ny * 8) + 'px'; }
-      setTimeout(function () {
-        btn.style.left = '0'; btn.style.top = '0';
-        if (label) { label.style.left = '0'; label.style.top = '0'; }
-      }, 40);
-    });
-  });
-
-  function setGrad(el, x, y) {
-    el.style.backgroundImage =
-      'radial-gradient(circle at ' + x + 'px ' + y + 'px,' +
-      '#fff 0 35px,#0a0b0d 36px 400px,transparent 401px)';
-  }
-})();
 
 </script>
 

@@ -165,20 +165,29 @@
 })();
 
 
-/* ── Curseur custom (core + halo + sphère neon-btn) ─────────────────────── */
+/* ── Curseur custom (core + halo) ───────────────────────────────────────── */
 (function () {
   if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
 
-  /* Masque le curseur système */
+  /* Masque le curseur système + styles curseur */
   var cs = document.createElement('style');
-  cs.textContent = '*{cursor:none!important;}input,textarea,select{cursor:text!important;}' +
+  cs.textContent =
+    '*{cursor:none!important;}input,textarea,select{cursor:text!important;}' +
     '#cursor{position:fixed;inset:0;pointer-events:none;z-index:9999;}' +
-    '.cursor-core,.cursor-halo{position:fixed;left:0;top:0;pointer-events:none;transform:translate(-50%,-50%);}' +
-    '.cursor-core{width:8px;height:8px;border-radius:50%;background:#f5f5f5;box-shadow:0 0 12px rgba(255,255,255,0.75);z-index:9999;}' +
-    '.cursor-halo{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle,rgba(140,140,140,0.22),transparent 60%);opacity:0.6;filter:blur(6px);transition:width .2s,height .2s,opacity .2s;}' +
-    '#cursor.cursor-hover .cursor-halo{width:58px;height:58px;opacity:0.9;}' +
-    '.custom-cursor{position:fixed;left:0;top:0;width:18px;height:18px;border-radius:50%;pointer-events:none;z-index:9998;background:#fff;transform:translate(-50%,-50%);opacity:0;transition:width .25s,height .25s,background .25s,filter .25s,opacity .25s;}' +
-    '.custom-cursor.cursor--on-button{width:70px;height:70px;background:#0a0b0d;filter:blur(8px);opacity:1;}';
+    '.cursor-core,.cursor-halo{position:fixed;left:0;top:0;pointer-events:none;transform:translate(-50%,-50%);will-change:left,top;}' +
+    /* Point central — blanc lumineux au repos */
+    '.cursor-core{width:9px;height:9px;border-radius:50%;background:#fff;' +
+    'box-shadow:0 0 6px 2px rgba(255,255,255,0.95),0 0 18px 4px rgba(255,255,255,0.55),0 0 32px 8px rgba(255,255,255,0.18);' +
+    'z-index:9999;transition:background .25s,box-shadow .25s;}' +
+    /* Halo flou — plus visible, légèrement chaud */
+    '.cursor-halo{width:52px;height:52px;border-radius:50%;' +
+    'background:radial-gradient(circle,rgba(255,248,230,0.28) 0%,rgba(255,255,255,0.10) 45%,transparent 70%);' +
+    'opacity:1;filter:blur(5px);transition:width .22s,height .22s,background .25s,opacity .22s;}' +
+    /* État hover : or chaud sur le point + halo élargi et coloré */
+    '#cursor.cursor-hover .cursor-core{background:#D4A756;' +
+    'box-shadow:0 0 6px 2px rgba(212,167,86,0.95),0 0 18px 5px rgba(212,167,86,0.55),0 0 36px 10px rgba(212,167,86,0.20);}' +
+    '#cursor.cursor-hover .cursor-halo{width:68px;height:68px;' +
+    'background:radial-gradient(circle,rgba(212,167,86,0.22) 0%,rgba(212,167,86,0.08) 50%,transparent 72%);opacity:1;}';
   document.head.appendChild(cs);
 
   /* Éléments DOM */
@@ -193,10 +202,6 @@
   cursorLayer.appendChild(halo);
   document.body.appendChild(cursorLayer);
 
-  var customCursor = document.createElement('div');
-  customCursor.className = 'custom-cursor';
-  document.body.appendChild(customCursor);
-
   /* RAF loop */
   var tx = window.innerWidth / 2, ty = window.innerHeight / 2;
   var x = tx, y = ty, hx = tx, hy = ty;
@@ -204,8 +209,6 @@
   window.addEventListener('pointermove', function (e) {
     tx = e.clientX; ty = e.clientY;
     cursorLayer.removeAttribute('hidden');
-    customCursor.style.left = e.clientX + 'px';
-    customCursor.style.top  = e.clientY + 'px';
   });
 
   (function loop() {
@@ -220,7 +223,7 @@
     requestAnimationFrame(loop);
   })();
 
-  /* Halo agrandi sur éléments interactifs */
+  /* Changement couleur sur éléments interactifs */
   function bindHover() {
     document.querySelectorAll('a,button,[data-cursor]').forEach(function (el) {
       el.addEventListener('pointerenter', function () { cursorLayer.classList.add('cursor-hover'); });
@@ -228,24 +231,10 @@
     });
   }
 
-  /* Sphère noire sur .neon-btn */
-  function bindNeon() {
-    document.querySelectorAll('.neon-btn').forEach(function (btn) {
-      btn.addEventListener('mouseenter', function () {
-        customCursor.classList.add('cursor--on-button');
-        cursorLayer.style.opacity = '0';
-      });
-      btn.addEventListener('mouseleave', function () {
-        customCursor.classList.remove('cursor--on-button');
-        cursorLayer.style.opacity = '1';
-      });
-    });
-  }
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { bindHover(); bindNeon(); });
+    document.addEventListener('DOMContentLoaded', function () { bindHover(); });
   } else {
-    bindHover(); bindNeon();
+    bindHover();
   }
 })();
 
