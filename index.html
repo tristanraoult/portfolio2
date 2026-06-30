@@ -122,7 +122,7 @@
     }
 
     .char {
-      display: inline-block;
+      display: inline;
       opacity: 0;
       filter: blur(9px);
       animation: charReveal 0.7s ease forwards;
@@ -1063,12 +1063,20 @@
   const el  = document.getElementById('heroText');
   const raw = el.textContent.trim();
   el.textContent = '';
-  raw.split('').forEach((ch, i) => {
-    const s = document.createElement('span');
-    s.classList.add('char');
-    s.textContent = ch === ' ' ? '\u00A0' : ch;
-    s.style.animationDelay = (0.4 + i * 0.017) + 's';
-    el.appendChild(s);
+  let idx = 0;
+  raw.split(' ').forEach((word, wi, arr) => {
+    const wordEl = document.createElement('span');
+    wordEl.style.cssText = 'display:inline-block;white-space:nowrap;';
+    word.split('').forEach((ch) => {
+      const s = document.createElement('span');
+      s.classList.add('char');
+      s.textContent = ch;
+      s.style.animationDelay = (0.4 + idx * 0.017) + 's';
+      wordEl.appendChild(s);
+      idx++;
+    });
+    el.appendChild(wordEl);
+    if (wi < arr.length - 1) { el.appendChild(document.createTextNode(' ')); idx++; }
   });
 })();
 
