@@ -169,33 +169,31 @@
 (function () {
   if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
 
-  /* Masque le curseur système + styles curseur */
   var cs = document.createElement('style');
   cs.textContent =
-    /* Masque le curseur partout sauf sur les éléments cliquables → main native */
     '*{cursor:none!important;}' +
     'a,button,[data-href]{cursor:pointer!important;}' +
     'input,textarea,select{cursor:text!important;}' +
-    '#cursor{position:fixed;inset:0;pointer-events:none;z-index:9999;}' +
-    '.cursor-core,.cursor-halo{position:fixed;left:0;top:0;pointer-events:none;transform:translate(-50%,-50%);will-change:left,top;}' +
-    '.cursor-core{width:8px;height:8px;border-radius:50%;background:#f5f5f5;' +
-    'box-shadow:0 0 12px rgba(255,255,255,0.75);mix-blend-mode:difference;z-index:9999;}' +
-    '.cursor-halo{width:46px;height:46px;border-radius:50%;' +
+    /* Halo : z-index bas, stacking context isolé du point */
+    '#cursor-halo{position:fixed;left:0;top:0;width:46px;height:46px;border-radius:50%;' +
+    'pointer-events:none;z-index:9997;transform:translate(-50%,-50%);will-change:left,top;' +
     'background:radial-gradient(circle,rgba(255,255,255,0.65) 0%,rgba(255,255,255,0.0) 70%);' +
-    'filter:blur(4px);opacity:0.9;}';
+    'filter:blur(4px);opacity:0.9;}' +
+    /* Point : z-index plus élevé → toujours au-dessus du halo */
+    '#cursor-core{position:fixed;left:0;top:0;width:8px;height:8px;border-radius:50%;' +
+    'pointer-events:none;z-index:9999;transform:translate(-50%,-50%);will-change:left,top;' +
+    'background:#f5f5f5;box-shadow:0 0 12px rgba(255,255,255,0.75);mix-blend-mode:difference;}';
   document.head.appendChild(cs);
 
-  /* Éléments DOM */
-  var cursorLayer = document.createElement('div');
-  cursorLayer.id = 'cursor';
-  cursorLayer.setAttribute('hidden', '');
-  var core = document.createElement('span');
-  core.className = 'cursor-core';
-  var halo = document.createElement('span');
-  halo.className = 'cursor-halo';
-  cursorLayer.appendChild(core);
-  cursorLayer.appendChild(halo);
-  document.body.appendChild(cursorLayer);
+  /* Éléments DOM — séparés pour isoler leurs stacking contexts */
+  var halo = document.createElement('div');
+  halo.id = 'cursor-halo';
+  document.body.appendChild(halo);
+
+  var core = document.createElement('div');
+  core.id = 'cursor-core';
+  core.setAttribute('hidden', '');
+  document.body.appendChild(core);
 
   /* RAF loop */
   var tx = window.innerWidth / 2, ty = window.innerHeight / 2;
@@ -203,7 +201,8 @@
 
   window.addEventListener('pointermove', function (e) {
     tx = e.clientX; ty = e.clientY;
-    cursorLayer.removeAttribute('hidden');
+    core.removeAttribute('hidden');
+    halo.removeAttribute('hidden');
   });
 
   (function loop() {
