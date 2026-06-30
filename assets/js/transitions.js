@@ -172,15 +172,17 @@
   /* Masque le curseur système + styles curseur */
   var cs = document.createElement('style');
   cs.textContent =
-    '*{cursor:none!important;}input,textarea,select{cursor:text!important;}' +
+    /* Masque le curseur partout sauf sur les éléments cliquables → main native */
+    '*{cursor:none!important;}' +
+    'a,button,[data-href]{cursor:pointer!important;}' +
+    'input,textarea,select{cursor:text!important;}' +
     '#cursor{position:fixed;inset:0;pointer-events:none;z-index:9999;}' +
     '.cursor-core,.cursor-halo{position:fixed;left:0;top:0;pointer-events:none;transform:translate(-50%,-50%);will-change:left,top;}' +
     '.cursor-core{width:8px;height:8px;border-radius:50%;background:#f5f5f5;' +
     'box-shadow:0 0 12px rgba(255,255,255,0.75);mix-blend-mode:difference;z-index:9999;}' +
     '.cursor-halo{width:40px;height:40px;border-radius:50%;' +
     'background:radial-gradient(circle,rgba(119,119,119,0.25),transparent 60%);' +
-    'filter:blur(6px);opacity:0.6;transition:width .2s,height .2s,opacity .2s;}' +
-    '#cursor.cursor-hover .cursor-halo{width:58px;height:58px;opacity:0.9;}';
+    'filter:blur(6px);opacity:0.6;}';
   document.head.appendChild(cs);
 
   /* Éléments DOM */
@@ -216,19 +218,6 @@
     requestAnimationFrame(loop);
   })();
 
-  /* Changement couleur sur éléments interactifs */
-  function bindHover() {
-    document.querySelectorAll('a,button,[data-cursor]').forEach(function (el) {
-      el.addEventListener('pointerenter', function () { cursorLayer.classList.add('cursor-hover'); });
-      el.addEventListener('pointerleave', function () { cursorLayer.classList.remove('cursor-hover'); });
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { bindHover(); });
-  } else {
-    bindHover();
-  }
 })();
 
 /* ── Smooth scroll cinématique (vanilla, sans lib externe) ────────────── */
