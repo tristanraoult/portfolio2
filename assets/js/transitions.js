@@ -276,19 +276,30 @@
 
 
 /* ── Backup reveal pour .clip-outer (titres projet) ─────────────────────── */
-/* Le smooth-scroll peut décaler la détection des IntersectionObservers     */
-/* inline — ce backup vérifie directement sur chaque scroll.                */
+/* Utilise un RAF loop synchronisé avec le smooth-scroll au lieu de scroll  */
 (function () {
-  function check() {
+  var els = null;
+
+  function tick() {
+    if (!els) els = Array.prototype.slice.call(document.querySelectorAll('.clip-outer'));
     var vh = window.innerHeight;
-    document.querySelectorAll('.clip-outer:not(.in-view)').forEach(function (el) {
+    var remaining = [];
+    els.forEach(function (el) {
+      if (el.classList.contains('in-view')) return;
       var r = el.getBoundingClientRect();
-      if (r.top < vh * 0.93 && r.bottom > 0) {
+      if (r.top < vh * 0.92 && r.bottom > 0) {
         el.classList.add('in-view');
+      } else {
+        remaining.push(el);
       }
     });
+    els = remaining;
+    if (els.length > 0) requestAnimationFrame(tick);
   }
-  window.addEventListener('scroll', check, { passive: true });
-  /* Premier passage au chargement (si titre déjà visible) */
-  setTimeout(check, 200);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { requestAnimationFrame(tick); });
+  } else {
+    requestAnimationFrame(tick);
+  }
 })();
