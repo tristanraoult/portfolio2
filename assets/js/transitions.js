@@ -273,3 +273,22 @@
     }
   }, { passive: true });
 })();
+
+
+/* ── Backup reveal pour .clip-outer (titres projet) ─────────────────────── */
+/* Le smooth-scroll peut décaler la détection des IntersectionObservers     */
+/* inline — ce backup vérifie directement sur chaque scroll.                */
+(function () {
+  function check() {
+    var vh = window.innerHeight;
+    document.querySelectorAll('.clip-outer:not(.in-view)').forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < vh * 0.93 && r.bottom > 0) {
+        el.classList.add('in-view');
+      }
+    });
+  }
+  window.addEventListener('scroll', check, { passive: true });
+  /* Premier passage au chargement (si titre déjà visible) */
+  setTimeout(check, 200);
+})();
