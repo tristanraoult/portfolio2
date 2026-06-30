@@ -165,102 +165,88 @@
 })();
 
 
-/* ── Explore pill + cursor dot ───────────────────────────────────────────── */
+/* ── Curseur custom (core + halo + sphère neon-btn) ─────────────────────── */
 (function () {
-  /* Desktop uniquement (pointer précis = souris) */
-  if (!window.matchMedia('(pointer:fine)').matches) return;
+  if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
 
-  /* Masque le curseur système globalement */
+  /* Masque le curseur système */
   var cs = document.createElement('style');
-  cs.textContent = '*{cursor:none!important;}input,textarea,select{cursor:text!important;}';
+  cs.textContent = '*{cursor:none!important;}input,textarea,select{cursor:text!important;}' +
+    '#cursor{position:fixed;inset:0;pointer-events:none;z-index:9999;}' +
+    '.cursor-core,.cursor-halo{position:fixed;left:0;top:0;pointer-events:none;transform:translate(-50%,-50%);}' +
+    '.cursor-core{width:8px;height:8px;border-radius:50%;background:#f5f5f5;box-shadow:0 0 12px rgba(255,255,255,0.75);z-index:9999;}' +
+    '.cursor-halo{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle,rgba(140,140,140,0.22),transparent 60%);opacity:0.6;filter:blur(6px);transition:width .2s,height .2s,opacity .2s;}' +
+    '#cursor.cursor-hover .cursor-halo{width:58px;height:58px;opacity:0.9;}' +
+    '.custom-cursor{position:fixed;left:0;top:0;width:18px;height:18px;border-radius:50%;pointer-events:none;z-index:9998;background:#fff;transform:translate(-50%,-50%);opacity:0;transition:width .25s,height .25s,background .25s,filter .25s,opacity .25s;}' +
+    '.custom-cursor.cursor--on-button{width:70px;height:70px;background:#0a0b0d;filter:blur(8px);opacity:1;}';
   document.head.appendChild(cs);
 
-  /* ── Dot curseur lumineux ── */
-  var dot = document.createElement('div');
-  dot.style.cssText =
-    'position:fixed;top:0;left:0;z-index:9999;pointer-events:none;' +
-    'width:12px;height:12px;border-radius:50%;' +
-    'background:rgba(255,255,255,0.95);' +
-    'box-shadow:0 0 16px 4px rgba(255,255,255,0.45),0 0 4px 1px rgba(255,255,255,0.9);' +
-    'transform:translate(-50%,-50%);opacity:0;will-change:left,top;';
-  document.body.appendChild(dot);
+  /* Éléments DOM */
+  var cursorLayer = document.createElement('div');
+  cursorLayer.id = 'cursor';
+  cursorLayer.setAttribute('hidden', '');
+  var core = document.createElement('span');
+  core.className = 'cursor-core';
+  var halo = document.createElement('span');
+  halo.className = 'cursor-halo';
+  cursorLayer.appendChild(core);
+  cursorLayer.appendChild(halo);
+  document.body.appendChild(cursorLayer);
 
-  /* ── Pill "Explore" glassmorphisme ── */
-  var pill = document.createElement('div');
-  pill.textContent = 'Explore';
-  pill.style.cssText =
-    'position:fixed;top:0;left:0;z-index:9998;pointer-events:none;' +
-    'padding:13px 28px;border-radius:100px;' +
-    'background:rgba(10,11,13,0.52);' +
-    'backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);' +
-    'border:1px solid rgba(255,255,255,0.15);' +
-    'color:rgba(255,255,255,0.92);' +
-    "font-family:Inter,sans-serif;font-size:14px;font-weight:500;letter-spacing:0.03em;" +
-    'white-space:nowrap;will-change:left,top;' +
-    'opacity:0;transform:translate(-50%,-50%) scale(0.82);' +
-    'transition:opacity 0.22s cubic-bezier(0.22,1,0.36,1),transform 0.22s cubic-bezier(0.22,1,0.36,1);';
-  document.body.appendChild(pill);
+  var customCursor = document.createElement('div');
+  customCursor.className = 'custom-cursor';
+  document.body.appendChild(customCursor);
 
-  /* ── État ── */
-  var dx = -300, dy = -300, dtx = -300, dty = -300;
-  var px = -300, py = -300, ptx = -300, pty = -300;
-  var alive = false;
-  var pillActive = false;
+  /* RAF loop */
+  var tx = window.innerWidth / 2, ty = window.innerHeight / 2;
+  var x = tx, y = ty, hx = tx, hy = ty;
 
-  document.addEventListener('mousemove', function (e) {
-    dtx = ptx = e.clientX;
-    dty = pty = e.clientY;
-    if (!alive) { alive = true; dx = dtx; dy = dty; px = ptx; py = pty; }
-    if (!pillActive) dot.style.opacity = '1';
-  });
-  document.addEventListener('mouseleave', function () {
-    dot.style.opacity = '0';
-    pill.style.opacity = '0';
-    pill.style.transform = 'translate(-50%,-50%) scale(0.82)';
+  window.addEventListener('pointermove', function (e) {
+    tx = e.clientX; ty = e.clientY;
+    cursorLayer.removeAttribute('hidden');
+    customCursor.style.left = e.clientX + 'px';
+    customCursor.style.top  = e.clientY + 'px';
   });
 
-  /* ── Montrer / cacher la pill ── */
-  function showPill() {
-    pillActive = true;
-    pill.style.opacity = '1';
-    pill.style.transform = 'translate(-50%,-50%) scale(1)';
-    dot.style.opacity = '0';
-  }
-  function hidePill() {
-    pillActive = false;
-    pill.style.opacity = '0';
-    pill.style.transform = 'translate(-50%,-50%) scale(0.82)';
-    if (alive) dot.style.opacity = '1';
-  }
+  (function loop() {
+    x  += (tx - x)  * 0.35;
+    y  += (ty - y)  * 0.35;
+    core.style.left = x + 'px';
+    core.style.top  = y + 'px';
+    hx += (tx - hx) * 0.15;
+    hy += (ty - hy) * 0.15;
+    halo.style.left = hx + 'px';
+    halo.style.top  = hy + 'px';
+    requestAnimationFrame(loop);
+  })();
 
-  /* ── Bind sur les cartes ── */
-  function bindTriggers() {
-    document.querySelectorAll('.np-card,.project-card,.work-item').forEach(function (el) {
-      el.addEventListener('mouseenter', showPill);
-      el.addEventListener('mouseleave', hidePill);
+  /* Halo agrandi sur éléments interactifs */
+  function bindHover() {
+    document.querySelectorAll('a,button,[data-cursor]').forEach(function (el) {
+      el.addEventListener('pointerenter', function () { cursorLayer.classList.add('cursor-hover'); });
+      el.addEventListener('pointerleave', function () { cursorLayer.classList.remove('cursor-hover'); });
     });
   }
+
+  /* Sphère noire sur .neon-btn */
+  function bindNeon() {
+    document.querySelectorAll('.neon-btn').forEach(function (btn) {
+      btn.addEventListener('mouseenter', function () {
+        customCursor.classList.add('cursor--on-button');
+        cursorLayer.style.opacity = '0';
+      });
+      btn.addEventListener('mouseleave', function () {
+        customCursor.classList.remove('cursor--on-button');
+        cursorLayer.style.opacity = '1';
+      });
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bindTriggers);
+    document.addEventListener('DOMContentLoaded', function () { bindHover(); bindNeon(); });
   } else {
-    bindTriggers();
+    bindHover(); bindNeon();
   }
-
-  /* ── Boucle RAF ── */
-  function tick() {
-    dx += (dtx - dx) * 0.22;
-    dy += (dty - dy) * 0.22;
-    dot.style.left = (dx | 0) + 'px';
-    dot.style.top  = (dy | 0) + 'px';
-
-    px += (ptx - px) * 0.09;
-    py += (pty - py) * 0.09;
-    pill.style.left = (px | 0) + 'px';
-    pill.style.top  = (py | 0) + 'px';
-
-    requestAnimationFrame(tick);
-  }
-  tick();
 })();
 
 /* ── Smooth scroll cinématique (vanilla, sans lib externe) ────────────── */
