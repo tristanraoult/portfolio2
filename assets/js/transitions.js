@@ -180,9 +180,9 @@
     '.cursor-core,.cursor-halo{position:fixed;left:0;top:0;pointer-events:none;transform:translate(-50%,-50%);will-change:left,top;}' +
     '.cursor-core{width:8px;height:8px;border-radius:50%;background:#f5f5f5;' +
     'box-shadow:0 0 12px rgba(255,255,255,0.75);mix-blend-mode:difference;z-index:9999;}' +
-    '.cursor-halo{width:75px;height:75px;border-radius:50%;' +
-    'background:radial-gradient(circle,transparent 10px,rgba(255,255,255,0.55) 18px,transparent 70%);' +
-    'filter:blur(9px);opacity:0.9;}';
+    '.cursor-halo{width:46px;height:46px;border-radius:50%;' +
+    'background:radial-gradient(circle,rgba(255,255,255,0.65) 0%,rgba(255,255,255,0.0) 70%);' +
+    'filter:blur(4px);opacity:0.9;}';
   document.head.appendChild(cs);
 
   /* Éléments DOM */
