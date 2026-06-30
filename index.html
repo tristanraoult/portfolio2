@@ -159,9 +159,9 @@
     }
 
     .card-sticky:nth-child(1) { top:   0px; z-index: 10; }
-    .card-sticky:nth-child(2) { top:  50px; z-index: 11; }
-    .card-sticky:nth-child(3) { top: 100px; z-index: 12; }
-    .card-sticky:nth-child(4) { position: sticky; top: 150px; z-index: 13; }
+    .card-sticky:nth-child(2) { top:  55px; z-index: 11; }
+    .card-sticky:nth-child(3) { top: 110px; z-index: 12; }
+    .card-sticky:nth-child(4) { position: sticky; top: 165px; z-index: 13; }
 
     /* Gloomy card extra bottom space + contain so full text is visible */
     .card-sticky:nth-child(3) .card-frame { bottom: 16vh; background: #b31919; }
@@ -178,7 +178,7 @@
       border-radius: 0px;
       cursor: pointer;
       will-change: transform;
-      transform-origin: top center;
+      transform-origin: center center;
       display: block;
       text-decoration: none;
     }
@@ -1069,8 +1069,9 @@
   const COUNT     = frames.length;
   const ANIM      = COUNT - 1; // only animate first 3 cards
 
-  /* Prolab-exact values: front card at 0.782, linear step of 0.073 per card behind */
-  frames[COUNT - 1].style.transform    = 'scale(0.782)';
+  const lastPreload = (COUNT - 1) * 0.5;
+  const lastScale   = Math.pow(0.88, lastPreload);
+  frames[COUNT - 1].style.transform    = 'scale(' + lastScale.toFixed(4) + ')';
   frames[COUNT - 1].style.borderRadius = '0px';
 
   /* Fix 1: cache layout reads once avoids forced reflow on every scroll frame */
@@ -1090,11 +1091,11 @@
     const totalProgress = (scrollY - containerT) / perCard;
 
     for (let i = 0; i < ANIM; i++) {
+      const preload      = i * 0.5;
       const progressPast = Math.max(0, totalProgress - i);
 
-      /* Formule linéaire identique à prolab : 0.782 − progressPast × 0.073 */
-      const scale = Math.max(0.782 - progressPast * 0.073, 0.2).toFixed(4);
-      frames[i].style.transform = 'scale(' + scale + ')';
+      const scale = Math.pow(0.88, progressPast + preload);
+      frames[i].style.transform = 'scale(' + scale.toFixed(4) + ')';
 
       /* rayon max 12px, démarre après 20% de progressPast, finit à 70% */
       const r = (Math.min(Math.max(progressPast - 0.2, 0) * 2, 1) * 12).toFixed(2);
